@@ -102,13 +102,17 @@ document.addEventListener("click", (e) => {
 const savedTheme = (() => { try { return localStorage.getItem("atlas-theme"); } catch { return null; } })();
 if (savedTheme) document.documentElement.dataset.theme = savedTheme;
 $("#themeBtn").addEventListener("click", () => {
-  const t = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  const t = isoTheme() === "dark" ? "light" : "dark";
   document.documentElement.dataset.theme = t;
   try { localStorage.setItem("atlas-theme", t); } catch {}
   document.querySelectorAll(".iso").forEach((el) => el.setAttribute("data-theme", t));
   if (cy) styleGraph();
 });
-const isoTheme = () => (document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+const darkMQ = matchMedia("(prefers-color-scheme: dark)");
+const isoTheme = () => { const t = document.documentElement.dataset.theme; return t === "dark" || (!t && darkMQ.matches) ? "dark" : "light"; };
+const syncIsoTheme = () => { document.querySelectorAll(".iso").forEach((el) => el.setAttribute("data-theme", isoTheme())); if (typeof cy !== "undefined" && cy) styleGraph(); };
+darkMQ.addEventListener?.("change", syncIsoTheme);
+new MutationObserver(syncIsoTheme).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 // тултип
 const tip = $("#tooltip");
 function showTip(html, e) { if (!html) { tip.hidden = true; return; } tip.innerHTML = html; tip.hidden = false; const x = Math.min(e.clientX + 14, innerWidth - 320); tip.style.left = x + "px"; tip.style.top = e.clientY + 14 + "px"; }

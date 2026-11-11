@@ -1,0 +1,25 @@
+<title>Технологический атлас LPBF</title>
+<meta name="description" content="Демонстрационный макет аналитической системы «Технологический атлас» на примере установки лазерного сплавления металлических порошков (LPBF).">
+<link rel="stylesheet" href="assets/anatomy/iso.css">
+<link rel="stylesheet" href="css/app.css">
+<header class="top">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 28 10v12L16 29 4 22V10Z"/><path d="M4 10l12 7 12-7M16 17v12"/><circle cx="16" cy="17" r="2.2"/></svg>
+    <div>
+      <div class="brand-name">Технологический атлас</div>
+      <div class="brand-sub">Демонстрационный макет · установка LPBF</div>
+    </div>
+  </div>
+  <nav class="tabs" id="tabs" aria-label="Разделы атласа"></nav>
+  <div class="top-tools">
+    <span class="stamp" title="Данные подготовлены 11.11.2026; внешние API при показе не требуются">данные на 11.11.2026</span>
+    <button class="icon-btn" id="themeBtn" title="Переключить тему" aria-label="Переключить тему"><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 3a7 7 0 0 1 0 14z" fill="currentColor"/></svg></button>
+  </div>
+</header>
+<main id="main"></main>
+<div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+<footer class="foot">
+  Макет. Анатомия установки построена на ките <a href="https://github.com/wheresryan22/anatomy" target="_blank" rel="noopener">Anatomy</a> (MIT) как типовая инженерная модель, а не геометрия конкретной коммерческой установки. Визуальные эффекты условны и не являются физическим расчётом. Аналитические выводы отделены от сведений первоисточников; см. раздел «Источники».
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.30.2/cytoscape.min.js"></script>
+<script type="module" src="js/app.js"></script>
