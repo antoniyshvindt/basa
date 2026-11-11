@@ -1,0 +1,31 @@
+# Реестр источников
+
+Генерируется из `data/evidence.json` (`node tools/build-data.mjs`, затем этот фрагмент). Дата проверки всех записей — 11.11.2026.
+
+| ID | Тип | Источник | Доступ | Надёжность |
+|---|---|---|---|---|
+| E-EGISU-NIOKTR | Реестр | [ЕГИСУ НИОКТР — регистрационные карточки НИОКТР (открытые данные)](https://www.rosrid.ru/) | коннектор egisuopen (PostgreSQL, схема raw: nioktrs_post, nioktrs_get) | первичный |
+| E-EGISU-RID | Реестр | [ЕГИСУ НИОКТР — карточки РИД](https://www.rosrid.ru/) | коннектор egisuopen (raw.rids_post) | первичный |
+| E-EGISU-DISS | Реестр | [ЕГИСУ НИОКТР — диссертации](https://www.rosrid.ru/) | коннектор egisuopen (raw.dissertations_post) | первичный |
+| E-EGISU-FP | Справочник | [ЕГИСУ НИОКТР — справочник национальных и федеральных проектов (national-federal-project-tree)](https://www.rosrid.ru/) | коннектор egisuopen | первичный |
+| E-EGISU-VNT | Справочник | [ЕГИСУ НИОКТР — справочники сквозных и критических технологий по Указу № 529](https://www.rosrid.ru/) | коннектор egisuopen (end-to-end-technology, critical-technology-529) | первичный |
+| E-WEB-RSF | Документ | [РНФ: презентация программы по НП «Средства производства и автоматизации» (31.10.2025) и конкурсная документация](https://rscf.ru/fondfiles/TP_automatizacia_31_10.pdf) | веб-поиск | первичный (по выдаче поиска, файл не открыт) |
+| E-WEB-1649 | НПА | [Решение Минпромторга России от 17.02.2026 № 22-68462-00692-Р](https://rulaws.ru/acts/Reshenie-Minpromtorga-Rossii-ot-17.02.2026-N-22-68462-00692-R/) | веб-поиск | вторичный (агрегатор НПА) |
+| E-WEB-GISP | Портал | [ГИСП: карточка меры поддержки (решение 22-68462-00692-Р)](https://gisp.gov.ru/nmp/measure/6616914/pdf) | веб-поиск | первичный (по выдаче) |
+| E-WEB-FSI | СМИ/дайджест | [«Станкостроителям раздадут до 30 млн рублей» (17.02.2026); дайджест «Иннопрактики» 20.02.2026; положение «Развитие-Станкостроение» (очередь 4)](https://www1.ru/news/2026/02/17/stankostroiteliam-razdadut-do-30-mln-rublei-na-novye-razrabotki.amp.html) | веб-поиск | вторичный |
+| E-WEB-FRP | Материал вуза | [НГТУ: меры поддержки (08.2026) — программы ФРП](https://www.nstu.ru/static_files/112402/support_measures_08.2026.pdf) | веб-поиск | вторичный |
+| E-WEB-CENTERS | СМИ | [Центры развития станкостроения создадут НГТУ и ОмГТУ (04.04.2026)](https://www1.ru/news/2026/04/04/centry-razvitiia-stankostroeniia-sozdadut-ngtu-i-omgtu.html) | веб-поиск | вторичный |
+| E-WEB-PROFILE | СМИ | [Профиль: «Печать металлом — полноценный инструмент серийного производства» (29.07.2026) — «Лазерные системы», M-450-L](https://profile.ru/scitech/aleksej-kim-pechat-metallom-eto-polnocennyj-instrument-serijnogo-proizvodstva-1841603/amp/) | веб-поиск | вторичный |
+| E-WEB-RUSMELT | СМИ | [Росатом представил компактный 3D-принтер RusMelt 150M (13.05.2026)](https://www1.ru/news/2026/05/13/rosatom-udeshevil-pechat-metallom-kompaniia-predstavila-kompaktnyi-3d-printer-rusmelt-150m.html) | веб-поиск | вторичный |
+| E-WEB-RUSAT-LASER | СМИ | [RusAT unveils line of lasers for metal 3D printing (3DPrint.com)](https://3dprint.com/280393/rusat-unveils-line-of-lasers-for-metal-3d-printing/) | веб-поиск | вторичный |
+| E-WEB-EU833 | НПА | [Регламент Совета (ЕС) 833/2014, консолидированный текст; Регламент 2025/1494](https://eur-lex.europa.eu/eli/reg/2025/1494/oj/eng) | веб-поиск | первичный (не открыт в сессии) |
+| E-WEB-BIS | НПА | [BIS: правила по России и Беларуси (Federal Register 2024-13148 и др.), Supplement No. 4 to Part 746](https://govinfo.gov/content/pkg/FR-2024-06-18/pdf/2024-13148.pdf) | веб-поиск | первичный (не открыт в сессии) |
+| E-WEB-PAT-EOS | Патентная выдача | [Поиск патентов на рекотеры (Justia assignee EOS GmbH, USPTO Official Gazette)](https://patents.justia.com/assignee/eos-gmbh) | веб-поиск | вторичный (реестр не открыт) |
+| E-WEB-PAT-MPM | Патентная выдача | [Поиск патентов на мониторинг ванны (USPTO ppubs по выдаче)](https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/10914677) | веб-поиск | вторичный (реестр не открыт) |
+| E-NE-MAP | Геоданные | [Natural Earth 1:50m (world-atlas@2.0.2) — контур России](https://github.com/topojson/world-atlas) | npm | первичный |
+
+## Правила
+
+- Сведения карточек ЕГИСУ показываются как первоисточник; аналитическая разметка (технологии, узлы, релевантность) помечена отдельно.
+- Вторичные источники (СМИ, агрегаторы НПА, дайджесты) используются только с пометкой и требованием сверки.
+- Патентные документы из поисковой выдачи имеют уровень подтверждения C.

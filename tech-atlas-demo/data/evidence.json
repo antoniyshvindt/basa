@@ -1,0 +1,173 @@
+[
+ {
+  "id": "E-EGISU-NIOKTR",
+  "type": "Реестр",
+  "title": "ЕГИСУ НИОКТР — регистрационные карточки НИОКТР (открытые данные)",
+  "via": "коннектор egisuopen (PostgreSQL, схема raw: nioktrs_post, nioktrs_get)",
+  "url": "https://www.rosrid.ru/",
+  "date": "2026-11-11",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-EGISU-RID",
+  "type": "Реестр",
+  "title": "ЕГИСУ НИОКТР — карточки РИД",
+  "via": "коннектор egisuopen (raw.rids_post)",
+  "url": "https://www.rosrid.ru/",
+  "date": "2026-11-11",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-EGISU-DISS",
+  "type": "Реестр",
+  "title": "ЕГИСУ НИОКТР — диссертации",
+  "via": "коннектор egisuopen (raw.dissertations_post)",
+  "url": "https://www.rosrid.ru/",
+  "date": "2026-11-11",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-EGISU-FP",
+  "type": "Справочник",
+  "title": "ЕГИСУ НИОКТР — справочник национальных и федеральных проектов (national-federal-project-tree)",
+  "via": "коннектор egisuopen",
+  "url": "https://www.rosrid.ru/",
+  "date": "2026-11-11",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-EGISU-VNT",
+  "type": "Справочник",
+  "title": "ЕГИСУ НИОКТР — справочники сквозных и критических технологий по Указу № 529",
+  "via": "коннектор egisuopen (end-to-end-technology, critical-technology-529)",
+  "url": "https://www.rosrid.ru/",
+  "date": "2026-11-11",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-WEB-RSF",
+  "type": "Документ",
+  "title": "РНФ: презентация программы по НП «Средства производства и автоматизации» (31.10.2025) и конкурсная документация",
+  "via": "веб-поиск",
+  "url": "https://rscf.ru/fondfiles/TP_automatizacia_31_10.pdf",
+  "date": "2026-11-11",
+  "reliability": "первичный (по выдаче поиска, файл не открыт)"
+ },
+ {
+  "id": "E-WEB-1649",
+  "type": "НПА",
+  "title": "Решение Минпромторга России от 17.02.2026 № 22-68462-00692-Р",
+  "via": "веб-поиск",
+  "url": "https://rulaws.ru/acts/Reshenie-Minpromtorga-Rossii-ot-17.02.2026-N-22-68462-00692-R/",
+  "date": "2026-11-11",
+  "reliability": "вторичный (агрегатор НПА)"
+ },
+ {
+  "id": "E-WEB-GISP",
+  "type": "Портал",
+  "title": "ГИСП: карточка меры поддержки (решение 22-68462-00692-Р)",
+  "via": "веб-поиск",
+  "url": "https://gisp.gov.ru/nmp/measure/6616914/pdf",
+  "date": "2026-11-11",
+  "reliability": "первичный (по выдаче)"
+ },
+ {
+  "id": "E-WEB-FSI",
+  "type": "СМИ/дайджест",
+  "title": "«Станкостроителям раздадут до 30 млн рублей» (17.02.2026); дайджест «Иннопрактики» 20.02.2026; положение «Развитие-Станкостроение» (очередь 4)",
+  "via": "веб-поиск",
+  "url": "https://www1.ru/news/2026/02/17/stankostroiteliam-razdadut-do-30-mln-rublei-na-novye-razrabotki.amp.html",
+  "date": "2026-11-11",
+  "reliability": "вторичный"
+ },
+ {
+  "id": "E-WEB-FRP",
+  "type": "Материал вуза",
+  "title": "НГТУ: меры поддержки (08.2026) — программы ФРП",
+  "via": "веб-поиск",
+  "url": "https://www.nstu.ru/static_files/112402/support_measures_08.2026.pdf",
+  "date": "2026-11-11",
+  "reliability": "вторичный"
+ },
+ {
+  "id": "E-WEB-CENTERS",
+  "type": "СМИ",
+  "title": "Центры развития станкостроения создадут НГТУ и ОмГТУ (04.04.2026)",
+  "via": "веб-поиск",
+  "url": "https://www1.ru/news/2026/04/04/centry-razvitiia-stankostroeniia-sozdadut-ngtu-i-omgtu.html",
+  "date": "2026-11-11",
+  "reliability": "вторичный"
+ },
+ {
+  "id": "E-WEB-PROFILE",
+  "type": "СМИ",
+  "title": "Профиль: «Печать металлом — полноценный инструмент серийного производства» (29.07.2026) — «Лазерные системы», M-450-L",
+  "via": "веб-поиск",
+  "url": "https://profile.ru/scitech/aleksej-kim-pechat-metallom-eto-polnocennyj-instrument-serijnogo-proizvodstva-1841603/amp/",
+  "date": "2026-11-11",
+  "reliability": "вторичный"
+ },
+ {
+  "id": "E-WEB-RUSMELT",
+  "type": "СМИ",
+  "title": "Росатом представил компактный 3D-принтер RusMelt 150M (13.05.2026)",
+  "via": "веб-поиск",
+  "url": "https://www1.ru/news/2026/05/13/rosatom-udeshevil-pechat-metallom-kompaniia-predstavila-kompaktnyi-3d-printer-rusmelt-150m.html",
+  "date": "2026-11-11",
+  "reliability": "вторичный"
+ },
+ {
+  "id": "E-WEB-RUSAT-LASER",
+  "type": "СМИ",
+  "title": "RusAT unveils line of lasers for metal 3D printing (3DPrint.com)",
+  "via": "веб-поиск",
+  "url": "https://3dprint.com/280393/rusat-unveils-line-of-lasers-for-metal-3d-printing/",
+  "date": "2026-11-11",
+  "reliability": "вторичный"
+ },
+ {
+  "id": "E-WEB-EU833",
+  "type": "НПА",
+  "title": "Регламент Совета (ЕС) 833/2014, консолидированный текст; Регламент 2025/1494",
+  "via": "веб-поиск",
+  "url": "https://eur-lex.europa.eu/eli/reg/2025/1494/oj/eng",
+  "date": "2026-11-11",
+  "reliability": "первичный (не открыт в сессии)"
+ },
+ {
+  "id": "E-WEB-BIS",
+  "type": "НПА",
+  "title": "BIS: правила по России и Беларуси (Federal Register 2024-13148 и др.), Supplement No. 4 to Part 746",
+  "via": "веб-поиск",
+  "url": "https://govinfo.gov/content/pkg/FR-2024-06-18/pdf/2024-13148.pdf",
+  "date": "2026-11-11",
+  "reliability": "первичный (не открыт в сессии)"
+ },
+ {
+  "id": "E-WEB-PAT-EOS",
+  "type": "Патентная выдача",
+  "title": "Поиск патентов на рекотеры (Justia assignee EOS GmbH, USPTO Official Gazette)",
+  "via": "веб-поиск",
+  "url": "https://patents.justia.com/assignee/eos-gmbh",
+  "date": "2026-11-11",
+  "reliability": "вторичный (реестр не открыт)"
+ },
+ {
+  "id": "E-WEB-PAT-MPM",
+  "type": "Патентная выдача",
+  "title": "Поиск патентов на мониторинг ванны (USPTO ppubs по выдаче)",
+  "via": "веб-поиск",
+  "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/10914677",
+  "date": "2026-11-11",
+  "reliability": "вторичный (реестр не открыт)"
+ },
+ {
+  "id": "E-NE-MAP",
+  "type": "Геоданные",
+  "title": "Natural Earth 1:50m (world-atlas@2.0.2) — контур России",
+  "via": "npm",
+  "url": "https://github.com/topojson/world-atlas",
+  "date": "2026-11-11",
+  "reliability": "первичный"
+ }
+]
