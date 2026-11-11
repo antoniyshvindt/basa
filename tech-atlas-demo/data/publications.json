@@ -1,0 +1,1373 @@
+{
+ "retrieved": "2026-11-11",
+ "method": "Crossref REST API: query.bibliographic='selective laser melting powder bed fusion' + query.affiliation=<название организации>, публикации с 2019 г., тип journal-article; оставлены только записи, где строка аффилиации автора содержит название организации, а заголовок — термины LPBF/СЛП/аддитивного производства.",
+ "byOrg": {
+  "ORG-SPBPU": [
+   {
+    "doi": "10.3390/ma14102696",
+    "title": "Microstructure and Mechanical Properties of NiTi-Based Eutectic Shape Memory Alloy Produced via Selective Laser Melting In-Situ Alloying by Nb",
+    "journal": "Materials",
+    "year": 2021,
+    "cited": 28,
+    "authors": "Polozov I., Popovich A."
+   },
+   {
+    "doi": "10.3390/ma14206140",
+    "title": "Structure and Properties of Ti/Ti64 Graded Material Manufactured by Laser Powder Bed Fusion",
+    "journal": "Materials",
+    "year": 2021,
+    "cited": 25,
+    "authors": "Borisov E., Polozov I., Starikov K., Popovich A. и др."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/kem.822.575",
+    "title": "Selective Laser Melting of Nanocomposite Ti-6Al-4V and TiC Powder",
+    "journal": "Key Engineering Materials",
+    "year": 2019,
+    "cited": 22,
+    "authors": "Borisov E., Masaylo D., Popovich V."
+   },
+   {
+    "doi": "10.3390/met15070754",
+    "title": "Additive Manufacturing of Biodegradable Metallic Implants by Selective Laser Melting: Current Research Status and Application Perspectives",
+    "journal": "Metals",
+    "year": 2025,
+    "cited": 20,
+    "authors": "Gracheva A., Polozov I., Popovich A."
+   },
+   {
+    "doi": "10.3390/ma14174946",
+    "title": "Mitigating Inhomogeneity and Tailoring the Microstructure of Selective Laser Melted Titanium Orthorhombic Alloy by Heat Treatment, Hot Isostatic Pressing, and Multiple Laser Exposures",
+    "journal": "Materials",
+    "year": 2021,
+    "cited": 20,
+    "authors": "Polozov I., Starikov K., Popovich A., Sufiiarov V."
+   },
+   {
+    "doi": "10.3390/met12101729",
+    "title": "Selective Laser Melting of Inconel 718/TiC Composite: Effect of TiC Particle Size",
+    "journal": "Metals",
+    "year": 2022,
+    "cited": 19,
+    "authors": "Sufiiarov V., Erutin D., Borisov E., Popovich A."
+   },
+   {
+    "doi": "10.3390/ma15238528",
+    "title": "Interface Characterization of Bimetallic Ti-6Al-4V/Ti2AlNb Structures Prepared by Selective Laser Melting",
+    "journal": "Materials",
+    "year": 2022,
+    "cited": 17,
+    "authors": "Polozov I., Gracheva A., Popovich A."
+   },
+   {
+    "doi": "10.3390/ma15124121",
+    "title": "Structure, Mechanical and Magnetic Properties of Selective Laser Melted Fe-Si-B Alloy",
+    "journal": "Materials",
+    "year": 2022,
+    "cited": 15,
+    "authors": "Sufiiarov V., Erutin D., Kantyukov A., Borisov E. и др."
+   },
+   {
+    "doi": "10.3390/met11091470",
+    "title": "Investigation of the Possibility of Tailoring the Chemical Com-Position of the NiTi Alloy by Selective Laser Melting",
+    "journal": "Metals",
+    "year": 2021,
+    "cited": 14,
+    "authors": "Borisov E., Starikov K., Popovich A., Tihonovskaya T."
+   },
+   {
+    "doi": "10.3390/cryst13101486",
+    "title": "Interfacial Characterization of Selective Laser Melting of a SS316L/NiTi Multi-Material with a High-Entropy Alloy Interlayer",
+    "journal": "Crystals",
+    "year": 2023,
+    "cited": 11,
+    "authors": "Repnin A., Kim A., Popovich A."
+   },
+   {
+    "doi": "10.17073/1997-308x-2024-1-20-30",
+    "title": "Additive manufacturing of continuous fibre reinforced polymer composites using industrial robots: A review",
+    "journal": "Powder Metallurgy аnd Functional Coatings",
+    "year": 2024,
+    "cited": 10,
+    "authors": "Sotov A., Zaytsev A., Abdrahmanova A., Popovich A."
+   },
+   {
+    "doi": "10.3390/met13101738",
+    "title": "Fracture Toughness of Ti6Al4V/Cp-Ti Multi-Material Produced via Selective Laser Melting",
+    "journal": "Metals",
+    "year": 2023,
+    "cited": 9,
+    "authors": "Repnin A., Borisov E., Emelianov A., Popovich A."
+   },
+   {
+    "doi": "10.3390/ma14247870",
+    "title": "Microstructure Evolution of FeNiCoCrAl1.3Mo0.5 High Entropy Alloy during Powder Preparation, Laser Powder Bed Fusion, and Microplasma Spraying",
+    "journal": "Materials",
+    "year": 2021,
+    "cited": 8,
+    "authors": "Semikolenov A., Kuznetsov P., Bobkova T., Shalnova S. и др."
+   },
+   {
+    "doi": "10.3390/met14101177",
+    "title": "Ti-Ta-Cu Biocompatible Alloy System Development via Selective Laser Melting for Prosthetic Applications",
+    "journal": "Metals",
+    "year": 2024,
+    "cited": 8,
+    "authors": "Polozov I., Sokolova V., Gracheva A., Zolotarev A. и др."
+   },
+   {
+    "doi": "10.3390/met13111886",
+    "title": "Selective Laser Melting of Non-Weldable Nickel Superalloy: Microstructure, Cracks and Texture",
+    "journal": "Metals",
+    "year": 2023,
+    "cited": 8,
+    "authors": "Starikov K., Polozov I., Borisov E., Kim A. и др."
+   },
+   {
+    "doi": "10.3390/met13020428",
+    "title": "Selective Laser Melting of (Fe-Si-B)/Cu Composite: Structure and Magnetic Properties Study",
+    "journal": "Metals",
+    "year": 2023,
+    "cited": 7,
+    "authors": "Erutin D., Popovich A., Sufiiarov V."
+   },
+   {
+    "doi": "10.3390/ma15186219",
+    "title": "Modification of Inconel 718 Properties by In Situ Y Addition in Selective Laser Melting",
+    "journal": "Materials",
+    "year": 2022,
+    "cited": 6,
+    "authors": "Borisov E., Popovich A., Sufiiarov V."
+   },
+   {
+    "doi": "10.3390/met14121358",
+    "title": "The Manufacture and Investigation of 3D Current Collectors in a Lithium Ion Battery Obtained by Laser Powder Bed Fusion",
+    "journal": "Metals",
+    "year": 2024,
+    "cited": 5,
+    "authors": "Repnin A., Borisov E., Kosenko A., Pushnitsa K. и др."
+   },
+   {
+    "doi": "10.3390/ma17102343",
+    "title": "Comparative Study of Microstructure and Phase Composition of Amorphous–Nanocrystalline Fe-Based Composite Material Produced by Laser Powder Bed Fusion in Argon and Helium Atmosphere",
+    "journal": "Materials",
+    "year": 2024,
+    "cited": 4,
+    "authors": "Erutin D., Popovich A., Sufiiarov V."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/ssp.299.646",
+    "title": "Investigation of Ti-6Al-4V Alloy &lt;i&gt;In Situ&lt;/i&gt; Manufactured Using Selective Laser Melting from Elemental Powder Mixture",
+    "journal": "Solid State Phenomena",
+    "year": 2020,
+    "cited": 4,
+    "authors": "Polozov I., Sufiiarov V., Popovich A."
+   },
+   {
+    "doi": "10.3390/ma17235801",
+    "title": "Formation of the Cu+Nb Interlayer in the Inconel 718/Ti6Al4V Multi-Material Obtained by Selective Laser Melting",
+    "journal": "Materials",
+    "year": 2024,
+    "cited": 4,
+    "authors": "Repnin A., Borisov E., Popovich A."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/kem.822.208",
+    "title": "Investigation and Characterization of New Polyimide Powder for Selective Laser Sintering",
+    "journal": "Key Engineering Materials",
+    "year": 2019,
+    "cited": 4,
+    "authors": "Vaganov G., Didenko A., Ivan’kova E., Popova E. и др."
+   },
+   {
+    "doi": "10.17073/1997-308x-2024-1-52-61",
+    "title": "Mechanical properties of the VZh159–CuCr1Zr alloy multi-material samples manufactured by selective laser melting",
+    "journal": "Powder Metallurgy аnd Functional Coatings",
+    "year": 2024,
+    "cited": 3,
+    "authors": "Repnin A., Borisov E., Popovich A., Golubkov N."
+   },
+   {
+    "doi": "10.17073/1997-308x-2024-1-31-39",
+    "title": "Influence of copper on the microstructure and mechanical properties of titanium ortho-alloy produced by selective laser melting",
+    "journal": "Powder Metallurgy аnd Functional Coatings",
+    "year": 2024,
+    "cited": 3,
+    "authors": "Polozov I., Sokolova V., Gracheva A., Popovich A."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/msf.1040.172",
+    "title": "Gas Atomization of X6CrNiTi18-10 Stainless Steel Powder for Selective Laser Melting Technology",
+    "journal": "Materials Science Forum",
+    "year": 2021,
+    "cited": 3,
+    "authors": "Saubanova L., Diachenko S., Loray V., Nefedova L. и др."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/kem.822.580",
+    "title": "Control of Deviations in Lattice Structures Manufactured by Selective Laser Melting",
+    "journal": "Key Engineering Materials",
+    "year": 2019,
+    "cited": 2,
+    "authors": "Sokolova V., Kantyukov A."
+   },
+   {
+    "doi": "10.3390/met16030301",
+    "title": "Selective Laser Melting of Multi-Material Ti15Ta/Ti6Al4V Structures for Biomedical Applications: From Process Parameters to Mechanical Properties and Biological Response",
+    "journal": "Metals",
+    "year": 2026,
+    "cited": 2,
+    "authors": "Polozov I., Nefyodova V., Zolotarev A., Sokolova V. и др."
+   },
+   {
+    "doi": "10.22226/2410-3535-2020-2-123-128",
+    "title": "Modeling the mechanical properties of lattice structures made by selective laser melting",
+    "journal": "Letters on Materials",
+    "year": 2020,
+    "cited": 2,
+    "authors": "Sufiiarov V., Orlov A., Borisov E., Sokolova V. и др."
+   },
+   {
+    "doi": "10.3390/met16091015",
+    "title": "Multi-Material Joints of Biocompatible Ti15Ta, Ti10Ta2Nb2Zr, and Ti13Nb13Zr5Cu Titanium Alloys Fabricated by Laser Powder Bed Fusion for Functionally Graded Orthopedic Implants",
+    "journal": "Metals",
+    "year": 2026,
+    "cited": 1,
+    "authors": "Polozov I., Nefyodova V., Zolotarev A."
+   },
+   {
+    "doi": "10.3390/mi15111288",
+    "title": "Investigation of the 4D Multi-Material 316L/FeNi36 Obtained by Selective Laser Melting",
+    "journal": "Micromachines",
+    "year": 2024,
+    "cited": 1,
+    "authors": "Repnin A., Borisov E., Maksimov A., Rozhkova D. и др."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/kem.822.304",
+    "title": "Obtaining Spherical Powders of Grade 5 Alloy for Application in Selective Laser Melting Technology",
+    "journal": "Key Engineering Materials",
+    "year": 2019,
+    "cited": 1,
+    "authors": "Ozerskoi N., Wang Q."
+   },
+   {
+    "doi": "10.17073/1997-308x-2024-1-73-80",
+    "title": "Simulating multi-material specimen manufacturing from VZh159 and CuCr1Zr alloys via SLM method: Computational modeling and experimental findings",
+    "journal": "Powder Metallurgy аnd Functional Coatings",
+    "year": 2024,
+    "cited": 1,
+    "authors": "Orlov A., Repnin A., Farber E., Borisov E. и др."
+   },
+   {
+    "doi": "10.17073/1997-308x-2024-1-81-94",
+    "title": "Mechanical properties of high-nitrogen steel produced via selective laser melting using mechanically alloyed and spheroidized powders",
+    "journal": "Powder Metallurgy аnd Functional Coatings",
+    "year": 2024,
+    "cited": 0,
+    "authors": "Ozerskoi N., Razumov N., Silin A., Borisov E. и др."
+   },
+   {
+    "doi": "10.17073/0021-3438.2026.511c.1790",
+    "title": "Effect of yttrium oxide on the microstructure and properties of the VZh159 alloy produced by selective laser melting",
+    "journal": "Izvestiya. Non-Ferrous Metallurgy",
+    "year": 2026,
+    "cited": 0,
+    "authors": "Zolotarev A., Nefyodova V., Polozov I., Popovich A."
+   },
+   {
+    "doi": "10.17816/2074-0530-690226",
+    "title": "Additive manufacturing of a complex-integrated structure of a micro jet engine by powder bed fusion",
+    "journal": "Izvestiya MGTU MAMI",
+    "year": 2026,
+    "cited": 0,
+    "authors": "Pobelyanskiy A., Shirokikh A."
+   }
+  ],
+  "ORG-STANKIN": [
+   {
+    "doi": "10.3390/met12050722",
+    "title": "Beam Shaping in Laser Powder Bed Fusion: Péclet Number and Dynamic Simulation",
+    "journal": "Metals",
+    "year": 2022,
+    "cited": 41,
+    "authors": "Grigoriev S., Gusarov A., Metel A., Tarasova T. и др."
+   },
+   {
+    "doi": "10.3390/technologies8040073",
+    "title": "Influence of Postprocessing on Wear Resistance of Aerospace Steel Parts Produced by Laser Powder Bed Fusion",
+    "journal": "Technologies",
+    "year": 2020,
+    "cited": 14,
+    "authors": "Metel A., Grigoriev S., Tarasova T., Filatova A. и др."
+   },
+   {
+    "doi": "10.3390/met12050760",
+    "title": "On Defect Minimization Caused by Oxide Phase Formation in Laser Powder Bed Fusion",
+    "journal": "Metals",
+    "year": 2022,
+    "cited": 13,
+    "authors": "Okunkova A., Shekhtman S., Metel A., Suhova N. и др."
+   },
+   {
+    "doi": "10.3390/technologies9020027",
+    "title": "Surface Quality of Metal Parts Produced by Laser Powder Bed Fusion: Ion Polishing in Gas-Discharge Plasma Proposal",
+    "journal": "Technologies",
+    "year": 2021,
+    "cited": 10,
+    "authors": "Metel A., Grigoriev S., Tarasova T., Melnik Y. и др."
+   },
+   {
+    "doi": "10.1115/1.4052840",
+    "title": "Optimizing the Process Parameters for Additive Manufacturing of Glass Components by Selective Laser Melting: Soda-Lime Glass Versus Quartz Glass",
+    "journal": "Journal of Manufacturing Science and Engineering",
+    "year": 2021,
+    "cited": 8,
+    "authors": "Grigoriev S., Khmyrov R., Gridnev M., Tarasova T. и др."
+   },
+   {
+    "doi": "10.3390/app10010231",
+    "title": "Interferometry of Gas-Phase Flows during Selective Laser Melting",
+    "journal": "Applied Sciences",
+    "year": 2019,
+    "cited": 4,
+    "authors": "Podrabinnik P., Shtanko A., Khmyrov R., Korotkov A. и др."
+   },
+   {
+    "doi": "10.3390/ma16237326",
+    "title": "Experimental and Statistical Analysis of the Effect of Heat Treatment on Surface Roughness and Mechanical Properties of Thin-Walled Samples Obtained by Selective Laser Melting from the Material AlSi10Mg",
+    "journal": "Materials",
+    "year": 2023,
+    "cited": 4,
+    "authors": "Grigoriev S., Nikitin N., Yanushevich O., Kriheli N. и др."
+   },
+   {
+    "doi": "10.3390/sci6040085",
+    "title": "Study of Structure and Properties of Thin-Walled Elements of Diamond Cellular Structures Made of Aluminum Alloys via Selective Laser Melting",
+    "journal": "Sci",
+    "year": 2024,
+    "cited": 3,
+    "authors": "Tarasova T., Podrabinnik P., Babushkin N., Gusarov A. и др."
+   },
+   {
+    "doi": "10.4028/p-1s59b9",
+    "title": "Amorphous-Crystalline Composite Microstructure Formation in Zr&lt;sub&gt;46&lt;/sub&gt;Cu&lt;sub&gt;46&lt;/sub&gt;Al&lt;sub&gt;8&lt;/sub&gt; Alloy at the Conditions of Selective Laser Melting",
+    "journal": "Key Engineering Materials",
+    "year": 2022,
+    "cited": 2,
+    "authors": "Bacheeva A., Khmyrov R., Korotkov A., Tarasova T. и др."
+   },
+   {
+    "doi": "10.3390/jmmp8010010",
+    "title": "Phase Composition, Microstructure and Mechanical Properties of Zr57Cu15Ni10Nb5 Alloy Obtained by Selective Laser Melting",
+    "journal": "Journal of Manufacturing and Materials Processing",
+    "year": 2024,
+    "cited": 1,
+    "authors": "Khmyrov R., Korotkov A., Gridnev M., Podrabinnik P. и др."
+   },
+   {
+    "doi": "10.3390/jmmp8050235",
+    "title": "Modeling of Tensile Stress Distribution Considering Anisotropy of Mechanical Properties of Thin-Walled AlSi10Mg Samples Obtained by Selective Laser Melting",
+    "journal": "Journal of Manufacturing and Materials Processing",
+    "year": 2024,
+    "cited": 1,
+    "authors": "Grigoriev S., Nikitin N., Frolov A., Shapovalov P. и др."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/msf.989.816",
+    "title": "Influence of the Powder Particle Size on the Denudated Zone Width at Selective Laser Melting",
+    "journal": "Materials Science Forum",
+    "year": 2020,
+    "cited": 0,
+    "authors": "Khmyrov R., Ableyeva R., Tarasova T., Gusarov A."
+   },
+   {
+    "doi": "10.32446/0368-1025it.2025-6-23-31",
+    "title": "A method for the comprehensive monitoring of gas environments during selective laser melting",
+    "journal": "Izmeritel`naya Tekhnika",
+    "year": 2025,
+    "cited": 0,
+    "authors": "Pimushkin Y., Fedotenko E., Grigoriev S."
+   }
+  ],
+  "ORG-BMSTU": [
+   {
+    "doi": "10.3390/s24154959",
+    "title": "Controlled Porosity of Selective Laser Melting-Produced Thermal Pipes: Experimental Analysis and Machine Learning Approach for Pore Recognition on Pipes Surfaces",
+    "journal": "Sensors",
+    "year": 2024,
+    "cited": 7,
+    "authors": "Malashin I., Martysyuk D., Tynchenko V., Nelyub V. и др."
+   },
+   {
+    "doi": "10.18698/0536-1044-2019-6-20-29",
+    "title": "Influence of the Main Parameters of Selective Laser Melting on Stability of Single Track Formation when ‘Growing’ Parts from Copper Alloys",
+    "journal": "Proceedings of Higher Educational Institutions. Маchine Building",
+    "year": 2019,
+    "cited": 6,
+    "authors": "Grigoriyants A., Kolchanov D., Drenin A., Denezhkin A."
+   },
+   {
+    "doi": "10.1080/09507116.2021.1974229",
+    "title": "Technological features of growing a combustion chamber of a liquid-propellant rocket engine by method of selective laser melting from AISI 316L steel*",
+    "journal": "Welding International",
+    "year": 2021,
+    "cited": 4,
+    "authors": "Grigoryants A., Yagodnikov D., Kolchanova A., Kovalev K. и др."
+   },
+   {
+    "doi": "10.18698/0536-1044-2022-10-79-88",
+    "title": "Features of the process of selective laser melting from structural steel 28Cr3SiNiMoWV",
+    "journal": "Proceedings of Higher Educational Institutions. Маchine Building",
+    "year": 2022,
+    "cited": 3,
+    "authors": "Kolchanov D., Drenin A., Denezhkin A., Shustova L. и др."
+   },
+   {
+    "doi": "10.18698/0236-3941-2020-5-71-85",
+    "title": "Investigating the Structure and Properties of the AlSi10Mg Alloy Manufactured by Means of Selective Laser Melting",
+    "journal": "Herald of the Bauman Moscow State Technical University. Series Mechanical Engineering",
+    "year": 2020,
+    "cited": 3,
+    "authors": "Karavaev A., Puchkov Y."
+   },
+   {
+    "doi": "10.52351/00260827_2022_06_68",
+    "title": "GRANULOMETRIC ANALYSIS OF POWDER MATERIALS USED FOR PRODUCING SAMPLES BY METHOD OF SELECTIVE LASER MELTING",
+    "journal": "Metallurg",
+    "year": 2022,
+    "cited": 2,
+    "authors": "Galinovsky A., Kravchenko I., Martysyuk D., Seliverstova E. и др."
+   },
+   {
+    "doi": "10.18698/0536-1044-2022-8-55-64",
+    "title": "Study of the Influence of Main Parameters of the Selective Laser Melting Process on the Porosity of Aluminum Alloy RS-300 Samples",
+    "journal": "Proceedings of Higher Educational Institutions. Маchine Building",
+    "year": 2022,
+    "cited": 2,
+    "authors": "Grigoriyants A., Kolchanov D., Drenin A., Denezhkin A."
+   },
+   {
+    "doi": "10.30987/2223-4608-2020-10-40-48",
+    "title": "Impact of aluminum powder parts growth by method of selective laser melting upon porosity, micro-hardness and micro-structure",
+    "journal": "Science intensive technologies in mechanical engineering",
+    "year": 2020,
+    "cited": 1,
+    "authors": "Kolchanov D., Perestoronin A., Binkov I., Povalyuhin D. и др."
+   },
+   {
+    "doi": "10.4028/p-5djvqh",
+    "title": "Properties Investigation of Steel-TiC Composite Material Formed during Selective Laser Melting Process",
+    "journal": "Key Engineering Materials",
+    "year": 2023,
+    "cited": 1,
+    "authors": "Kolchanova A., Kolchanov D., Grigoryants A."
+   },
+   {
+    "doi": "10.1080/09507116.2021.1904702",
+    "title": "Production of composite articles with a metal matrix by selective laser melting*",
+    "journal": "Welding International",
+    "year": 2021,
+    "cited": 1,
+    "authors": "Kolchanova A., Grigoryants A., Kolchanov D., Drenin A."
+   },
+   {
+    "doi": "10.18698/0536-1044-2021-6-13-22",
+    "title": "Regression Models of Technological Process Indicators for Layer-by-Layer Product Growth of a 316L Steel Powder by Coaxial Laser Melting",
+    "journal": "Proceedings of Higher Educational Institutions. Маchine Building",
+    "year": 2021,
+    "cited": 1,
+    "authors": "Miandzhi Z., Taksants M., Kholopov A., Misurov A."
+   },
+   {
+    "doi": "10.18698/0236-3941-2019-6-41-52",
+    "title": "Study of Hydraulic Characteristics of the Cooling Path of a Model Liquid Rocket Engine Manufactured using Additive Technology of Selective Laser Melting",
+    "journal": "Herald of the Bauman Moscow State Technical University. Series Mechanical Engineering",
+    "year": 2019,
+    "cited": 1,
+    "authors": "Yagodnikov D., Aleksandrenkov V., Kovalev K., Grigoryants A. и др."
+   },
+   {
+    "doi": "10.18698/0536-1044-2021-7-19-29",
+    "title": "Numerical and Experimental Study of Thermal Processes during the Growth of Thin-Walled Parts by Coaxial Laser Melting from Stainless Steel 316L",
+    "journal": "Proceedings of Higher Educational Institutions. Маchine Building",
+    "year": 2021,
+    "cited": 1,
+    "authors": "Miandzhi Z., Kholopov A."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/msf.1037.32",
+    "title": "Measurement Assurance of Additive Manufacturing on the Example of Laser Surface Polishing Products by Remelting",
+    "journal": "Materials Science Forum",
+    "year": 2021,
+    "cited": 1,
+    "authors": "Kransutskaya A., Funtikov V., Syritskii A., Komshin A."
+   },
+   {
+    "doi": "10.18698/0536-1044-2020-11-26-35",
+    "title": "A Study of Creating One-Dimensional Objects with Pulse Selective Laser Melting",
+    "journal": "Proceedings of Higher Educational Institutions. Маchine Building",
+    "year": 2020,
+    "cited": 0,
+    "authors": "Melnikova M., Taskants M., Kholopov A., Tareva A. и др."
+   },
+   {
+    "doi": "10.31044/1684-2561-2026-0-7-31-39",
+    "title": "DEVELOPMENT OF THE DESIGN AND MANUFACTURING TECHNOLOGY OF A TOOL FOR ULTRA-JET DISPERSION OF SUSPENSIONS BASED ON SELECTIVE LASER MELTING",
+    "journal": "REPAIR RECONDITIONING MODERNIZATION",
+    "year": 2026,
+    "cited": 0,
+    "authors": "Galinovsky A., Ivanova E., Filimonov A., Alekperov E. и др."
+   },
+   {
+    "doi": "10.30987/2223-4608-2023-20-29",
+    "title": "Modeling of the selective laser melting process in  additive manufacturing",
+    "journal": "Science intensive technologies in mechanical engineering",
+    "year": 2023,
+    "cited": 0,
+    "authors": "Grigoryants A."
+   },
+   {
+    "doi": "10.30987/2223-4608-2022-4-25-33",
+    "title": "Experimental and numerical study of heat transfer in the cultivation  of thin-walled parts by coaxial laser melting",
+    "journal": "Science intensive technologies in mechanical engineering",
+    "year": 2022,
+    "cited": 0,
+    "authors": "Holopov A., Binkov I., Mianji Z."
+   }
+  ],
+  "ORG-MISIS": [
+   {
+    "doi": "10.3390/ma14102648",
+    "title": "Selective Laser Melting of Al-Based Matrix Composites with Al2O3 Reinforcement: Features and Advantages",
+    "journal": "Materials",
+    "year": 2021,
+    "cited": 38,
+    "authors": "Pelevin I., Nalivaiko A., Ozherelkov D., Shinkaryov A. и др."
+   },
+   {
+    "doi": "10.3390/met10121697",
+    "title": "Control of Density and Grain Structure of a Laser Powder Bed-Fused Superelastic Ti-18Zr-14Nb Alloy: Simulation-Driven Process Mapping",
+    "journal": "Metals",
+    "year": 2020,
+    "cited": 27,
+    "authors": "Brailovski V., Kalinicheva V., Letenneur M., Lukashevich K. и др."
+   },
+   {
+    "doi": "10.3390/met13061084",
+    "title": "New Scanning Strategy Approach for Laser Powder Bed Fusion of Nd-Fe-B Hard Magnetic Material",
+    "journal": "Metals",
+    "year": 2023,
+    "cited": 22,
+    "authors": "Pelevin I., Terekhin E., Ozherelkov D., Tereshina I. и др."
+   },
+   {
+    "doi": "10.3390/met12122152",
+    "title": "AlSi10Mg/AlN Interface Grain Structure after Laser Powder Bed Fusion",
+    "journal": "Metals",
+    "year": 2022,
+    "cited": 19,
+    "authors": "Pelevin I., Ozherelkov D., Nalivaiko A., Bodyakova A. и др."
+   },
+   {
+    "doi": "10.3390/coatings11101219",
+    "title": "Laser Fusion of Aluminum Powder Coated with Diamond Particles via Selective Laser Melting: Powder Preparation and Synthesis Description",
+    "journal": "Coatings",
+    "year": 2021,
+    "cited": 17,
+    "authors": "Shinkaryov A., Ozherelkov D., Pelevin I., Eremin S. и др."
+   },
+   {
+    "doi": "10.3390/met13091619",
+    "title": "Advancements in Laser Powder Bed Fusion of Carbon Nanotubes-Reinforced AlSi10Mg Alloy: A Comprehensive Analysis of Microstructure Evolution, Properties, and Future Prospects",
+    "journal": "Metals",
+    "year": 2023,
+    "cited": 16,
+    "authors": "Abedi M., Moskovskikh D., Nepapushev A., Suvorova V. и др."
+   },
+   {
+    "doi": "10.3390/met10111505",
+    "title": "TiAl-Based Materials by In Situ Selective Laser Melting of Ti/Al Reactive Composites",
+    "journal": "Metals",
+    "year": 2020,
+    "cited": 14,
+    "authors": "Nepapushev A., Moskovskikh D., Vorotilo K., Rogachev A."
+   },
+   {
+    "doi": "10.3390/jmmp8010007",
+    "title": "Mesoscale Simulation of Laser Powder Bed Fusion with an Increased Layer Thickness for AlSi10Mg Alloy",
+    "journal": "Journal of Manufacturing and Materials Processing",
+    "year": 2024,
+    "cited": 14,
+    "authors": "Bogdanova M., Chernyshikhin S., Zakirov A., Zotov B. и др."
+   },
+   {
+    "doi": "10.17073/1997-308x-2022-3-63-77",
+    "title": "The effect of electrospark deposition using zirconium electrodes on structure and properties of nickel-containing alloy obtained selective laser melting",
+    "journal": "Izvestiya vuzov. Poroshkovaya metallurgiya i funktsional’nye pokrytiya",
+    "year": 2022,
+    "cited": 9,
+    "authors": "Kudryashov A., Kiryukhantsev-Korneev P., Mukanov S., Petrzhik M. и др."
+   },
+   {
+    "doi": "10.3390/ma14133644",
+    "title": "Laser Powder Bed Fusion of Chromium Bronze Using Recycled Powder",
+    "journal": "Materials",
+    "year": 2021,
+    "cited": 8,
+    "authors": "Pelevin I., Burmistrov M., Ozherelkov D., Shinkaryov A. и др."
+   },
+   {
+    "doi": "10.3390/condmat10020022",
+    "title": "The Laser Powder Bed Fusion of Nd2Fe14B Permanent Magnets: The State of the Art",
+    "journal": "Condensed Matter",
+    "year": 2025,
+    "cited": 5,
+    "authors": "Pelevin I., Lyange M., Fedorenko L., Chernyshikhin S. и др."
+   },
+   {
+    "doi": "10.3390/compounds4030034",
+    "title": "Atomic Force Microscopy’s Application for Surface Structure Investigation of Materials Synthesized by Laser Powder Bed Fusion",
+    "journal": "Compounds",
+    "year": 2024,
+    "cited": 5,
+    "authors": "Pelevin I., Kaminskaya T., Chernyshikhin S., Larionov K. и др."
+   },
+   {
+    "doi": "10.1002/adem.202402676",
+    "title": "Laser Powder Bed Fusion of AlSi10Mg/W2B5 Composite: Powder Preparation, Phase Transformations, and Mechanical Properties",
+    "journal": "Advanced Engineering Materials",
+    "year": 2025,
+    "cited": 2,
+    "authors": "Nepapushev A., Kuskov K., Lopatkina S., Chernyshikhin S. и др."
+   },
+   {
+    "doi": "10.3390/jmmp9120385",
+    "title": "Tailoring the Functional Properties of NiTi Shape Memory Alloy by Laser Powder Bed Fusion Process Conditions for 4D Printing",
+    "journal": "Journal of Manufacturing and Materials Processing",
+    "year": 2025,
+    "cited": 2,
+    "authors": "Chernyshikhin S., Zherebtsov D., Fedorenko L., Egorov V. и др."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/ddf.410.203",
+    "title": "Liquation and Crystallization Cracks in Aluminum Alloy AA2024 during Selective Laser Melting",
+    "journal": "Defect and Diffusion Forum",
+    "year": 2021,
+    "cited": 2,
+    "authors": "Loginova I., Popov N., Solonin A."
+   },
+   {
+    "doi": "10.3390/modelling6040135",
+    "title": "Influence of AlSi10Mg Thermophysical Properties on the Melt Pool Morphology During High-Fidelity Simulation of Laser Powder Bed Fusion",
+    "journal": "Modelling",
+    "year": 2025,
+    "cited": 1,
+    "authors": "Pelevin I., Bogdanova M., Zakirov A., Zherebtsov D. и др."
+   },
+   {
+    "doi": "10.3390/met13081397",
+    "title": "Structure and Properties Evolution of AZhK Superalloy Prepared by Laser Powder Bed Fusion Combined with Hot Isostatic Pressing and Heat Treatment",
+    "journal": "Metals",
+    "year": 2023,
+    "cited": 1,
+    "authors": "Baskov F., Sentyurina Z., Loginov P., Bychkova M. и др."
+   },
+   {
+    "doi": "10.17073/0021-3438-2024-1-70-80",
+    "title": "Structure and mechanical properties of PR-03N18K9M5TYu steel grade fabricated by selective laser melting and post-processing",
+    "journal": "Izvestiya. Non-Ferrous Metallurgy",
+    "year": 2024,
+    "cited": 1,
+    "authors": "Kayasova A., Baskov F., Lobova T., Levashov E."
+   },
+   {
+    "doi": "10.17073/0021-3438-2023-4-35-47",
+    "title": "Improvement of selective laser melting regimes for the fabrication of Ti–6Al–4V porous structures for medical applications",
+    "journal": "Izvestiya. Non-Ferrous Metallurgy",
+    "year": 2023,
+    "cited": 1,
+    "authors": "Sheremetyev V., Lezin V., Kozik M., Molchanov S."
+   },
+   {
+    "doi": "10.17073/1997-308x-2022-4-84-92",
+    "title": "Features of the impact of hot isostatic pressing and heat treatment on the structure and properties of maraging steel obtained by selective laser melting method",
+    "journal": "Izvestiya vuzov. Poroshkovaya metallurgiya i funktsional’nye pokrytiya",
+    "year": 2022,
+    "cited": 1,
+    "authors": "Kayasova A., Levashov E."
+   },
+   {
+    "doi": "10.17073/1997-308x-2026-2-71-83",
+    "title": "Selective laser melting and functional properties of AlSi10Mg-based aluminum matrix composites with Cu, CuNi, and CuNiFeCo additives",
+    "journal": "Powder Metallurgy аnd Functional Coatings (Izvestiya Vuzov. Poroshkovaya Metallurgiya i Funktsional'nye Pokrytiya)",
+    "year": 2026,
+    "cited": 0,
+    "authors": "Kuskov K., Nepapushev A., Moskovskikh D."
+   },
+   {
+    "doi": "10.52351/00260827_2021_12_55",
+    "title": "DIRECTED HOT ISOSTATIC PRESSING OF Ti6Al4V-SiC COMPOSITE WITH ELEMENTS MANUFACTURED BY SELECTIVE LASER MELTING TECHNOLOGY",
+    "journal": "Metallurg",
+    "year": 2021,
+    "cited": 0,
+    "authors": "Guseinov E., Petrovsky P., Travyanov A., Aleshenko A. и др."
+   },
+   {
+    "doi": "10.3390/jmmp10030093",
+    "title": "On the Ultrasonic Atomization of SS316L Parts Manufactured via Laser Powder Bed Fusion for the Closed-Loop Production",
+    "journal": "Journal of Manufacturing and Materials Processing",
+    "year": 2026,
+    "cited": 0,
+    "authors": "Bashmakova O., Fedorenko L., Vasilev A., Zotov B. и др."
+   },
+   {
+    "doi": "10.3390/jmmp10050148",
+    "title": "Aluminum–Calcium Alloy for Laser Powder Bed Fusion",
+    "journal": "Journal of Manufacturing and Materials Processing",
+    "year": 2026,
+    "cited": 0,
+    "authors": "Letyagin N., Akopyan T., Palkin P., Solovev I. и др."
+   },
+   {
+    "doi": "10.52351/00260827_2022_03_70",
+    "title": "ELECTRO-SPARK TREATMENT BY FUSIBLE Al-Si AND Al-Ca ELECTRODES TO INCREASE WEAR AND OXIDATION RESISTANCE OF EP741NP ALLOY MANUFACTURED BY SELECTIVE LASER MELTING",
+    "journal": "Metallurg",
+    "year": 2022,
+    "cited": 0,
+    "authors": "Mukanov S., Baskov F., Petrzhik M., Levashov E."
+   },
+   {
+    "doi": "10.17073/0368-0797-2023-2-184-190",
+    "title": "Influence of laser spot size on structure and properties of high-temperature CompoNIAL-M5-3 alloy produced by selective laser melting",
+    "journal": "Izvestiya. Ferrous Metallurgy",
+    "year": 2023,
+    "cited": 0,
+    "authors": "Kaplanskii Y., Ageev M., Bychkova M., Fadeev A. и др."
+   },
+   {
+    "doi": "10.3390/jmmp10100424",
+    "title": "Development of New Al-Ca-Cu-Mn-Zr Alloys for Laser Powder Bed Fusion",
+    "journal": "Journal of Manufacturing and Materials Processing",
+    "year": 2026,
+    "cited": 0,
+    "authors": "Cherkasov S., Letyagin N., Palkin P., Doroshenko V. и др."
+   },
+   {
+    "doi": "10.26896/1028-6861-2025-91-4-36-43",
+    "title": "Non-destructive testing of welded joints of 12Kh18N10T steel made by selective laser melting",
+    "journal": "Industrial laboratory. Diagnostics of materials",
+    "year": 2025,
+    "cited": 0,
+    "authors": "Shcherbakov V., Rogachev S."
+   },
+   {
+    "doi": "10.17073/0021-3438-2021-4-51-58",
+    "title": "Experimental study of single tracks obtained from a mixture of Ti and Al powders with varying selective laser melting parameters",
+    "journal": "Izvestiya Vuzov. Tsvetnaya Metallurgiya (Universities' Proceedings Non-Ferrous Metallurgy)",
+    "year": 2021,
+    "cited": 0,
+    "authors": "Dolbachev A., Belov N., Akopyan T."
+   },
+   {
+    "doi": "10.17073/0021-3438-2021-2-66-76",
+    "title": "Structure and properties of EP741NP heat-resistant nickel alloy produced by selective laser melting",
+    "journal": "Izvestiya Vuzov. Tsvetnaya Metallurgiya (Universities' Proceedings Non-Ferrous Metallurgy)",
+    "year": 2021,
+    "cited": 0,
+    "authors": "Baskov F., Sentyurina Z., Logachev I., Bychkova M. и др."
+   },
+   {
+    "doi": "10.54708/26587572_2025_742324",
+    "title": "Microstructure and phase formation in TiC-TiB2-SiC composites\r\nprocessed by pulsed laser melting",
+    "journal": "Materials. Technologies. Design",
+    "year": 2025,
+    "cited": 0,
+    "authors": "Yuwono R., Loginova I., Solonin A."
+   },
+   {
+    "doi": "10.17073/0368-0797-2021-10-721-727",
+    "title": "Production of magnets from the material of Fe - Cr - Co system by selective laser sintering",
+    "journal": "Izvestiya. Ferrous Metallurgy",
+    "year": 2021,
+    "cited": 0,
+    "authors": "Efremov D., Gerasimova A."
+   }
+  ],
+  "ORG-MAI": [
+   {
+    "doi": "10.54708/19926502_2021_2539364",
+    "title": "TRIBOLOGICAL STUDIES OF AIRCRAFT ENGINE PARTS OBTAINED BY SELECTIVE LASER MELTING",
+    "journal": "Vestnik UGATU",
+    "year": 2021,
+    "cited": 0,
+    "authors": "Seliverstov S., Nikolaev I., Bytsenko O."
+   },
+   {
+    "doi": "10.34759/tpt-2021-13-7-329-335",
+    "title": "Thermal conductivity anisotropy of additive metals obtained by selective laser alloying on the example of the CL 20ES stainless steel",
+    "journal": "Thermal processes in engineering",
+    "year": 2021,
+    "cited": 0,
+    "authors": "Kiselev V., Ezhov A., Seliverstov S., Bykov L. и др."
+   }
+  ],
+  "ORG-SKOLTECH": [
+   {
+    "doi": "10.3390/ma14237486",
+    "title": "Selective Laser Melting of Pre-Alloyed NiTi Powder: Single-Track Study and FE Modeling with Heat Source Calibration",
+    "journal": "Materials",
+    "year": 2021,
+    "cited": 37,
+    "authors": "Chernyshikhin S., Firsov D., Shishkovsky I."
+   },
+   {
+    "doi": "10.3390/met13061084",
+    "title": "New Scanning Strategy Approach for Laser Powder Bed Fusion of Nd-Fe-B Hard Magnetic Material",
+    "journal": "Metals",
+    "year": 2023,
+    "cited": 22,
+    "authors": "Pelevin I., Terekhin E., Ozherelkov D., Tereshina I. и др."
+   },
+   {
+    "doi": "10.3390/met12122152",
+    "title": "AlSi10Mg/AlN Interface Grain Structure after Laser Powder Bed Fusion",
+    "journal": "Metals",
+    "year": 2022,
+    "cited": 19,
+    "authors": "Pelevin I., Ozherelkov D., Nalivaiko A., Bodyakova A. и др."
+   },
+   {
+    "doi": "10.3390/coatings11101219",
+    "title": "Laser Fusion of Aluminum Powder Coated with Diamond Particles via Selective Laser Melting: Powder Preparation and Synthesis Description",
+    "journal": "Coatings",
+    "year": 2021,
+    "cited": 17,
+    "authors": "Shinkaryov A., Ozherelkov D., Pelevin I., Eremin S. и др."
+   },
+   {
+    "doi": "10.1002/adem.202200831",
+    "title": "Artificial Defects in 316L Stainless Steel Produced by Laser Powder Bed Fusion: Printability, Microstructure, and Effects on the Very‐High‐Cycle Fatigue Behavior",
+    "journal": "Advanced Engineering Materials",
+    "year": 2022,
+    "cited": 11,
+    "authors": "Voloskov B., Mishurova T., Evlashin S., Akhatov I. и др."
+   },
+   {
+    "doi": "10.3390/ma14133644",
+    "title": "Laser Powder Bed Fusion of Chromium Bronze Using Recycled Powder",
+    "journal": "Materials",
+    "year": 2021,
+    "cited": 8,
+    "authors": "Pelevin I., Burmistrov M., Ozherelkov D., Shinkaryov A. и др."
+   }
+  ],
+  "ORG-BELGU": [
+   {
+    "doi": "10.3390/met13081423",
+    "title": "On the Strength of a 316L-Type Austenitic Stainless Steel Produced by Selective Laser Melting",
+    "journal": "Metals",
+    "year": 2023,
+    "cited": 25,
+    "authors": "Odnobokova M., Torganchuk V., Tikhonova M., Dolzhenko P. и др."
+   },
+   {
+    "doi": "10.3390/met12122152",
+    "title": "AlSi10Mg/AlN Interface Grain Structure after Laser Powder Bed Fusion",
+    "journal": "Metals",
+    "year": 2022,
+    "cited": 19,
+    "authors": "Pelevin I., Ozherelkov D., Nalivaiko A., Bodyakova A. и др."
+   },
+   {
+    "doi": "10.3390/jmmp8020044",
+    "title": "Reducing the Cost of 3D Metal Printing Using Selective Laser Melting (SLM) Technology in the Manufacture of a Drill Body by Reinforcing Thin-Walled Shell Forms with Metal-Polymers",
+    "journal": "Journal of Manufacturing and Materials Processing",
+    "year": 2024,
+    "cited": 8,
+    "authors": "Lubimyi N., Chepchurov M., Polshin A., Gerasimov M. и др."
+   },
+   {
+    "doi": "10.3390/ma16083193",
+    "title": "Mechanical Behavior of a Medium-Entropy Fe65(CoNi)25Cr9.5C0.5 Alloy Produced by Selective Laser Melting",
+    "journal": "Materials",
+    "year": 2023,
+    "cited": 4,
+    "authors": "Povolyaeva E., Shaysultanov D., Astakhov I., Evlashin S. и др."
+   },
+   {
+    "doi": "10.54708/26587572_2026_822549",
+    "title": "Crystallography of δ→γ phase transformation during laser-powder-bed-fusion of 17-4 PH martensitic steel",
+    "journal": "Materials. Technologies. Design",
+    "year": 2026,
+    "cited": 0,
+    "authors": "Zuiko I., Dolzhenko P., Borisov S., Nikitin I. и др."
+   },
+   {
+    "doi": "10.3390/jmmp10100424",
+    "title": "Development of New Al-Ca-Cu-Mn-Zr Alloys for Laser Powder Bed Fusion",
+    "journal": "Journal of Manufacturing and Materials Processing",
+    "year": 2026,
+    "cited": 0,
+    "authors": "Cherkasov S., Letyagin N., Palkin P., Doroshenko V. и др."
+   }
+  ],
+  "ORG-SSAU": [
+   {
+    "doi": "10.3390/met12111976",
+    "title": "Optimization of Process Parameters for Powder Bed Fusion Additive Manufacturing Using a Linear Programming Method: A Conceptual Framework",
+    "journal": "Metals",
+    "year": 2022,
+    "cited": 23,
+    "authors": "Khaimovich A., Balyakin A., Oleynik M., Meshkov A. и др."
+   },
+   {
+    "doi": "10.3390/met11010172",
+    "title": "Interface Quality Indices of Al–10Si–Mg Aluminum Alloy and Cr18–Ni10–Ti Stainless-Steel Bimetal Fabricated via Selective Laser Melting",
+    "journal": "Metals",
+    "year": 2021,
+    "cited": 16,
+    "authors": "Khaimovich A., Erisov Y., Smelov V., Agapovichev A. и др."
+   },
+   {
+    "doi": "10.3390/ma16052088",
+    "title": "Multiresponse Optimization of Selective Laser Melting Parameters for the Ni-Cr-Al-Ti-Based Superalloy Using Gray Relational Analysis",
+    "journal": "Materials",
+    "year": 2023,
+    "cited": 14,
+    "authors": "Agapovichev A., Khaimovich A., Smelov V., Kokareva V. и др."
+   },
+   {
+    "doi": "10.3390/computation12050105",
+    "title": "Short Fiber-Reinforced Polymer Polyamide 6 Lugs and Selective Laser-Melted Ti-6Al-4V Bushing Contact Cohesive Zone Model Mode II Parameters’ Evaluation",
+    "journal": "Computation",
+    "year": 2024,
+    "cited": 3,
+    "authors": "Sedelnikov A., Kurkin E., Smelov V., Chertykovtseva V. и др."
+   },
+   {
+    "doi": "10.3390/jmmp9120385",
+    "title": "Tailoring the Functional Properties of NiTi Shape Memory Alloy by Laser Powder Bed Fusion Process Conditions for 4D Printing",
+    "journal": "Journal of Manufacturing and Materials Processing",
+    "year": 2025,
+    "cited": 2,
+    "authors": "Chernyshikhin S., Zherebtsov D., Fedorenko L., Egorov V. и др."
+   },
+   {
+    "doi": "10.18287/2223-9537-2025-15-1-142-151",
+    "title": "Mathematical modeling of non-stationary heat transfer in selective laser melting based on machine learning",
+    "journal": "Ontology of Designing",
+    "year": 2025,
+    "cited": 1,
+    "authors": "Kishov E."
+   },
+   {
+    "doi": "10.34759/vst-2023-1-131-141",
+    "title": "Technological Process Design for Selective Laser Fusion of a Heat-Resistant Alloy for the Burner Device Manufacturing",
+    "journal": "Vestnik Moskovskogo aviatsionnogo instituta",
+    "year": 2023,
+    "cited": 1,
+    "authors": "Smelov V., Kokareva V., Chupin P., Dmitriev D."
+   },
+   {
+    "doi": "10.2174/2666145416666221230121951",
+    "title": "Study on the Properties of Iron-based Alloys 17-4PH Powder\nManufactured by Laser Additive Manufacturing",
+    "journal": "Current Materials Science",
+    "year": 2023,
+    "cited": 1,
+    "authors": "Huang L., Chen X., Konovalov S., Su C. и др."
+   }
+  ],
+  "ORG-ISPMS": [
+   {
+    "doi": "10.3390/ma16196459",
+    "title": "A Review of Computational Approaches to the Microstructure-Informed Mechanical Modelling of Metals Produced by Powder Bed Fusion Additive Manufacturing",
+    "journal": "Materials",
+    "year": 2023,
+    "cited": 35,
+    "authors": "Zinovieva O., Romanova V., Dymnich E., Zinoviev A. и др."
+   },
+   {
+    "doi": "10.3390/met12010109",
+    "title": "Microstructural Evolution of AA5154 Layers Intermixed with Mo Powder during Electron Beam Wire-Feed Additive Manufacturing (EBAM)",
+    "journal": "Metals",
+    "year": 2022,
+    "cited": 9,
+    "authors": "Zykova A., Chumaevskii A., Vorontsov A., Shamarin N. и др."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/kem.839.144",
+    "title": "Selective Laser Melting of Magnesium",
+    "journal": "Key Engineering Materials",
+    "year": 2020,
+    "cited": 6,
+    "authors": "Saprykin A., Sharkeev Y., Saprykina N., Ibragimov E."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/kem.839.79",
+    "title": "The Mechanism of Forming Coagulated Particles in Selective Laser Melting of Cobalt-Chromium-Molybdenum Powder",
+    "journal": "Key Engineering Materials",
+    "year": 2020,
+    "cited": 4,
+    "authors": "Saprykin A., Sharkeev Y., Saprykina N., Ibragimov E."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/kem.839.73",
+    "title": "Surface Formation Mechanisms in Selective Laser Melting of Cobalt-Chromium-Molybdenum Powder",
+    "journal": "Key Engineering Materials",
+    "year": 2020,
+    "cited": 3,
+    "authors": "Saprykin A., Sharkeev Y., Saprykina N., Ibragimov E."
+   },
+   {
+    "doi": "10.4028/p-7tc3od",
+    "title": "Comparison the Preparation Methods of Powder Feedstock for Laser Powder Bed Fusion",
+    "journal": "Solid State Phenomena",
+    "year": 2022,
+    "cited": 2,
+    "authors": "Khimich M., Ibragimov E., Chebodaeva V., Saprykin A. и др."
+   },
+   {
+    "doi": "10.31857/s0015323023600818",
+    "title": "Al-40Sn ALLOY PRODUCED BY SELECTIVE LASER MELTING OF A MIXTURE OF ELEMENTARY POWDERS",
+    "journal": "Физика металлов и металловедение",
+    "year": 2023,
+    "cited": 0,
+    "authors": "Rusin N., Skorentsev A., Akimov K."
+   },
+   {
+    "doi": "10.30791/0015-3214-2026-3-13-23",
+    "title": "Effect of Al3Fe particle addition on the structure and mechanical properties of Al – 20 vol. % Sn alloy fabricated by selective laser melting",
+    "journal": "Physics  and chemistry of  Materials  treatment",
+    "year": 2026,
+    "cited": 0,
+    "authors": "Rusin N., Skorentsev A., Akimov K., Likharev V."
+   },
+   {
+    "doi": "10.4028/p-ky8391",
+    "title": "Synthesis of Tree-Component Cobalt-Based Alloy by Selective Laser Melting",
+    "journal": "Materials Science Forum",
+    "year": 2022,
+    "cited": 0,
+    "authors": "Saprykin A., Sharkeev Y., Saprykina N., Khimich M. и др."
+   }
+  ],
+  "ORG-DSTU": [],
+  "ORG-URFU": [
+   {
+    "doi": "10.4028/www.scientific.net/ddf.410.203",
+    "title": "Liquation and Crystallization Cracks in Aluminum Alloy AA2024 during Selective Laser Melting",
+    "journal": "Defect and Diffusion Forum",
+    "year": 2021,
+    "cited": 2,
+    "authors": "Loginova I., Popov N., Solonin A."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/msf.989.811",
+    "title": "Rheological Properties and Microstructure of PH1 Stainless Steel Produced by Selective Laser Melting",
+    "journal": "Materials Science Forum",
+    "year": 2020,
+    "cited": 1,
+    "authors": "Gladkovsky S., Salikhyanov D., Volkov V., Avraamov Y. и др."
+   },
+   {
+    "doi": "10.31857/s0130308224070079",
+    "title": "Magnetic properties and structure of carbon steel samples manufactured by selective laser melting and subjected to fatigue tests",
+    "journal": "Defektoskopiâ",
+    "year": 2024,
+    "cited": 1,
+    "authors": "Gordeev N., Stashkov A., Matosyan A., Korkh M. и др."
+   },
+   {
+    "doi": "10.1021/acsomega.5c07808",
+    "title": "Structural Design and Mechanical Properties of Metal Vascular Stents Fabricated via Laser Powder Bed Fusion",
+    "journal": "ACS Omega",
+    "year": 2025,
+    "cited": 0,
+    "authors": "Miao J., Huang S., Chen Z., Wang Q. и др."
+   }
+  ],
+  "ORG-SUSU": [
+   {
+    "doi": "10.3390/ma12193269",
+    "title": "A Study of the Structural Characteristics of Titanium Alloy Products Manufactured Using Additive Technologies by Combining the Selective Laser Melting and Direct Metal Deposition Methods",
+    "journal": "Materials",
+    "year": 2019,
+    "cited": 19,
+    "authors": "Samodurova M., Logachev I., Shaburova N., Samoilova O. и др."
+   },
+   {
+    "doi": "10.3390/met12081303",
+    "title": "Microstructure, Mechanical Properties, and Corrosion Behavior of 06Cr15Ni4CuMo Processed by Using Selective Laser Melting",
+    "journal": "Metals",
+    "year": 2022,
+    "cited": 13,
+    "authors": "Maya J., Sivaprasad K., Sarath Kumar G., Baitimerov R. и др."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/ssp.316.175",
+    "title": "Processing of Alumina Reinforced Copper Metal Matrix Composite by Selective Laser Melting Technology",
+    "journal": "Solid State Phenomena",
+    "year": 2021,
+    "cited": 6,
+    "authors": "Baitimerov R., Bykov V."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/msf.946.972",
+    "title": "The Energy Density as a Reliable Parameter for Characterization of Selective Laser Melting of Various Alloys",
+    "journal": "Materials Science Forum",
+    "year": 2019,
+    "cited": 5,
+    "authors": "Lykov P."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/msf.946.978",
+    "title": "Single Track Formation during Selective Laser Melting of Ti-6Al-4V Alloy",
+    "journal": "Materials Science Forum",
+    "year": 2019,
+    "cited": 4,
+    "authors": "Baitimerov R."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/ssp.299.524",
+    "title": "Influence of Powder Layer Thickness on Microstructure of Selective Laser Melted TiAl6V4",
+    "journal": "Solid State Phenomena",
+    "year": 2020,
+    "cited": 3,
+    "authors": "Lykov P., Radionova L., Shults A."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/msf.946.966",
+    "title": "Selective Laser Melting of Mixed EP648-Alumina Powder",
+    "journal": "Materials Science Forum",
+    "year": 2019,
+    "cited": 2,
+    "authors": "Baitimerov R., Liberzon A., Mitin V."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/ssp.316.181",
+    "title": "Alumina Reinforced EP648 Metal Matrix Composite Produced by Selective Laser Melting Powder Bed Fusion Additive Technology",
+    "journal": "Solid State Phenomena",
+    "year": 2021,
+    "cited": 1,
+    "authors": "Lykov P., Radionova L."
+   },
+   {
+    "doi": "10.4028/www.scientific.net/ssp.316.558",
+    "title": "Selective Laser Melting AlSi12 Alloy by Utilizing of Non-Spherical Air-Atomized Powder",
+    "journal": "Solid State Phenomena",
+    "year": 2021,
+    "cited": 0,
+    "authors": "Baitimerov R., Bryk A."
+   }
+  ],
+  "ORG-KAI": [
+   {
+    "doi": "10.26907/2541-7746.2023.1.82-100",
+    "title": "Multiscale modeling of powder materials processing for additive manufacturing in inductively coupled plasma",
+    "journal": "Uchenye Zapiski Kazanskogo Universiteta. Seriya Fiziko-Matematicheskie Nauki",
+    "year": 2023,
+    "cited": 0,
+    "authors": "Tsivilsky I., Melnikov A., Gilmutdinov A."
+   }
+  ],
+  "ORG-VIAM": [
+   {
+    "doi": "10.22349/1994-6716-2020-101-1-44-54",
+    "title": "On the chemical composition, structure and mechanical properties of alloy EP648 fabricated by deformation, project die casting and selective laser melting",
+    "journal": "Voprosy Materialovedeniya",
+    "year": 2020,
+    "cited": 3,
+    "authors": "Ospennikova O., Min P., Rogalev A., Vadeev V."
+   },
+   {
+    "doi": "10.22349/1994-6716-2019-99-3-14-22",
+    "title": "Phase structure and composition of nickel-based superalloy subject to synthesis by selective laser melting parameters and heat treatment",
+    "journal": "Voprosy Materialovedeniya",
+    "year": 2020,
+    "cited": 2,
+    "authors": "Lukina E., Zaitsev D., Zavodov A."
+   },
+   {
+    "doi": "10.22349/1994-6716-2018-93-1-115-125",
+    "title": "Particularity of producing high-temperature carbide hardened Ni–Al–Ta–C intermetallic alloy powder compositions by gas atomization method for further selective laser melting",
+    "journal": "Voprosy Materialovedeniya",
+    "year": 2019,
+    "cited": 0,
+    "authors": "Rogalev A., Raevskykh A., Arginbaeva E., Prager S."
+   },
+   {
+    "doi": "10.52351/00260827_2021_07_62",
+    "title": "INFLUENCE OF FRACTION AND LAYER THICKNESS OF METAL-POWDER COMPOSITION ON STRUCTURE AND MECHANICAL PROPERTIES OF SYNTHESIZED MATERIAL OF VT6 ALLOY OBTAINED BY METHOD OF SELECTIVE LASER ALLOYING",
+    "journal": "Metallurg",
+    "year": 2021,
+    "cited": 0,
+    "authors": "Sukhov D., Khodirev N., Rogalev A., Kurkin S. и др."
+   },
+   {
+    "doi": "10.22349/1994-6716-2020-104-4-32-47",
+    "title": "Digital technologies in detecting inhomogeneous concentration zones in heat-resistant nickel alloys structure, including those obtained by selective laser melting",
+    "journal": "Voprosy Materialovedeniya",
+    "year": 2021,
+    "cited": 0,
+    "authors": "Raevskikh A."
+   },
+   {
+    "doi": "10.22349/1994-6716-2018-96-4-97-106",
+    "title": "Researching structire and properties of metal-powdered compositions made of corrosion-resistant steels obtained by gas atomization of alloy and intended for detail production by selective laser alloying",
+    "journal": "Voprosy Materialovedeniya",
+    "year": 2019,
+    "cited": 0,
+    "authors": "Sukhov D., Nerush S., Yurkov M., Amirdzhanyan G."
+   }
+  ],
+  "ORG-IMET": [
+   {
+    "doi": "10.26896/1028-6861-2024-90-7-56-67",
+    "title": "Fatigue fracture of 316L steel manufactured by selective laser melting method",
+    "journal": "Industrial laboratory. Diagnostics of materials",
+    "year": 2024,
+    "cited": 5,
+    "authors": "Botvina L., Belecky E., Demina Y., Ivanov I."
+   },
+   {
+    "doi": "10.3390/met15020147",
+    "title": "Material Characterization and Technological Properties of Biocompatible Ti-12Al-42Nb Spherical Powder Alloy for Additive Manufacturing of Personal Medical Implants",
+    "journal": "Metals",
+    "year": 2025,
+    "cited": 1,
+    "authors": "Anokhin A., Kirsankin A., Kukueva E., Luk’yanov A. и др."
+   },
+   {
+    "doi": "10.17073/0021-3438-2021-4-51-58",
+    "title": "Experimental study of single tracks obtained from a mixture of Ti and Al powders with varying selective laser melting parameters",
+    "journal": "Izvestiya Vuzov. Tsvetnaya Metallurgiya (Universities' Proceedings Non-Ferrous Metallurgy)",
+    "year": 2021,
+    "cited": 0,
+    "authors": "Dolbachev A., Belov N., Akopyan T."
+   },
+   {
+    "doi": "10.17073/0368-0797-2023-2-184-190",
+    "title": "Influence of laser spot size on structure and properties of high-temperature CompoNIAL-M5-3 alloy produced by selective laser melting",
+    "journal": "Izvestiya. Ferrous Metallurgy",
+    "year": 2023,
+    "cited": 0,
+    "authors": "Kaplanskii Y., Ageev M., Bychkova M., Fadeev A. и др."
+   }
+  ],
+  "ORG-LETI": []
+ },
+ "byTech": {
+  "T10": [
+   {
+    "doi": "10.3390/modelling6040135",
+    "title": "Influence of AlSi10Mg Thermophysical Properties on the Melt Pool Morphology During High-Fidelity Simulation of Laser Powder Bed Fusion",
+    "journal": "Modelling",
+    "year": 2025,
+    "cited": 1,
+    "aff": "Additive Manufacturing Lab, National University of Science and Technology MISIS, 119049 Moscow, Russia",
+    "authors": "Pelevin I., Bogdanova M., Zakirov A. и др."
+   }
+  ],
+  "T04": [
+   {
+    "doi": "10.3390/jmmp8010007",
+    "title": "Mesoscale Simulation of Laser Powder Bed Fusion with an Increased Layer Thickness for AlSi10Mg Alloy",
+    "journal": "Journal of Manufacturing and Materials Processing",
+    "year": 2024,
+    "cited": 14,
+    "aff": "Kintech Lab Ltd., 3rd Khoroshevskaya St. 12, 123298 Moscow, Russia",
+    "authors": "Bogdanova M., Chernyshikhin S., Zakirov A. и др."
+   },
+   {
+    "doi": "10.1080/09507116.2021.1979829",
+    "title": "Threshold conditions for thermocapillary formation of a deep cavity in the additive process for selective laser melting of a metal powder layer",
+    "journal": "Welding International",
+    "year": 2021,
+    "cited": 3,
+    "aff": "Institute for Laser and Information Technology of the Russian Academy of Sciences – Crystallography and Photonics Branch of the Federal Scientific Research Cent",
+    "authors": "Seydgazov R., Mirzade F."
+   }
+  ],
+  "T03": [
+   {
+    "doi": "10.3390/met12050722",
+    "title": "Beam Shaping in Laser Powder Bed Fusion: Péclet Number and Dynamic Simulation",
+    "journal": "Metals",
+    "year": 2022,
+    "cited": 41,
+    "aff": "Department of High-Efficiency Processing Technologies, Moscow State University of Technology STANKIN, 127055 Moscow, Russia",
+    "authors": "Grigoriev S., Gusarov A., Metel A. и др."
+   },
+   {
+    "doi": "10.3390/met13061084",
+    "title": "New Scanning Strategy Approach for Laser Powder Bed Fusion of Nd-Fe-B Hard Magnetic Material",
+    "journal": "Metals",
+    "year": 2023,
+    "cited": 22,
+    "aff": "Catalysis Lab, National University of Science and Technology MISIS, 119991 Moscow, Russia",
+    "authors": "Pelevin I., Terekhin E., Ozherelkov D. и др."
+   }
+  ],
+  "T11": [
+   {
+    "doi": "10.3390/met12050760",
+    "title": "On Defect Minimization Caused by Oxide Phase Formation in Laser Powder Bed Fusion",
+    "journal": "Metals",
+    "year": 2022,
+    "cited": 13,
+    "aff": "Department of High-Efficiency Processing Technologies, Moscow State University of Technology STANKIN, 127055 Moscow, Russia",
+    "authors": "Okunkova A., Shekhtman S., Metel A. и др."
+   },
+   {
+    "doi": "10.1002/adem.202200831",
+    "title": "Artificial Defects in 316L Stainless Steel Produced by Laser Powder Bed Fusion: Printability, Microstructure, and Effects on the Very‐High‐Cycle Fatigue Behavior",
+    "journal": "Advanced Engineering Materials",
+    "year": 2022,
+    "cited": 11,
+    "aff": "Skolkovo Institute of Science and Technology Center for Materials Technologies  Bolshoy Boulevard 30, bld. 1 Moscow 121205 Russia",
+    "authors": "Voloskov B., Mishurova T., Evlashin S. и др."
+   }
+  ],
+  "T07": [
+   {
+    "doi": "10.3390/technologies9020027",
+    "title": "Surface Quality of Metal Parts Produced by Laser Powder Bed Fusion: Ion Polishing in Gas-Discharge Plasma Proposal",
+    "journal": "Technologies",
+    "year": 2021,
+    "cited": 10,
+    "aff": "Department of High-Efficiency Processing Technologies, Moscow State University of Technology “STANKIN”, Vadkovsky per. 1, 127055 Moscow, Russia",
+    "authors": "Metel A., Grigoriev S., Tarasova T. и др."
+   },
+   {
+    "doi": "10.3390/ma17102343",
+    "title": "Comparative Study of Microstructure and Phase Composition of Amorphous–Nanocrystalline Fe-Based Composite Material Produced by Laser Powder Bed Fusion in Argon and Helium Atmosphere",
+    "journal": "Materials",
+    "year": 2024,
+    "cited": 4,
+    "aff": "Institute of Mechanical Engineering, Materials, and Transport, Peter the Great St. Petersburg Polytechnic University, 195251 St. Petersburg, Russia",
+    "authors": "Erutin D., Popovich A., Sufiiarov V."
+   }
+  ],
+  "T08": [
+   {
+    "doi": "10.3390/ma16196459",
+    "title": "A Review of Computational Approaches to the Microstructure-Informed Mechanical Modelling of Metals Produced by Powder Bed Fusion Additive Manufacturing",
+    "journal": "Materials",
+    "year": 2023,
+    "cited": 35,
+    "aff": "Institute of Strength Physics and Materials Science, 634055 Tomsk, Russia",
+    "authors": "Zinovieva O., Romanova V., Dymnich E. и др."
+   },
+   {
+    "doi": "10.3390/met12111976",
+    "title": "Optimization of Process Parameters for Powder Bed Fusion Additive Manufacturing Using a Linear Programming Method: A Conceptual Framework",
+    "journal": "Metals",
+    "year": 2022,
+    "cited": 23,
+    "aff": "Engine Production Technology Department, Samara National Research University, 34 Moskovskoye Shosse, 443086 Samara, Russia",
+    "authors": "Khaimovich A., Balyakin A., Oleynik M. и др."
+   }
+  ]
+ }
+}

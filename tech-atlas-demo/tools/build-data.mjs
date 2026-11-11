@@ -6,7 +6,9 @@ import { product, subsystems, components, operations } from "./data/product.mjs"
 import { technologies, LEVELS, t10chain } from "./data/technologies.mjs";
 import { research, rids, stats } from "./data/research.mjs";
 import { orgs } from "./data/orgs.mjs";
-import { patents, patentNote, knowhow, suppliers, AVAIL, exportRegimes, exportPrinciples } from "./data/market.mjs";
+import { patents, patentNote, knowhow, suppliers, AVAIL, exportRegimes, exportPrinciples, htsCodes } from "./data/market.mjs";
+import { readFileSync } from "node:fs";
+const pubs = JSON.parse(readFileSync(new URL("./data/publications.json", import.meta.url), "utf8"));
 import { nptl, support, STAGES, deficits, devProject, sources } from "./data/policy.mjs";
 
 const OUT = join(dirname(fileURLToPath(import.meta.url)), "..", "data");
@@ -36,7 +38,10 @@ w("technologies.json", { levels: LEVELS, technologies, t10chain, nptl });
 w("research.json", { research, rids, stats, teams });
 w("organizations.json", orgs);
 w("patents.json", { note: patentNote, patents, knowhow, ruInventions: rids.filter((r) => r.type === "Изобретение" || r.type === "Полезная модель").map((r) => r.id) });
-w("suppliers.json", { avail: AVAIL, suppliers, exportRegimes, exportPrinciples });
+w("suppliers.json", { avail: AVAIL, suppliers, exportRegimes, exportPrinciples, htsCodes });
+w("publications.json", pubs);
+for (const o of orgs) { const n = (pubs.byOrg[o.id] || []).length; if (n) { o.evidence = o.evidence || {}; o.evidence.crossref = n; } }
+w("organizations.json", orgs);
 w("support.json", { stages: STAGES, support, deficits, devProject });
 w("evidence.json", sources);
 
@@ -47,6 +52,7 @@ const N = (id, type, label, extra = {}) => { if (!nodes.has(id)) nodes.set(id, {
 const E = (s, t, type) => { if (nodes.has(s) && nodes.has(t)) edges.push({ id: `${s}|${type}|${t}`, source: s, target: t, type }); };
 
 N(product.id, "Product", product.short);
+N("E-CROSSREF", "Evidence", "Crossref: публикации");
 for (const s of subsystems) { N(s.id, "Assembly", `${s.id} ${s.short}`); E(s.id, product.id, "PART_OF"); }
 for (const c of components) { N(c.id, "Component", c.name); E(c.id, c.sys, "PART_OF"); }
 for (const t of technologies) {
@@ -80,6 +86,8 @@ for (const rd of rids) {
 }
 for (const p of patents) { N(p.id, "Patent", p.number, { full: p.title }); for (const t of p.techs) E(p.id, t, "PROTECTS"); }
 for (const o of orgs) if (o.evidence?.published?.startsWith("диссертации")) { N("PUB-" + o.id, "Publication", o.evidence.published.replace("диссертации по СЛП в ЕГИСУ: ", "диссертации: ")); E("PUB-" + o.id, o.id, "PART_OF"); }
+for (const [oid, list] of Object.entries(pubs.byOrg)) for (const p of list.slice(0, 3)) { const id = "DOI:" + p.doi; N(id, "Publication", `${p.year} · ${p.title.slice(0, 40)}…`, { full: `${p.authors} ${p.title}. ${p.journal}, ${p.year}. doi:${p.doi}` }); E(id, oid, "AUTHORED_BY"); E(id, "E-CROSSREF", "EVIDENCED_BY"); }
+for (const [t, list] of Object.entries(pubs.byTech)) for (const p of list) { const id = "DOI:" + p.doi; N(id, "Publication", `${p.year} · ${p.title.slice(0, 40)}…`, { full: `${p.authors} ${p.title}. ${p.journal}, ${p.year}. doi:${p.doi}` }); E(t, id, "RESEARCHED_IN"); E(id, "E-CROSSREF", "EVIDENCED_BY"); }
 for (const grp of suppliers) {
   for (const s of grp.ru) { const id = "MFR-" + s.name.replace(/[^А-Яа-яA-Za-z0-9]+/g, "").slice(0, 24); N(id, grp.node === "S00" ? "Manufacturer" : "Supplier", s.name, { country: "Россия" }); E(id, grp.node === "S00" ? product.id : grp.node, "SUPPLIES"); }
   for (const s of grp.foreign) { const id = "SUP-" + s.name.replace(/[^А-Яа-яA-Za-z0-9]+/g, "").slice(0, 24); N(id, grp.node === "S00" ? "Manufacturer" : "Supplier", s.name, { country: s.country }); E(id, grp.node === "S00" ? product.id : grp.node, "SUPPLIES"); }
@@ -87,7 +95,7 @@ for (const grp of suppliers) {
 for (const m of support) { N(m.id, "SupportMeasure", m.name.split(":")[0] + (m.name.includes(":") ? ": " + m.name.split(":")[1].trim().slice(0, 30) : "")); }
 for (const m of support) for (const t of m.techs || []) E(m.id, t, "SUPPORTS");
 for (const st of devProject.stages) for (const s of st.support) for (const d of devProject.covers) for (const t of deficits.find((x) => x.id === d).techs) E(s, t, "SUPPORTS");
-for (const src of sources.filter((s) => s.id.startsWith("E-EGISU"))) N(src.id, "Evidence", src.title.replace("ЕГИСУ НИОКТР — ", "ЕГИСУ: ").slice(0, 40));
+for (const src of sources.filter((s) => s.id.startsWith("E-EGISU") || s.id === "E-CROSSREF")) N(src.id, "Evidence", src.title.replace("ЕГИСУ НИОКТР — ", "ЕГИСУ: ").slice(0, 40));
 for (const r of research) E(r.id, "E-EGISU-NIOKTR", "EVIDENCED_BY");
 for (const v of nptl.vnt) E(v.id, "E-EGISU-VNT", "EVIDENCED_BY");
 for (const rd of rids) E("RID-" + rd.id, "E-EGISU-RID", "EVIDENCED_BY");

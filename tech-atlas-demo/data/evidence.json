@@ -45,6 +45,69 @@
   "reliability": "первичный"
  },
  {
+  "id": "E-RSF-CONTESTS",
+  "type": "Портал",
+  "title": "РНФ: перечень конкурсов (конкурсы № 3052 и 3051 — НПТЛ «Средства производства и автоматизации»)",
+  "via": "прямой запрос к rscf.ru (после разрешения хоста)",
+  "url": "https://rscf.ru/contests/",
+  "date": "2026-11-11",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-RSF-3052-NOTICE",
+  "type": "Документ",
+  "title": "РНФ: объявление о конкурсе № 3052 (PDF)",
+  "via": "rscf.ru",
+  "url": "https://rscf.ru/upload/iblock/c3f/wjas7jqegf655c2bvly8zin25y1m13j6.pdf",
+  "date": "2026-11-11",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-RSF-3052-DOC",
+  "type": "Документ",
+  "title": "РНФ: конкурсная документация № 3052, приложение № 2 — технические требования лота (PDF)",
+  "via": "rscf.ru",
+  "url": "https://rscf.ru/upload/iblock/9df/p70mzn2r3b7a0i9rmdz3jt71z3457f8q.pdf",
+  "date": "2026-11-11",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-EU-2023-1214",
+  "type": "НПА",
+  "title": "Регламент Совета (ЕС) 2023/1214 — Приложение VII, часть A, кат. VIII: X.A.VIII.005.a (аддитивное оборудование для металлических деталей, в т.ч. порошковые системы SLM/DMLS/EBM)",
+  "via": "eur-lex.europa.eu",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32023R1214",
+  "date": "2026-11-11",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-EU-2025-1494",
+  "type": "НПА",
+  "title": "Регламент Совета (ЕС) 2025/1494 — Приложение VII, часть B, табл. 5 «Станки, аддитивное оборудование и связанные позиции» (CN 8485 20, 8485 30, 8485 90)",
+  "via": "eur-lex.europa.eu",
+  "url": "https://eur-lex.europa.eu/eli/reg/2025/1494/oj/eng",
+  "date": "2026-11-11",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-ECFR-746",
+  "type": "НПА",
+  "title": "eCFR 15 CFR Part 746, Supplement No. 4 — HTS-6 коды, требующие лицензии для России и Беларуси (редакция на 01.11.2026)",
+  "via": "API www.ecfr.gov",
+  "url": "https://www.ecfr.gov/current/title-15/subtitle-B/chapter-VII/subchapter-C/part-746/appendix-Supplement%20No.%204%20to%20Part%20746",
+  "date": "2026-11-11",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-CROSSREF",
+  "type": "Библиография",
+  "title": "Crossref REST API — публикации по LPBF с аффилиацией российских организаций (2019–2026)",
+  "via": "api.crossref.org",
+  "url": "https://api.crossref.org/",
+  "date": "2026-11-11",
+  "reliability": "первичный (метаданные издателей)"
+ },
+ {
   "id": "E-WEB-RSF",
   "type": "Документ",
   "title": "РНФ: презентация программы по НП «Средства производства и автоматизации» (31.10.2025) и конкурсная документация",

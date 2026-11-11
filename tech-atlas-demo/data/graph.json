@@ -6,6 +6,11 @@
    "label": "LPBF-установка"
   },
   {
+   "id": "E-CROSSREF",
+   "type": "Evidence",
+   "label": "Crossref: публикации"
+  },
+  {
    "id": "S01",
    "type": "Assembly",
    "label": "S01 Лазер"
@@ -1697,6 +1702,264 @@
    "label": "диссертации: 2"
   },
   {
+   "id": "DOI:10.3390/ma14102696",
+   "type": "Publication",
+   "label": "2021 · Microstructure and Mechanical Properties…",
+   "full": "Polozov I., Popovich A. Microstructure and Mechanical Properties of NiTi-Based Eutectic Shape Memory Alloy Produced via Selective Laser Melting In-Situ Alloying by Nb. Materials, 2021. doi:10.3390/ma14102696"
+  },
+  {
+   "id": "DOI:10.3390/ma14206140",
+   "type": "Publication",
+   "label": "2021 · Structure and Properties of Ti/Ti64 Grad…",
+   "full": "Borisov E., Polozov I., Starikov K., Popovich A. и др. Structure and Properties of Ti/Ti64 Graded Material Manufactured by Laser Powder Bed Fusion. Materials, 2021. doi:10.3390/ma14206140"
+  },
+  {
+   "id": "DOI:10.4028/www.scientific.net/kem.822.575",
+   "type": "Publication",
+   "label": "2019 · Selective Laser Melting of Nanocomposite…",
+   "full": "Borisov E., Masaylo D., Popovich V. Selective Laser Melting of Nanocomposite Ti-6Al-4V and TiC Powder. Key Engineering Materials, 2019. doi:10.4028/www.scientific.net/kem.822.575"
+  },
+  {
+   "id": "DOI:10.3390/met12050722",
+   "type": "Publication",
+   "label": "2022 · Beam Shaping in Laser Powder Bed Fusion:…",
+   "full": "Grigoriev S., Gusarov A., Metel A., Tarasova T. и др. Beam Shaping in Laser Powder Bed Fusion: Péclet Number and Dynamic Simulation. Metals, 2022. doi:10.3390/met12050722"
+  },
+  {
+   "id": "DOI:10.3390/technologies8040073",
+   "type": "Publication",
+   "label": "2020 · Influence of Postprocessing on Wear Resi…",
+   "full": "Metel A., Grigoriev S., Tarasova T., Filatova A. и др. Influence of Postprocessing on Wear Resistance of Aerospace Steel Parts Produced by Laser Powder Bed Fusion. Technologies, 2020. doi:10.3390/technologies8040073"
+  },
+  {
+   "id": "DOI:10.3390/met12050760",
+   "type": "Publication",
+   "label": "2022 · On Defect Minimization Caused by Oxide P…",
+   "full": "Okunkova A., Shekhtman S., Metel A., Suhova N. и др. On Defect Minimization Caused by Oxide Phase Formation in Laser Powder Bed Fusion. Metals, 2022. doi:10.3390/met12050760"
+  },
+  {
+   "id": "DOI:10.3390/s24154959",
+   "type": "Publication",
+   "label": "2024 · Controlled Porosity of Selective Laser M…",
+   "full": "Malashin I., Martysyuk D., Tynchenko V., Nelyub V. и др. Controlled Porosity of Selective Laser Melting-Produced Thermal Pipes: Experimental Analysis and Machine Learning Approach for Pore Recognition on Pipes Surfaces. Sensors, 2024. doi:10.3390/s24154959"
+  },
+  {
+   "id": "DOI:10.18698/0536-1044-2019-6-20-29",
+   "type": "Publication",
+   "label": "2019 · Influence of the Main Parameters of Sele…",
+   "full": "Grigoriyants A., Kolchanov D., Drenin A., Denezhkin A. Influence of the Main Parameters of Selective Laser Melting on Stability of Single Track Formation when ‘Growing’ Parts from Copper Alloys. Proceedings of Higher Educational Institutions. Маchine Building, 2019. doi:10.18698/0536-1044-2019-6-20-29"
+  },
+  {
+   "id": "DOI:10.1080/09507116.2021.1974229",
+   "type": "Publication",
+   "label": "2021 · Technological features of growing a comb…",
+   "full": "Grigoryants A., Yagodnikov D., Kolchanova A., Kovalev K. и др. Technological features of growing a combustion chamber of a liquid-propellant rocket engine by method of selective laser melting from AISI 316L steel*. Welding International, 2021. doi:10.1080/09507116.2021.1974229"
+  },
+  {
+   "id": "DOI:10.3390/ma14102648",
+   "type": "Publication",
+   "label": "2021 · Selective Laser Melting of Al-Based Matr…",
+   "full": "Pelevin I., Nalivaiko A., Ozherelkov D., Shinkaryov A. и др. Selective Laser Melting of Al-Based Matrix Composites with Al2O3 Reinforcement: Features and Advantages. Materials, 2021. doi:10.3390/ma14102648"
+  },
+  {
+   "id": "DOI:10.3390/met10121697",
+   "type": "Publication",
+   "label": "2020 · Control of Density and Grain Structure o…",
+   "full": "Brailovski V., Kalinicheva V., Letenneur M., Lukashevich K. и др. Control of Density and Grain Structure of a Laser Powder Bed-Fused Superelastic Ti-18Zr-14Nb Alloy: Simulation-Driven Process Mapping. Metals, 2020. doi:10.3390/met10121697"
+  },
+  {
+   "id": "DOI:10.3390/met13061084",
+   "type": "Publication",
+   "label": "2023 · New Scanning Strategy Approach for Laser…",
+   "full": "Pelevin I., Terekhin E., Ozherelkov D., Tereshina I. и др. New Scanning Strategy Approach for Laser Powder Bed Fusion of Nd-Fe-B Hard Magnetic Material. Metals, 2023. doi:10.3390/met13061084"
+  },
+  {
+   "id": "DOI:10.54708/19926502_2021_2539364",
+   "type": "Publication",
+   "label": "2021 · TRIBOLOGICAL STUDIES OF AIRCRAFT ENGINE …",
+   "full": "Seliverstov S., Nikolaev I., Bytsenko O. TRIBOLOGICAL STUDIES OF AIRCRAFT ENGINE PARTS OBTAINED BY SELECTIVE LASER MELTING. Vestnik UGATU, 2021. doi:10.54708/19926502_2021_2539364"
+  },
+  {
+   "id": "DOI:10.34759/tpt-2021-13-7-329-335",
+   "type": "Publication",
+   "label": "2021 · Thermal conductivity anisotropy of addit…",
+   "full": "Kiselev V., Ezhov A., Seliverstov S., Bykov L. и др. Thermal conductivity anisotropy of additive metals obtained by selective laser alloying on the example of the CL 20ES stainless steel. Thermal processes in engineering, 2021. doi:10.34759/tpt-2021-13-7-329-335"
+  },
+  {
+   "id": "DOI:10.3390/ma14237486",
+   "type": "Publication",
+   "label": "2021 · Selective Laser Melting of Pre-Alloyed N…",
+   "full": "Chernyshikhin S., Firsov D., Shishkovsky I. Selective Laser Melting of Pre-Alloyed NiTi Powder: Single-Track Study and FE Modeling with Heat Source Calibration. Materials, 2021. doi:10.3390/ma14237486"
+  },
+  {
+   "id": "DOI:10.3390/met12122152",
+   "type": "Publication",
+   "label": "2022 · AlSi10Mg/AlN Interface Grain Structure a…",
+   "full": "Pelevin I., Ozherelkov D., Nalivaiko A., Bodyakova A. и др. AlSi10Mg/AlN Interface Grain Structure after Laser Powder Bed Fusion. Metals, 2022. doi:10.3390/met12122152"
+  },
+  {
+   "id": "DOI:10.3390/met13081423",
+   "type": "Publication",
+   "label": "2023 · On the Strength of a 316L-Type Austeniti…",
+   "full": "Odnobokova M., Torganchuk V., Tikhonova M., Dolzhenko P. и др. On the Strength of a 316L-Type Austenitic Stainless Steel Produced by Selective Laser Melting. Metals, 2023. doi:10.3390/met13081423"
+  },
+  {
+   "id": "DOI:10.3390/jmmp8020044",
+   "type": "Publication",
+   "label": "2024 · Reducing the Cost of 3D Metal Printing U…",
+   "full": "Lubimyi N., Chepchurov M., Polshin A., Gerasimov M. и др. Reducing the Cost of 3D Metal Printing Using Selective Laser Melting (SLM) Technology in the Manufacture of a Drill Body by Reinforcing Thin-Walled Shell Forms with Metal-Polymers. Journal of Manufacturing and Materials Processing, 2024. doi:10.3390/jmmp8020044"
+  },
+  {
+   "id": "DOI:10.3390/met12111976",
+   "type": "Publication",
+   "label": "2022 · Optimization of Process Parameters for P…",
+   "full": "Khaimovich A., Balyakin A., Oleynik M., Meshkov A. и др. Optimization of Process Parameters for Powder Bed Fusion Additive Manufacturing Using a Linear Programming Method: A Conceptual Framework. Metals, 2022. doi:10.3390/met12111976"
+  },
+  {
+   "id": "DOI:10.3390/met11010172",
+   "type": "Publication",
+   "label": "2021 · Interface Quality Indices of Al–10Si–Mg …",
+   "full": "Khaimovich A., Erisov Y., Smelov V., Agapovichev A. и др. Interface Quality Indices of Al–10Si–Mg Aluminum Alloy and Cr18–Ni10–Ti Stainless-Steel Bimetal Fabricated via Selective Laser Melting. Metals, 2021. doi:10.3390/met11010172"
+  },
+  {
+   "id": "DOI:10.3390/ma16052088",
+   "type": "Publication",
+   "label": "2023 · Multiresponse Optimization of Selective …",
+   "full": "Agapovichev A., Khaimovich A., Smelov V., Kokareva V. и др. Multiresponse Optimization of Selective Laser Melting Parameters for the Ni-Cr-Al-Ti-Based Superalloy Using Gray Relational Analysis. Materials, 2023. doi:10.3390/ma16052088"
+  },
+  {
+   "id": "DOI:10.3390/ma16196459",
+   "type": "Publication",
+   "label": "2023 · A Review of Computational Approaches to …",
+   "full": "Zinovieva O., Romanova V., Dymnich E., Zinoviev A. и др. A Review of Computational Approaches to the Microstructure-Informed Mechanical Modelling of Metals Produced by Powder Bed Fusion Additive Manufacturing. Materials, 2023. doi:10.3390/ma16196459"
+  },
+  {
+   "id": "DOI:10.3390/met12010109",
+   "type": "Publication",
+   "label": "2022 · Microstructural Evolution of AA5154 Laye…",
+   "full": "Zykova A., Chumaevskii A., Vorontsov A., Shamarin N. и др. Microstructural Evolution of AA5154 Layers Intermixed with Mo Powder during Electron Beam Wire-Feed Additive Manufacturing (EBAM). Metals, 2022. doi:10.3390/met12010109"
+  },
+  {
+   "id": "DOI:10.4028/www.scientific.net/kem.839.144",
+   "type": "Publication",
+   "label": "2020 · Selective Laser Melting of Magnesium…",
+   "full": "Saprykin A., Sharkeev Y., Saprykina N., Ibragimov E. Selective Laser Melting of Magnesium. Key Engineering Materials, 2020. doi:10.4028/www.scientific.net/kem.839.144"
+  },
+  {
+   "id": "DOI:10.4028/www.scientific.net/ddf.410.203",
+   "type": "Publication",
+   "label": "2021 · Liquation and Crystallization Cracks in …",
+   "full": "Loginova I., Popov N., Solonin A. Liquation and Crystallization Cracks in Aluminum Alloy AA2024 during Selective Laser Melting. Defect and Diffusion Forum, 2021. doi:10.4028/www.scientific.net/ddf.410.203"
+  },
+  {
+   "id": "DOI:10.4028/www.scientific.net/msf.989.811",
+   "type": "Publication",
+   "label": "2020 · Rheological Properties and Microstructur…",
+   "full": "Gladkovsky S., Salikhyanov D., Volkov V., Avraamov Y. и др. Rheological Properties and Microstructure of PH1 Stainless Steel Produced by Selective Laser Melting. Materials Science Forum, 2020. doi:10.4028/www.scientific.net/msf.989.811"
+  },
+  {
+   "id": "DOI:10.31857/s0130308224070079",
+   "type": "Publication",
+   "label": "2024 · Magnetic properties and structure of car…",
+   "full": "Gordeev N., Stashkov A., Matosyan A., Korkh M. и др. Magnetic properties and structure of carbon steel samples manufactured by selective laser melting and subjected to fatigue tests. Defektoskopiâ, 2024. doi:10.31857/s0130308224070079"
+  },
+  {
+   "id": "DOI:10.3390/ma12193269",
+   "type": "Publication",
+   "label": "2019 · A Study of the Structural Characteristic…",
+   "full": "Samodurova M., Logachev I., Shaburova N., Samoilova O. и др. A Study of the Structural Characteristics of Titanium Alloy Products Manufactured Using Additive Technologies by Combining the Selective Laser Melting and Direct Metal Deposition Methods. Materials, 2019. doi:10.3390/ma12193269"
+  },
+  {
+   "id": "DOI:10.3390/met12081303",
+   "type": "Publication",
+   "label": "2022 · Microstructure, Mechanical Properties, a…",
+   "full": "Maya J., Sivaprasad K., Sarath Kumar G., Baitimerov R. и др. Microstructure, Mechanical Properties, and Corrosion Behavior of 06Cr15Ni4CuMo Processed by Using Selective Laser Melting. Metals, 2022. doi:10.3390/met12081303"
+  },
+  {
+   "id": "DOI:10.4028/www.scientific.net/ssp.316.175",
+   "type": "Publication",
+   "label": "2021 · Processing of Alumina Reinforced Copper …",
+   "full": "Baitimerov R., Bykov V. Processing of Alumina Reinforced Copper Metal Matrix Composite by Selective Laser Melting Technology. Solid State Phenomena, 2021. doi:10.4028/www.scientific.net/ssp.316.175"
+  },
+  {
+   "id": "DOI:10.26907/2541-7746.2023.1.82-100",
+   "type": "Publication",
+   "label": "2023 · Multiscale modeling of powder materials …",
+   "full": "Tsivilsky I., Melnikov A., Gilmutdinov A. Multiscale modeling of powder materials processing for additive manufacturing in inductively coupled plasma. Uchenye Zapiski Kazanskogo Universiteta. Seriya Fiziko-Matematicheskie Nauki, 2023. doi:10.26907/2541-7746.2023.1.82-100"
+  },
+  {
+   "id": "DOI:10.22349/1994-6716-2020-101-1-44-54",
+   "type": "Publication",
+   "label": "2020 · On the chemical composition, structure a…",
+   "full": "Ospennikova O., Min P., Rogalev A., Vadeev V. On the chemical composition, structure and mechanical properties of alloy EP648 fabricated by deformation, project die casting and selective laser melting. Voprosy Materialovedeniya, 2020. doi:10.22349/1994-6716-2020-101-1-44-54"
+  },
+  {
+   "id": "DOI:10.22349/1994-6716-2019-99-3-14-22",
+   "type": "Publication",
+   "label": "2020 · Phase structure and composition of nicke…",
+   "full": "Lukina E., Zaitsev D., Zavodov A. Phase structure and composition of nickel-based superalloy subject to synthesis by selective laser melting parameters and heat treatment. Voprosy Materialovedeniya, 2020. doi:10.22349/1994-6716-2019-99-3-14-22"
+  },
+  {
+   "id": "DOI:10.22349/1994-6716-2018-93-1-115-125",
+   "type": "Publication",
+   "label": "2019 · Particularity of producing high-temperat…",
+   "full": "Rogalev A., Raevskykh A., Arginbaeva E., Prager S. Particularity of producing high-temperature carbide hardened Ni–Al–Ta–C intermetallic alloy powder compositions by gas atomization method for further selective laser melting. Voprosy Materialovedeniya, 2019. doi:10.22349/1994-6716-2018-93-1-115-125"
+  },
+  {
+   "id": "DOI:10.26896/1028-6861-2024-90-7-56-67",
+   "type": "Publication",
+   "label": "2024 · Fatigue fracture of 316L steel manufactu…",
+   "full": "Botvina L., Belecky E., Demina Y., Ivanov I. Fatigue fracture of 316L steel manufactured by selective laser melting method. Industrial laboratory. Diagnostics of materials, 2024. doi:10.26896/1028-6861-2024-90-7-56-67"
+  },
+  {
+   "id": "DOI:10.3390/met15020147",
+   "type": "Publication",
+   "label": "2025 · Material Characterization and Technologi…",
+   "full": "Anokhin A., Kirsankin A., Kukueva E., Luk’yanov A. и др. Material Characterization and Technological Properties of Biocompatible Ti-12Al-42Nb Spherical Powder Alloy for Additive Manufacturing of Personal Medical Implants. Metals, 2025. doi:10.3390/met15020147"
+  },
+  {
+   "id": "DOI:10.17073/0021-3438-2021-4-51-58",
+   "type": "Publication",
+   "label": "2021 · Experimental study of single tracks obta…",
+   "full": "Dolbachev A., Belov N., Akopyan T. Experimental study of single tracks obtained from a mixture of Ti and Al powders with varying selective laser melting parameters. Izvestiya Vuzov. Tsvetnaya Metallurgiya (Universities' Proceedings Non-Ferrous Metallurgy), 2021. doi:10.17073/0021-3438-2021-4-51-58"
+  },
+  {
+   "id": "DOI:10.3390/modelling6040135",
+   "type": "Publication",
+   "label": "2025 · Influence of AlSi10Mg Thermophysical Pro…",
+   "full": "Pelevin I., Bogdanova M., Zakirov A. и др. Influence of AlSi10Mg Thermophysical Properties on the Melt Pool Morphology During High-Fidelity Simulation of Laser Powder Bed Fusion. Modelling, 2025. doi:10.3390/modelling6040135"
+  },
+  {
+   "id": "DOI:10.3390/jmmp8010007",
+   "type": "Publication",
+   "label": "2024 · Mesoscale Simulation of Laser Powder Bed…",
+   "full": "Bogdanova M., Chernyshikhin S., Zakirov A. и др. Mesoscale Simulation of Laser Powder Bed Fusion with an Increased Layer Thickness for AlSi10Mg Alloy. Journal of Manufacturing and Materials Processing, 2024. doi:10.3390/jmmp8010007"
+  },
+  {
+   "id": "DOI:10.1080/09507116.2021.1979829",
+   "type": "Publication",
+   "label": "2021 · Threshold conditions for thermocapillary…",
+   "full": "Seydgazov R., Mirzade F. Threshold conditions for thermocapillary formation of a deep cavity in the additive process for selective laser melting of a metal powder layer. Welding International, 2021. doi:10.1080/09507116.2021.1979829"
+  },
+  {
+   "id": "DOI:10.1002/adem.202200831",
+   "type": "Publication",
+   "label": "2022 · Artificial Defects in 316L Stainless Ste…",
+   "full": "Voloskov B., Mishurova T., Evlashin S. и др. Artificial Defects in 316L Stainless Steel Produced by Laser Powder Bed Fusion: Printability, Microstructure, and Effects on the Very‐High‐Cycle Fatigue Behavior. Advanced Engineering Materials, 2022. doi:10.1002/adem.202200831"
+  },
+  {
+   "id": "DOI:10.3390/technologies9020027",
+   "type": "Publication",
+   "label": "2021 · Surface Quality of Metal Parts Produced …",
+   "full": "Metel A., Grigoriev S., Tarasova T. и др. Surface Quality of Metal Parts Produced by Laser Powder Bed Fusion: Ion Polishing in Gas-Discharge Plasma Proposal. Technologies, 2021. doi:10.3390/technologies9020027"
+  },
+  {
+   "id": "DOI:10.3390/ma17102343",
+   "type": "Publication",
+   "label": "2024 · Comparative Study of Microstructure and …",
+   "full": "Erutin D., Popovich A., Sufiiarov V. Comparative Study of Microstructure and Phase Composition of Amorphous–Nanocrystalline Fe-Based Composite Material Produced by Laser Powder Bed Fusion in Argon and Helium Atmosphere. Materials, 2024. doi:10.3390/ma17102343"
+  },
+  {
    "id": "MFR-АОЛазерныесистемы",
    "type": "Manufacturer",
    "label": "АО «Лазерные системы»",
@@ -1937,9 +2200,14 @@
    "country": "Канада"
   },
   {
+   "id": "SUP-RSF-3052",
+   "type": "SupportMeasure",
+   "label": "РНФ: конкурс № 3052 — прикладные на"
+  },
+  {
    "id": "SUP-RSF-NPTL",
    "type": "SupportMeasure",
-   "label": "РНФ: прикладные исследования по НПТ"
+   "label": "РНФ: программа прикладных исследова"
   },
   {
    "id": "SUP-RSF-BASIC",
@@ -5452,6 +5720,564 @@
    "type": "PART_OF"
   },
   {
+   "id": "DOI:10.3390/ma14102696|AUTHORED_BY|ORG-SPBPU",
+   "source": "DOI:10.3390/ma14102696",
+   "target": "ORG-SPBPU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/ma14102696|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/ma14102696",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/ma14206140|AUTHORED_BY|ORG-SPBPU",
+   "source": "DOI:10.3390/ma14206140",
+   "target": "ORG-SPBPU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/ma14206140|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/ma14206140",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.4028/www.scientific.net/kem.822.575|AUTHORED_BY|ORG-SPBPU",
+   "source": "DOI:10.4028/www.scientific.net/kem.822.575",
+   "target": "ORG-SPBPU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.4028/www.scientific.net/kem.822.575|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.4028/www.scientific.net/kem.822.575",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met12050722|AUTHORED_BY|ORG-STANKIN",
+   "source": "DOI:10.3390/met12050722",
+   "target": "ORG-STANKIN",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met12050722|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/met12050722",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/technologies8040073|AUTHORED_BY|ORG-STANKIN",
+   "source": "DOI:10.3390/technologies8040073",
+   "target": "ORG-STANKIN",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/technologies8040073|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/technologies8040073",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met12050760|AUTHORED_BY|ORG-STANKIN",
+   "source": "DOI:10.3390/met12050760",
+   "target": "ORG-STANKIN",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met12050760|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/met12050760",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/s24154959|AUTHORED_BY|ORG-BMSTU",
+   "source": "DOI:10.3390/s24154959",
+   "target": "ORG-BMSTU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/s24154959|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/s24154959",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.18698/0536-1044-2019-6-20-29|AUTHORED_BY|ORG-BMSTU",
+   "source": "DOI:10.18698/0536-1044-2019-6-20-29",
+   "target": "ORG-BMSTU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.18698/0536-1044-2019-6-20-29|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.18698/0536-1044-2019-6-20-29",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.1080/09507116.2021.1974229|AUTHORED_BY|ORG-BMSTU",
+   "source": "DOI:10.1080/09507116.2021.1974229",
+   "target": "ORG-BMSTU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.1080/09507116.2021.1974229|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.1080/09507116.2021.1974229",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/ma14102648|AUTHORED_BY|ORG-MISIS",
+   "source": "DOI:10.3390/ma14102648",
+   "target": "ORG-MISIS",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/ma14102648|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/ma14102648",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met10121697|AUTHORED_BY|ORG-MISIS",
+   "source": "DOI:10.3390/met10121697",
+   "target": "ORG-MISIS",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met10121697|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/met10121697",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met13061084|AUTHORED_BY|ORG-MISIS",
+   "source": "DOI:10.3390/met13061084",
+   "target": "ORG-MISIS",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met13061084|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/met13061084",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.54708/19926502_2021_2539364|AUTHORED_BY|ORG-MAI",
+   "source": "DOI:10.54708/19926502_2021_2539364",
+   "target": "ORG-MAI",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.54708/19926502_2021_2539364|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.54708/19926502_2021_2539364",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.34759/tpt-2021-13-7-329-335|AUTHORED_BY|ORG-MAI",
+   "source": "DOI:10.34759/tpt-2021-13-7-329-335",
+   "target": "ORG-MAI",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.34759/tpt-2021-13-7-329-335|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.34759/tpt-2021-13-7-329-335",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/ma14237486|AUTHORED_BY|ORG-SKOLTECH",
+   "source": "DOI:10.3390/ma14237486",
+   "target": "ORG-SKOLTECH",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/ma14237486|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/ma14237486",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met13061084|AUTHORED_BY|ORG-SKOLTECH",
+   "source": "DOI:10.3390/met13061084",
+   "target": "ORG-SKOLTECH",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met12122152|AUTHORED_BY|ORG-SKOLTECH",
+   "source": "DOI:10.3390/met12122152",
+   "target": "ORG-SKOLTECH",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met12122152|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/met12122152",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met13081423|AUTHORED_BY|ORG-BELGU",
+   "source": "DOI:10.3390/met13081423",
+   "target": "ORG-BELGU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met13081423|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/met13081423",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met12122152|AUTHORED_BY|ORG-BELGU",
+   "source": "DOI:10.3390/met12122152",
+   "target": "ORG-BELGU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/jmmp8020044|AUTHORED_BY|ORG-BELGU",
+   "source": "DOI:10.3390/jmmp8020044",
+   "target": "ORG-BELGU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/jmmp8020044|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/jmmp8020044",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met12111976|AUTHORED_BY|ORG-SSAU",
+   "source": "DOI:10.3390/met12111976",
+   "target": "ORG-SSAU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met12111976|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/met12111976",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met11010172|AUTHORED_BY|ORG-SSAU",
+   "source": "DOI:10.3390/met11010172",
+   "target": "ORG-SSAU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met11010172|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/met11010172",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/ma16052088|AUTHORED_BY|ORG-SSAU",
+   "source": "DOI:10.3390/ma16052088",
+   "target": "ORG-SSAU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/ma16052088|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/ma16052088",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/ma16196459|AUTHORED_BY|ORG-ISPMS",
+   "source": "DOI:10.3390/ma16196459",
+   "target": "ORG-ISPMS",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/ma16196459|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/ma16196459",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met12010109|AUTHORED_BY|ORG-ISPMS",
+   "source": "DOI:10.3390/met12010109",
+   "target": "ORG-ISPMS",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met12010109|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/met12010109",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.4028/www.scientific.net/kem.839.144|AUTHORED_BY|ORG-ISPMS",
+   "source": "DOI:10.4028/www.scientific.net/kem.839.144",
+   "target": "ORG-ISPMS",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.4028/www.scientific.net/kem.839.144|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.4028/www.scientific.net/kem.839.144",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.4028/www.scientific.net/ddf.410.203|AUTHORED_BY|ORG-URFU",
+   "source": "DOI:10.4028/www.scientific.net/ddf.410.203",
+   "target": "ORG-URFU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.4028/www.scientific.net/ddf.410.203|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.4028/www.scientific.net/ddf.410.203",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.4028/www.scientific.net/msf.989.811|AUTHORED_BY|ORG-URFU",
+   "source": "DOI:10.4028/www.scientific.net/msf.989.811",
+   "target": "ORG-URFU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.4028/www.scientific.net/msf.989.811|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.4028/www.scientific.net/msf.989.811",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.31857/s0130308224070079|AUTHORED_BY|ORG-URFU",
+   "source": "DOI:10.31857/s0130308224070079",
+   "target": "ORG-URFU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.31857/s0130308224070079|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.31857/s0130308224070079",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/ma12193269|AUTHORED_BY|ORG-SUSU",
+   "source": "DOI:10.3390/ma12193269",
+   "target": "ORG-SUSU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/ma12193269|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/ma12193269",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met12081303|AUTHORED_BY|ORG-SUSU",
+   "source": "DOI:10.3390/met12081303",
+   "target": "ORG-SUSU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met12081303|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/met12081303",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.4028/www.scientific.net/ssp.316.175|AUTHORED_BY|ORG-SUSU",
+   "source": "DOI:10.4028/www.scientific.net/ssp.316.175",
+   "target": "ORG-SUSU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.4028/www.scientific.net/ssp.316.175|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.4028/www.scientific.net/ssp.316.175",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.26907/2541-7746.2023.1.82-100|AUTHORED_BY|ORG-KAI",
+   "source": "DOI:10.26907/2541-7746.2023.1.82-100",
+   "target": "ORG-KAI",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.26907/2541-7746.2023.1.82-100|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.26907/2541-7746.2023.1.82-100",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.22349/1994-6716-2020-101-1-44-54|AUTHORED_BY|ORG-VIAM",
+   "source": "DOI:10.22349/1994-6716-2020-101-1-44-54",
+   "target": "ORG-VIAM",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.22349/1994-6716-2020-101-1-44-54|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.22349/1994-6716-2020-101-1-44-54",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.22349/1994-6716-2019-99-3-14-22|AUTHORED_BY|ORG-VIAM",
+   "source": "DOI:10.22349/1994-6716-2019-99-3-14-22",
+   "target": "ORG-VIAM",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.22349/1994-6716-2019-99-3-14-22|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.22349/1994-6716-2019-99-3-14-22",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.22349/1994-6716-2018-93-1-115-125|AUTHORED_BY|ORG-VIAM",
+   "source": "DOI:10.22349/1994-6716-2018-93-1-115-125",
+   "target": "ORG-VIAM",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.22349/1994-6716-2018-93-1-115-125|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.22349/1994-6716-2018-93-1-115-125",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.26896/1028-6861-2024-90-7-56-67|AUTHORED_BY|ORG-IMET",
+   "source": "DOI:10.26896/1028-6861-2024-90-7-56-67",
+   "target": "ORG-IMET",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.26896/1028-6861-2024-90-7-56-67|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.26896/1028-6861-2024-90-7-56-67",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met15020147|AUTHORED_BY|ORG-IMET",
+   "source": "DOI:10.3390/met15020147",
+   "target": "ORG-IMET",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/met15020147|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/met15020147",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.17073/0021-3438-2021-4-51-58|AUTHORED_BY|ORG-IMET",
+   "source": "DOI:10.17073/0021-3438-2021-4-51-58",
+   "target": "ORG-IMET",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.17073/0021-3438-2021-4-51-58|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.17073/0021-3438-2021-4-51-58",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "T10|RESEARCHED_IN|DOI:10.3390/modelling6040135",
+   "source": "T10",
+   "target": "DOI:10.3390/modelling6040135",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "DOI:10.3390/modelling6040135|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/modelling6040135",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "T04|RESEARCHED_IN|DOI:10.3390/jmmp8010007",
+   "source": "T04",
+   "target": "DOI:10.3390/jmmp8010007",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "DOI:10.3390/jmmp8010007|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/jmmp8010007",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "T04|RESEARCHED_IN|DOI:10.1080/09507116.2021.1979829",
+   "source": "T04",
+   "target": "DOI:10.1080/09507116.2021.1979829",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "DOI:10.1080/09507116.2021.1979829|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.1080/09507116.2021.1979829",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "T03|RESEARCHED_IN|DOI:10.3390/met12050722",
+   "source": "T03",
+   "target": "DOI:10.3390/met12050722",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "T03|RESEARCHED_IN|DOI:10.3390/met13061084",
+   "source": "T03",
+   "target": "DOI:10.3390/met13061084",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "T11|RESEARCHED_IN|DOI:10.3390/met12050760",
+   "source": "T11",
+   "target": "DOI:10.3390/met12050760",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "T11|RESEARCHED_IN|DOI:10.1002/adem.202200831",
+   "source": "T11",
+   "target": "DOI:10.1002/adem.202200831",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "DOI:10.1002/adem.202200831|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.1002/adem.202200831",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "T07|RESEARCHED_IN|DOI:10.3390/technologies9020027",
+   "source": "T07",
+   "target": "DOI:10.3390/technologies9020027",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "DOI:10.3390/technologies9020027|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/technologies9020027",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "T07|RESEARCHED_IN|DOI:10.3390/ma17102343",
+   "source": "T07",
+   "target": "DOI:10.3390/ma17102343",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "DOI:10.3390/ma17102343|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/ma17102343",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "T08|RESEARCHED_IN|DOI:10.3390/ma16196459",
+   "source": "T08",
+   "target": "DOI:10.3390/ma16196459",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "T08|RESEARCHED_IN|DOI:10.3390/met12111976",
+   "source": "T08",
+   "target": "DOI:10.3390/met12111976",
+   "type": "RESEARCHED_IN"
+  },
+  {
    "id": "MFR-АОЛазерныесистемы|SUPPLIES|P-LPBF",
    "source": "MFR-АОЛазерныесистемы",
    "target": "P-LPBF",
@@ -5710,6 +6536,18 @@
    "type": "SUPPLIES"
   },
   {
+   "id": "SUP-RSF-3052|SUPPORTS|T13",
+   "source": "SUP-RSF-3052",
+   "target": "T13",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-3052|SUPPORTS|T12",
+   "source": "SUP-RSF-3052",
+   "target": "T12",
+   "type": "SUPPORTS"
+  },
+  {
    "id": "SUP-RSF-NPTL|SUPPORTS|T10",
    "source": "SUP-RSF-NPTL",
    "target": "T10",
@@ -5904,6 +6742,30 @@
   {
    "id": "SUP-FSI-STANK|SUPPORTS|T02",
    "source": "SUP-FSI-STANK",
+   "target": "T02",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-3052|SUPPORTS|T03",
+   "source": "SUP-RSF-3052",
+   "target": "T03",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-3052|SUPPORTS|T10",
+   "source": "SUP-RSF-3052",
+   "target": "T10",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-3052|SUPPORTS|T11",
+   "source": "SUP-RSF-3052",
+   "target": "T11",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-3052|SUPPORTS|T02",
+   "source": "SUP-RSF-3052",
    "target": "T02",
    "type": "SUPPORTS"
   },

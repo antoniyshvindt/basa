@@ -1,7 +1,7 @@
 import { mountAnatomy } from "./anatomy.js";
 
 // ---------------- данные ----------------
-const files = ["products", "components", "technologies", "research", "organizations", "patents", "suppliers", "support", "graph", "evidence"];
+const files = ["products", "components", "technologies", "research", "organizations", "patents", "suppliers", "support", "graph", "evidence", "publications"];
 const D = Object.fromEntries(await Promise.all(files.map(async (f) => [f, await fetch(`data/${f}.json`).then((r) => r.json())])));
 const map = await fetch("assets/images/russia-map.json").then((r) => r.json());
 
@@ -57,6 +57,7 @@ function supportOfTechs(ts) {
   for (const d of D.support.deficits.filter((d) => d.techs.some((t) => ts.includes(t)))) for (const st of D.support.devProject.stages) if (D.support.devProject.covers.includes(d.id)) st.support.forEach((s) => out.add(s));
   if (ts.some((t) => ["T08", "T09"].includes(t))) out.add("SUP-RSF-BASIC");
   out.add("SUP-RSF-NPTL");
+  if (ts.some((t) => ["T13", "T12"].includes(t))) out.add("SUP-RSF-3052");
   return [...out].map((s) => supById[s]).filter(Boolean);
 }
 
@@ -337,6 +338,7 @@ RENDER.tech = (el) => {
     ${cur === "T10" ? `<div class="sec"><h4>Пример углублённой декомпозиции</h4><div class="flow-steps">${D.technologies.t10chain.map((c, i) => `${i ? '<span class="arrow">→</span>' : ""}<span class="chip static" title="${esc(c.kind)}">${esc(c.step)}</span>`).join("")}</div></div>` : ""}
     <div class="sec"><h4>Выполненные НИОКТР (ЕГИСУ) · ${rs.length}</h4>${rs.map((r) => `<div style="font-size:12.5px;margin:5px 0"><button class="chip" data-go-res="${esc(r.id)}">${esc(r.id)}</button> ${esc(r.card.name.slice(0, 110))}${r.card.name.length > 110 ? "…" : ""} <span class="muted">— ${esc(r.card.executor)}, ${year(r.card.start)}–${year(r.card.end)}</span></div>`).join("") || '<div class="empty">В выборке НИОКТР по названиям не найдено — пробел данных или требуется расширенный поиск по аннотациям.</div>'}</div>
     <div class="sec"><h4>РИД (ЕГИСУ) · ${rids.length}</h4>${rids.slice(0, 12).map((r) => `<div style="font-size:12px;margin:3px 0"><span class="badge b-none">${esc(r.type)}</span> ${esc(r.name)}</div>`).join("") || '<span class="muted">—</span>'}</div>
+    <div class="sec"><h4>Публикации российских авторов (Crossref) · ${(D.publications.byTech[cur] || []).length}</h4>${(D.publications.byTech[cur] || []).map((p) => `<div style="font-size:12px;margin:3px 0"><span class="mono muted">${p.year}</span> ${esc(p.title)} <a href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">doi</a><div class="faint">${esc(p.aff)}</div></div>`).join("") || '<span class="muted">тематический поиск в Crossref не дал релевантных статей по LPBF</span>'}</div>
     <div class="sec"><h4>Зарубежные патентные документы · ${pats.length}</h4>${pats.map((p) => `<div style="font-size:12px;margin:3px 0"><span class="mono">${esc(p.number)}</span> ${esc(p.title)}</div>`).join("") || '<span class="muted">—</span>'}</div>
   </div></div>`;
   el.querySelectorAll("tr[data-t]").forEach((tr) => tr.addEventListener("click", () => { state.tech = tr.dataset.t; RENDER.tech(el); }));
@@ -409,19 +411,19 @@ RENDER.orgs = (el) => {
     <div class="map"><svg viewBox="-10 -10 ${map.width + 20} ${map.height + 20}" role="img" aria-label="Карта организаций России"><path class="land" d="${map.d}"/>
     ${(() => { const placed = []; return Object.values(groups).sort((a, b) => b.length - a.length).map((g) => { const [x, y] = project(g[0].coords); const vis = g.filter((o) => (!tf || o.fit.some(([t]) => t === tf)) && (!filt || filt.includes(o.id))); const clash = placed.some(([px, py]) => Math.abs(px - x) < 60 && Math.abs(py - y) < 12); placed.push([x, y]); const name = g[0].city.split(" (")[0]; return `<g>${clash ? "" : `<text class="city" x="${x + 9}" y="${y + 3}">${esc(name)}${g.length > 1 ? " · " + g.length : ""}</text>`}<title>${esc(name)}</title><circle class="dot ${g[0].precision === "регион" ? "reg" : ""} ${vis.length ? "" : "dim"}" cx="${x}" cy="${y}" r="${4 + Math.sqrt(vis.length || g.length) * 3}" data-orgs="${g.map((o) => o.id).join(",")}"/></g>`; }).join(""); })()}
     </svg></div><p class="src">${esc(map.source)}. Коническая равнопромежуточная проекция.</p></div>
-    <div class="card"><h3>Таблица исследовательских коллективов</h3><div class="table-wrap"><table><thead><tr><th>Организация</th><th>Тип</th><th>НИОКТР</th><th>Соответствие технологиям (основание)</th></tr></thead><tbody id="orgBody"></tbody></table></div></div>
+    <div class="card"><h3>Таблица исследовательских коллективов</h3><div class="table-wrap"><table><thead><tr><th>Организация</th><th>Тип</th><th>НИОКТР</th><th>Статьи Crossref</th><th>Соответствие технологиям (основание)</th></tr></thead><tbody id="orgBody"></tbody></table></div></div>
   </div><div class="card side" id="orgSide"></div></div>`;
   const draw = () => {
     const tv = $("#orgT").value; state.orgTech = tv;
     const list = ORGS.filter((o) => (!tv || o.fit.some(([t]) => t === tv)) && (!state.orgFilter || state.orgFilter.includes(o.id)));
-    $("#orgBody").innerHTML = list.map((o) => `<tr class="clickable" data-o="${o.id}"><td><b>${esc(o.name)}</b><div class="src">${esc(o.city)}</div></td><td>${esc(o.type)}</td><td>${(o.evidence?.nioktr || []).length}</td><td>${o.fit.filter(([t]) => !tv || t === tv).map(([t, l, b]) => `<div style="margin:2px 0"><span class="chip t static">${t}</span> <span class="badge ${l === "высокий" ? "b-ok" : l === "средний" ? "b-warn" : "b-none"}">${l}</span> <span style="font-size:12px">${esc(b)}</span></div>`).join("")}</td></tr>`).join("");
+    $("#orgBody").innerHTML = list.map((o) => `<tr class="clickable" data-o="${o.id}"><td><b>${esc(o.name)}</b><div class="src">${esc(o.city)}</div></td><td>${esc(o.type)}</td><td>${(o.evidence?.nioktr || []).length}</td><td>${o.evidence?.crossref || "—"}</td><td>${o.fit.filter(([t]) => !tv || t === tv).map(([t, l, b]) => `<div style="margin:2px 0"><span class="chip t static">${t}</span> <span class="badge ${l === "высокий" ? "b-ok" : l === "средний" ? "b-warn" : "b-none"}">${l}</span> <span style="font-size:12px">${esc(b)}</span></div>`).join("")}</td></tr>`).join("");
   };
   const side = (id) => {
     const o = orgById[id] || orgById[state.org] || ORGS[0];
     const ev = o.evidence || {};
     $("#orgSide").innerHTML = `<span class="badge b-link">${esc(o.type)}</span><h2 style="margin-top:6px">${esc(o.name)}</h2><div class="src">${esc(o.city)} · точность местоположения: ${esc(o.precision)}</div>
     <div class="sec"><h4>Свидетельства</h4><dl class="kv">
-      <dt>Опубликованные исследования</dt><dd>${esc(ev.published || "публикации не проверялись: OpenAlex/Crossref/eLIBRARY недоступны из окружения подготовки")}</dd>
+      <dt>Опубликованные исследования</dt><dd>${ev.crossref ? `${ev.crossref} статей по LPBF/СЛП в Crossref (2019–2026, аффилиация подтверждена метаданными)` : "в Crossref по запросу не найдено"}${ev.published ? "; " + esc(ev.published) : ""}</dd>
       <dt>Выполненные НИОКТР</dt><dd><div class="chips">${(ev.nioktr || []).map(chipR).join("") || "—"}</div></dd>
       <dt>Экспериментальная инфраструктура</dt><dd>${esc(ev.infrastructure || "нет подтверждения в собранных источниках")}</dd>
       <dt>Прототипы</dt><dd>${esc(ev.prototypes || "нет подтверждения")}</dd>
@@ -429,6 +431,7 @@ RENDER.orgs = (el) => {
       <dt>Собственное оборудование</dt><dd>${esc(ev.equipment || "нет подтверждения")}</dd>
       <dt>Производственные мощности</dt><dd>${esc(ev.production || "нет подтверждения")}</dd></dl></div>
     <div class="sec"><h4>Соответствие технологиям (качественно)</h4>${o.fit.map(([t, l, b]) => `<div style="margin:6px 0;font-size:12.5px">${chipT(t)} <span class="badge ${l === "высокий" ? "b-ok" : l === "средний" ? "b-warn" : "b-none"}">${l}</span><div>${esc(b)}</div></div>`).join("")}</div>
+    ${(D.publications.byOrg[o.id] || []).length ? `<div class="sec"><h4>Публикации (Crossref, по цитируемости)</h4>${D.publications.byOrg[o.id].slice(0, 8).map((p) => `<div style="font-size:12px;margin:5px 0"><span class="mono muted">${p.year}</span> ${esc(p.title)} <span class="muted">— ${esc(p.authors)}, ${esc(p.journal)}</span> <a href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">doi</a> <span class="faint">цит. ${p.cited}</span></div>`).join("")}<p class="src">Наличие публикаций не означает готовности создать промышленный компонент.</p></div>` : ""}
     ${o.sources ? `<div class="sec src">Источники: ${o.sources.map(srcLink).join("; ")}</div>` : ""}`;
   };
   $("#orgT").addEventListener("change", () => RENDER.orgs(el));
@@ -471,6 +474,7 @@ RENDER.market = (el) => {
     ${g.ru.length ? `<h4 style="margin-top:10px">Россия</h4>${g.ru.map((s) => `<div style="margin:6px 0;font-size:12.5px"><b>${esc(s.name)}</b> ${availBadge(s.avail)}<div>${esc(s.product)}</div><div class="src">Основание: ${esc(s.evidence)}${s.note ? " · " + esc(s.note) : ""}</div></div>`).join("")}` : ""}
     ${g.foreign.length ? `<h4 style="margin-top:10px">Зарубежные</h4>${g.foreign.map((s) => `<div style="margin:6px 0;font-size:12.5px"><b>${esc(s.name)}</b> <span class="muted">${esc(s.country)}</span> ${availBadge(s.avail)}<div>${esc(s.product)}</div><div class="src">${esc(s.note)}</div></div>`).join("")}` : ""}</div>`).join("")}</div>
   <div class="card" style="margin-top:14px"><h3>Экспортный контроль и санкционные ограничения применительно к России</h3><div class="grid g3" style="margin-top:10px">${S.exportRegimes.map((r) => `<div><div class="pill-row"><b>${esc(r.name)}</b><span class="badge ${r.status.startsWith("действ") ? "b-bad" : "b-warn"}">${esc(r.status)}</span></div><p style="font-size:12.5px;margin-top:4px">${esc(r.basis)}</p><p class="src" style="margin-top:4px">Проверка: ${esc(r.verify)}${r.src ? " · " + srcLink(r.src) : ""}</p></div>`).join("")}</div>
+  <div class="sec"><h4>Коды компонентов LPBF в Supplement No. 4 к 15 CFR 746 (США), ред. 01.11.2026</h4><div class="table-wrap" style="max-height:none"><table><thead><tr><th>HTS-6</th><th>Позиция</th><th>Узел</th><th>В перечне</th></tr></thead><tbody>${S.htsCodes.map((h) => `<tr><td class="mono">${h.code}</td><td>${esc(h.name)}</td><td>${chipS(h.node)}</td><td>${h.listed ? '<span class="badge b-bad">да — политика отказа</span>' : '<span class="badge b-none">не найден</span>'}</td></tr>`).join("")}</tbody></table></div><p class="src" style="margin-top:6px">Отнесение конкретного изделия к HTS-коду — задача классификации; наличие кода в перечне означает лицензионное требование для товаров, подпадающих под EAR. ${srcLink("E-ECFR-746")}</p></div>
   <div class="sec"><h4>Категории вывода</h4><div class="pill-row">${Object.entries(S.avail).map(([k, v]) => `${availBadge(k)} <span style="font-size:12px;margin-right:10px">${esc(v)}</span>`).join("")}</div></div>
   <div class="sec"><h4>Принципы</h4><ul class="list" style="font-size:12.5px">${S.exportPrinciples.map((p) => `<li>${esc(p)}</li>`).join("")}</ul></div></div>`;
 };
@@ -551,7 +555,7 @@ RENDER.sources = (el) => {
   el.innerHTML = `<div class="section-head"><div><h1>Источники, доказательства и ограничения</h1><p>Внешние источники использовались на этапе подготовки; при показе макета доступ к API не требуется — все данные локальны (<span class="mono">data/*.json</span>).</p></div></div>
   <div class="card"><div class="table-wrap" style="max-height:none"><table><thead><tr><th>ID</th><th>Тип</th><th>Источник</th><th>Способ доступа</th><th>Надёжность</th><th>Дата</th></tr></thead><tbody>${D.evidence.map((s) => `<tr><td class="mono">${s.id}</td><td>${esc(s.type)}</td><td><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></td><td>${esc(s.via)}</td><td>${esc(s.reliability)}</td><td class="mono">${s.date}</td></tr>`).join("")}</tbody></table></div></div>
   <div class="grid g2" style="margin-top:14px"><div class="card"><h3>Что проверено</h3><ul class="list" style="font-size:13px"><li>ЕГИСУ НИОКТР — через подключённый коннектор: карточки НИОКТР, РИД, диссертации, справочники НП/ФП и ВНТ по Указу № 529.</li><li>Веб-поиск — меры поддержки, рынок, экспортные режимы, патентные номера (по выдаче).</li><li>Навык Anatomy — установлен из github.com/wheresryan22/anatomy, кит использован для геометрии.</li></ul></div>
-  <div class="card"><h3>Ограничения сессии подготовки</h3><ul class="list" style="font-size:13px"><li>ФИПС, Espacenet/EPO OPS, Google Patents — недоступны (прокси отклонил соединения) → нет записей патентов уровня A.</li><li>rscf.ru — недоступен → конкурс РНФ № 3052 не подтверждён.</li><li>OpenAlex, Crossref — недоступны; Elicit — нет API-доступа по тарифу → публикации не собирались.</li><li>gisp.gov.ru, fasie.ru, frprf.ru — сведения получены через поисковую выдачу и вторичные источники.</li><li>Решение № 22-68462-00692-Р в редакции от 03.07.2026 не найдено (найдены редакции 13.02.2025 и 17.02.2026).</li></ul><p class="src" style="margin-top:8px">Подробно — research/research-log.md, research/source-registry.md, research/gaps.md.</p></div></div>`;
+  <div class="card"><h3>Ограничения сессии подготовки</h3><ul class="list" style="font-size:13px"><li>Сеть окружения расширена (окружение «basa»): rscf.ru, Crossref, EUR-Lex, eCFR теперь доступны — конкурс РНФ № 3052, Приложение VII ЕС и Supplement No. 4 США проверены по первоисточникам, 153 публикации собраны через Crossref.</li><li>ФИПС, Espacenet, Google Patents, gisp.gov.ru, fasie.ru, frprf.ru отвечают 403/503 (защита сайтов от автоматических запросов) → патентов уровня A нет; для EPO OPS нужен бесплатный ключ разработчика.</li><li>OpenAlex — исчерпан бесплатный дневной лимит общего IP; нужен бесплатный API-ключ. Elicit — нет API-доступа по тарифу.</li><li>gisp.gov.ru, fasie.ru, frprf.ru — сведения получены через поисковую выдачу и вторичные источники.</li><li>Решение № 22-68462-00692-Р в редакции от 03.07.2026 не найдено (найдены редакции 13.02.2025 и 17.02.2026).</li></ul><p class="src" style="margin-top:8px">Подробно — research/research-log.md, research/source-registry.md, research/gaps.md.</p></div></div>`;
 };
 
 go(location.hash.slice(1) || "anatomy");
