@@ -1,7 +1,7 @@
 import { mountAnatomy } from "./anatomy.js";
 
 // ---------------- данные ----------------
-const files = ["products", "components", "technologies", "research", "organizations", "patents", "suppliers", "support", "graph", "evidence", "publications"];
+const files = ["products", "components", "technologies", "research", "organizations", "patents", "suppliers", "support", "graph", "evidence", "publications", "sourcing", "ugt", "norms"];
 const D = Object.fromEntries(await Promise.all(files.map(async (f) => [f, await fetch(`data/${f}.json`).then((r) => r.json())])));
 const map = await fetch("assets/images/russia-map.json").then((r) => r.json());
 
@@ -23,6 +23,19 @@ const SRC = Object.fromEntries(D.evidence.map((s) => [s.id, s]));
 const vntById = Object.fromEntries(NPTL.vnt.map((v) => [v.id, v]));
 const COMP = D.components;
 const topTech = (id) => (id.includes(".") ? id.split(".")[0] : id);
+const SRC_ = D.sourcing.sourcing;
+const BL = D.ugt.backlog;
+const verdictBadge = (v) => ({ ok: '<span class="badge b-ok">ввоз возможен</span>', hard: '<span class="badge b-warn">сложно</span>', critical: '<span class="badge b-bad">критично</span>' })[v] || "";
+function importBlock(id) {
+  const list = SRC_.filter((c) => c.id.startsWith("C" + id.slice(1) + "."));
+  if (!list.length) return "";
+  return `<div class="sec"><h4>Ввоз в РФ по компонентам</h4>${list.map((c) => `<div style="font-size:12.5px;margin:5px 0">${verdictBadge(c.verdict)} <span class="mono muted">${c.id}</span> ${esc(c.name)}<div class="muted" style="font-size:11.5px">Происхождение: ${esc(c.origins.join(", "))} · ввоз: ${esc(c.tImport)} · своё решение: ${esc(c.tLocal)}</div></div>`).join("")}<button class="chip" data-go="sourcing">Подробно: ввоз и санкции →</button></div>`;
+}
+function ugtBlock(id) {
+  const list = BL.filter((b) => b.node === id);
+  if (!list.length) return "";
+  return `<div class="sec"><h4>Заделы РФ и УГТ</h4>${list.map((b) => `<div style="font-size:12.5px;margin:5px 0"><span class="badge b-link">УГТ ${b.ugtNow} → ${b.target}</span> ${esc(b.title)}<div class="muted" style="font-size:11.5px">Литера «О»: не подтверждена в открытых данных · срок доработки: ${esc(b.months)} мес. (оценка)</div></div>`).join("")}<button class="chip" data-go="ugt">Задачи на доработку →</button></div>`;
+}
 
 // ---------------- утилиты ----------------
 const $ = (s, r = document) => r.querySelector(s);
@@ -64,7 +77,7 @@ function supportOfTechs(ts) {
 // ---------------- маршрутизация ----------------
 const SECTIONS = [
   ["anatomy", "Анатомия"], ["nptl", "НПТЛ и ВНТ"], ["tech", "Технологии"], ["research", "НИОКТР"], ["orgs", "Компетенции"],
-  ["patents", "Патенты"], ["market", "Рынок"], ["support", "Поддержка"], ["graph", "Граф знаний"], ["gaps", "Дефициты и проект"], ["sources", "Источники"],
+  ["patents", "Патенты"], ["market", "Рынок"], ["sourcing", "Ввоз и санкции"], ["ugt", "УГТ и КД"], ["norms", "Стандарты и среды"], ["support", "Поддержка"], ["graph", "Граф знаний"], ["gaps", "Дефициты и проект"], ["sources", "Источники"],
 ];
 const state = { node: null, tech: null, res: null, org: null };
 $("#tabs").innerHTML = SECTIONS.map(([id, name], i) => `<button class="tab" data-tab="${id}"><span class="n">${String(i + 1).padStart(2, "0")}</span>${name}</button>`).join("");
@@ -129,7 +142,7 @@ const RENDER = {};
 RENDER.anatomy = async (el) => {
   const P = D.products.product;
   el.innerHTML = `
-  <div class="section-head"><div><h1>${esc(P.name)}</h1><p>${esc(P.principle)}</p></div>
+  <div class="section-head"><div><div class="crumbs"><span>Домен «${esc(P.domain)}»</span><span class="arrow">→</span><span>Отраслевой сегмент «${esc(P.segment)}»</span><span class="arrow">→</span><span>пример станка</span></div><h1>${esc(P.name)}</h1><p>${esc(P.principle)}</p></div>
     <div class="pill-row"><span class="badge b-link">${esc(P.class)}</span><span class="badge b-none">типовая модель, не конкретная установка</span></div></div>
   <div class="anat">
     <div>
@@ -220,6 +233,7 @@ RENDER.anatomy = async (el) => {
       <div class="sec"><h4>Критичные характеристики</h4><ul class="list" style="font-size:12.5px">${s.critical.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>
       <div class="sec"><h4>Зависит от узлов</h4><div class="chips">${s.deps.map(chipS).join("")}</div></div>
       <div class="sec"><h4>Технологии</h4><div class="chips">${techsOfNode(id).map(chipT).join("")}</div><p class="src" style="margin-top:6px">Режим «5 · Зависимости» раскладывает технологии по уровням создания/функционирования/контроля.</p></div>
+      ${importBlock(id)}${ugtBlock(id)}
       ${mode === "detail" ? `<div class="sec"><h4>Устройство узла (схема)</h4>${schematic(id)}</div>` : ""}`}`;
     }
     side.querySelectorAll("[data-pick]").forEach((b) => b.addEventListener("click", () => anatSelect(b.dataset.pick)));
@@ -260,6 +274,8 @@ RENDER.anatomy = async (el) => {
       step("Коллективы", os.length, os.slice(0, 3).map((o) => o.name.split(" (")[0]).join("; ") || "—", "orgs"),
       step("РИД и патенты", rids.length + pats.length, `${rids.length} РИД ЕГИСУ, ${pats.length} зарубежных документов`, "patents"),
       step("Рынок", supCount, sup.map((g) => g.nodeName).join("; ") || "нет данных", "market"),
+      step("Ввоз", SRC_.filter((c) => c.id.startsWith("C" + id.slice(1) + ".")).filter((c) => c.verdict !== "ok").length + " из " + SRC_.filter((c) => c.id.startsWith("C" + id.slice(1) + ".")).length, "компонентов со сложным или критичным ввозом", "sourcing"),
+      step("УГТ и КД", BL.filter((b) => b.node === id).length, BL.filter((b) => b.node === id).map((b) => `УГТ ${b.ugtNow}→${b.target}`).join("; ") || "заделов с оценкой нет", "ugt"),
       step("Поддержка", meas.length, meas.map((m) => m.operator).join("; "), "support"),
       step("Дефициты", defs.length, defs.map((d) => d.title).join("; ") || "не выявлено", "gaps"),
       step("Проект развития", D.support.devProject.covers.some((c) => defs.find((d) => d.id === c)) ? "да" : "—", D.support.devProject.title.replace("Проект развития (аналитическая гипотеза): ", ""), "gaps"),
@@ -560,6 +576,59 @@ RENDER.sources = (el) => {
   <div class="card"><div class="table-wrap" style="max-height:none"><table><thead><tr><th>ID</th><th>Тип</th><th>Источник</th><th>Способ доступа</th><th>Надёжность</th><th>Дата</th></tr></thead><tbody>${D.evidence.map((s) => `<tr><td class="mono">${s.id}</td><td>${esc(s.type)}</td><td><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></td><td>${esc(s.via)}</td><td>${esc(s.reliability)}</td><td class="mono">${s.date}</td></tr>`).join("")}</tbody></table></div></div>
   <div class="grid g2" style="margin-top:14px"><div class="card"><h3>Что проверено</h3><ul class="list" style="font-size:13px"><li>ЕГИСУ НИОКТР — через подключённый коннектор: карточки НИОКТР, РИД, диссертации, справочники НП/ФП и ВНТ по Указу № 529.</li><li>Веб-поиск — меры поддержки, рынок, экспортные режимы, патентные номера (по выдаче).</li><li>Навык Anatomy — установлен из github.com/wheresryan22/anatomy, кит использован для геометрии.</li></ul></div>
   <div class="card"><h3>Ограничения сессии подготовки</h3><ul class="list" style="font-size:13px"><li>Сеть окружения расширена (окружение «basa»): rscf.ru, Crossref, EUR-Lex, eCFR теперь доступны — конкурс РНФ № 3052, Приложение VII ЕС и Supplement No. 4 США проверены по первоисточникам, 153 публикации собраны через Crossref.</li><li>ФИПС, Espacenet, Google Patents, gisp.gov.ru, fasie.ru, frprf.ru отвечают 403/503 (защита сайтов от автоматических запросов) → патентов уровня A нет; для EPO OPS нужен бесплатный ключ разработчика.</li><li>OpenAlex — исчерпан бесплатный дневной лимит общего IP; нужен бесплатный API-ключ. Elicit — нет API-доступа по тарифу.</li><li>gisp.gov.ru, fasie.ru, frprf.ru — сведения получены через поисковую выдачу и вторичные источники.</li><li>Решение № 22-68462-00692-Р: версия 7 от 03.07.2026 проверена по sudact.ru (ссылку предоставил пользователь) — субсидия до 70 % затрат на НИР, внебюджетные средства ≥ 50 % субсидии, срок до 3 лет.</li></ul><p class="src" style="margin-top:8px">Подробно — research/research-log.md, research/source-registry.md, research/gaps.md.</p></div></div>`;
+};
+
+// ---------------- ВВОЗ И САНКЦИИ ----------------
+RENDER.sourcing = (el) => {
+  const S = D.sourcing;
+  const cnt = (v) => SRC_.filter((c) => c.verdict === v).length;
+  el.innerHTML = `<div class="section-head"><div><h1>Ввоз в Россию и локализация по каждому компоненту</h1><p>Для каждой детали и узла станка: что можно ввозить (комплектующие, готовые узлы, ПО), что затруднено санкциями и из каких стран, какие есть отечественные заделы и за какой срок можно получить своё решение.</p></div></div>
+  <div class="grid g3" style="margin-bottom:14px">
+    <div class="card stat"><b style="color:var(--ok)">${cnt("ok")}</b><span>компонентов: ввоз возможен или производятся в РФ</span></div>
+    <div class="card stat"><b style="color:var(--warn)">${cnt("hard")}</b><span>сложно: ведущие поставщики под ограничениями ЕС/США, ввоз из третьих стран с риском</span></div>
+    <div class="card stat"><b style="color:var(--bad)">${cnt("critical")}</b><span>критично: ограничения и нет подтверждённой альтернативы нужного класса</span></div>
+  </div>
+  <div class="card"><div class="toolbar"><select id="srcN"><option value="">все узлы</option>${SYS.map((x) => `<option value="${x.id}">${x.id} ${esc(x.short)}</option>`).join("")}</select><select id="srcV"><option value="">все категории</option><option value="critical">критично</option><option value="hard">сложно</option><option value="ok">ввоз возможен</option></select><span class="muted" id="srcCount" style="font-size:12px"></span></div>
+  <div class="table-wrap" style="max-height:none"><table><thead><tr><th>Компонент</th><th>Тип</th><th>ТН ВЭД (ориент.)</th><th>Страны-производители</th><th>ЕС</th><th>США</th><th>Итог</th><th>Отечественное решение / задел</th><th>Действие</th><th>Срок ввоза*</th><th>Срок своего решения*</th></tr></thead><tbody id="srcBody"></tbody></table></div>
+  <p class="src" style="margin-top:8px">* Сроки — аналитическая оценка макета, не данные поставщиков. ${S.method.map(esc).join(" ")}</p></div>
+  <div class="card"><h3>Доступ к программному обеспечению</h3><div class="table-wrap" style="max-height:none;margin-top:8px"><table><thead><tr><th>ПО</th><th>ЕС</th><th>США</th><th>Отечественная альтернатива</th><th>Итог</th></tr></thead><tbody>${S.softwareAccess.map((x) => `<tr><td><b>${esc(x.item)}</b></td><td>${esc(x.eu)}</td><td>${esc(x.us)}</td><td>${esc(x.ru)}</td><td>${verdictBadge(x.verdict)}</td></tr>`).join("")}</tbody></table></div>
+  <p class="src" style="margin-top:6px">ЕС: ст. 5n(2b) и Прил. XXXIX Регламента 833/2014 (по разъяснениям Еврокомиссии). США: правило BIS для EAR99-ПО (с 16.09.2024), ПО ЧПУ (27.08.2024), определение OFAC об IT-услугах (с 12.09.2024) — по юридическим обзорам; перед применением сверить с первоисточниками.</p></div>
+  <div class="card"><h3>Принципы</h3><ul class="list" style="font-size:13px">${D.suppliers.exportPrinciples.map((p) => `<li>${esc(p)}</li>`).join("")}</ul></div>`;
+  const draw = () => {
+    const n = $("#srcN").value, v = $("#srcV").value;
+    const list = SRC_.filter((c) => (!n || c.id.startsWith("C" + n.slice(1) + ".")) && (!v || c.verdict === v));
+    $("#srcCount").textContent = `${list.length} из ${SRC_.length}`;
+    $("#srcBody").innerHTML = list.map((c) => { const sys = "S" + c.id.slice(1, 3); return `<tr><td><span class="mono muted">${c.id}</span> <b>${esc(c.name)}</b><div>${chipS(sys)}</div></td><td>${esc(c.kind)}</td><td class="mono">${esc(c.hs)}</td><td>${esc(c.origins.join(", "))}</td><td style="font-size:11.5px">${esc(c.eu)}</td><td style="font-size:11.5px">${esc(c.us)}</td><td>${verdictBadge(c.verdict)}</td><td style="font-size:12px">${esc(c.ruAlt)}</td><td style="font-size:12px">${esc(c.action)}</td><td style="font-size:12px">${esc(c.tImport)}</td><td class="mono">${esc(c.tLocal)}</td></tr>`; }).join("");
+  };
+  $("#srcN").addEventListener("change", draw); $("#srcV").addEventListener("change", draw); draw();
+};
+
+// ---------------- УГТ И КД ----------------
+RENDER.ugt = (el) => {
+  const U = D.ugt;
+  el.innerHTML = `<div class="section-head"><div><h1>Уровни готовности технологий и конструкторская документация</h1><p>Шкала УГТ для изделий станкоинструментальной промышленности (v3.5, документ пользователя) и задачи на доработку российских заделов. ${esc(U.scale.rule)}</p></div></div>
+  <div class="card" style="overflow:auto"><h3>Шкала УГТ v3.5 и литеры КД</h3><div class="ugt-ladder">${U.scale.levels.map((l) => `<div class="ugt-step"><div class="ugt-n">${l.n}</div><div class="ugt-lit">${l.litera ? "литера «" + esc(l.litera) + "»" : "—"}</div><b>${esc(l.title)}</b><div class="muted" style="font-size:11.5px;margin-top:4px">${esc(l.stage)}</div><details style="margin-top:6px"><summary class="src" style="cursor:pointer">документы (${l.docs.length})</summary><ul class="list" style="font-size:11.5px">${l.docs.map((d) => `<li>${esc(d)}</li>`).join("")}</ul></details></div>`).join("")}</div><p class="src" style="margin-top:8px">${esc(U.scale.estdNote)}</p></div>
+  <div class="card"><h3>Задачи на доработку заделов</h3><ul class="list" style="font-size:12.5px;margin:6px 0 10px">${U.note.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>
+  <div class="table-wrap" style="max-height:none"><table><thead><tr><th>Задел (НИОКТР)</th><th>Узел</th><th>УГТ сейчас (оценка)</th><th>Почему так</th><th>Подтверждено документами</th><th>Литера «О»</th><th>Цель</th><th>Задача организации</th><th>Срок, мес.*</th><th>Инструменты</th></tr></thead><tbody>
+  ${U.backlog.map((b) => `<tr><td><b>${esc(b.title)}</b><div class="chips" style="margin-top:4px">${b.id.split(" / ").map(chipR).join("")}</div><div class="src">${esc(orgById[b.org]?.name.split(" (")[0] || "")}</div></td><td>${b.node === "S00" ? '<span class="chip static">станок целиком</span>' : chipS(b.node)}</td><td>${ugtBar(b.ugtNow, b.target)}</td><td style="font-size:12px">${esc(b.ugtNowWhy)}${b.ugtEgisu ? `<div class="src">ЕГИСУ: ${esc(b.ugtEgisu)}</div>` : ""}</td><td style="font-size:12px">${esc(b.documented)}</td><td><span class="badge b-warn">не подтверждена</span></td><td><b>УГТ ${b.target}</b></td><td><ul class="list" style="font-size:12px">${b.tasks.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></td><td class="mono">${esc(b.months)}</td><td style="font-size:12px">${b.support.map((m) => `<div>• ${esc(supById[m]?.name.split(":")[0].split("(")[0].trim() || m)}</div>`).join("")}</td></tr>`).join("")}
+  </tbody></table></div><p class="src" style="margin-top:6px">* Сроки — аналитическая оценка. УГТ «сейчас» — оценка макета по признакам из карточек ЕГИСУ; уровень считается подтверждённым только при наличии полного пакета документов по шкале.</p></div>`;
+};
+function ugtBar(now, target) {
+  return `<div class="ugtbar" title="сейчас ${now}, цель ${target}">${Array.from({ length: 9 }, (_, i) => `<i class="${i < now ? "on" : i < target ? "tg" : ""}"></i>`).join("")}</div><div class="mono" style="font-size:11px">${now} → ${target}</div>`;
+}
+
+// ---------------- СТАНДАРТЫ И СРЕДЫ ----------------
+RENDER.norms = (el) => {
+  const N = D.norms;
+  const kinds = [...new Set(N.standards.map((x) => x.kind))];
+  el.innerHTML = `<div class="section-head"><div><h1>Стандарты, регламенты ЕАЭС и технологические среды</h1><p>Нормативная база для разработки, испытаний и выпуска станка СЛП, а также жидкости и газы, без которых он не работает, и их производство в России.</p></div></div>
+  <div class="note info" style="margin-bottom:14px">${N.note.map(esc).join(" ")}</div>
+  <div class="card"><h3>Нормативные документы</h3><div class="table-wrap" style="max-height:none;margin-top:8px"><table><thead><tr><th>Документ</th><th>Наименование</th><th>Группа</th><th>Объект</th><th>Зачем</th><th>Статус</th></tr></thead><tbody>
+  ${kinds.map((k) => N.standards.filter((x) => x.kind === k).map((x) => `<tr><td class="mono" style="white-space:nowrap">${esc(x.code)}</td><td>${esc(x.title)}</td><td>${esc(x.kind)}</td><td>${esc(x.scope)}</td><td style="font-size:12px">${esc(x.why)}</td><td>${x.status === "подтверждён" ? '<span class="badge b-ok">подтверждён</span>' : '<span class="badge b-none">проверить</span>'}</td></tr>`).join("")).join("")}
+  </tbody></table></div></div>
+  <div class="card"><h3>Технологические среды: газы и жидкости</h3><p class="muted" style="font-size:12.5px">Металлический порошок — основной расходный материал, он разобран в технологии T08 и в разделе «Ввоз и санкции» (S06).</p><div class="table-wrap" style="max-height:none;margin-top:8px"><table><thead><tr><th>Среда</th><th>Назначение</th><th>Узлы</th><th>Требования</th><th>Стандарт / ТУ</th><th>Критична для работы станка</th><th>Производство в РФ</th><th>Санкционный аспект</th><th>Действие</th></tr></thead><tbody>
+  ${N.fluids.map((f) => `<tr><td><b>${esc(f.name)}</b></td><td style="font-size:12px">${esc(f.use)}</td><td>${f.nodes.map(chipS).join(" ")}</td><td style="font-size:12px">${esc(f.spec)}</td><td style="font-size:12px">${esc(f.std)}</td><td>${f.critical === "да" ? '<span class="badge b-acc">да</span>' : `<span class="badge b-none">${esc(f.critical)}</span>`}</td><td style="font-size:12px">${esc(f.ru)}</td><td style="font-size:12px">${esc(f.sanctions)}</td><td style="font-size:12px">${esc(f.action)}</td></tr>`).join("")}
+  </tbody></table></div></div>`;
 };
 
 go(location.hash.slice(1) || "anatomy");

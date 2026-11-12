@@ -42,8 +42,8 @@ const out = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Технологический атлас LPBF</title>
-<meta name="description" content="Демонстрационный макет «Технологический атлас» на примере установки LPBF. Самодостаточный файл: работает без сервера и интернета.">
+<title>Отраслевой сегмент «Станкостроение»</title>
+<meta name="description" content="Отраслевой сегмент «Станкостроение» домена «Наука и инновации» на примере станка СЛП (LPBF). Самодостаточный файл: работает без сервера и интернета.">
 <link rel="icon" href="${icon}">
 <style>${css}</style>
 </head>

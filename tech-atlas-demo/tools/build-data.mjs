@@ -8,6 +8,10 @@ import { research, rids, stats } from "./data/research.mjs";
 import { orgs } from "./data/orgs.mjs";
 import { patents, patentNote, knowhow, suppliers, AVAIL, exportRegimes, exportPrinciples, htsCodes } from "./data/market.mjs";
 import { readFileSync } from "node:fs";
+import { sourcing, VERDICT, softwareAccess, sourcingMethod } from "./data/sourcing.mjs";
+import { ugtScale } from "./data/ugt.mjs";
+import { backlog, backlogNote } from "./data/backlog.mjs";
+import { standards, fluids, normsNote } from "./data/norms.mjs";
 const pubs = JSON.parse(readFileSync(new URL("./data/publications.json", import.meta.url), "utf8"));
 import { nptl, support, STAGES, deficits, devProject, sources } from "./data/policy.mjs";
 
@@ -40,6 +44,12 @@ w("organizations.json", orgs);
 w("patents.json", { note: patentNote, patents, knowhow, ruInventions: rids.filter((r) => r.type === "Изобретение" || r.type === "Полезная модель").map((r) => r.id) });
 w("suppliers.json", { avail: AVAIL, suppliers, exportRegimes, exportPrinciples, htsCodes });
 w("publications.json", pubs);
+w("sourcing.json", { sourcing, verdict: VERDICT, softwareAccess, method: sourcingMethod });
+w("ugt.json", { scale: ugtScale, backlog, note: backlogNote });
+w("norms.json", { standards, fluids, note: normsNote });
+for (const c of sourcing) if (!components.find((x) => x.id === c.id)) problems.push("sourcing " + c.id);
+for (const b of backlog) if (!orgs.find((o) => o.id === b.org)) problems.push("backlog org " + b.org);
+if (problems.length) { console.error(problems); process.exit(1); }
 for (const o of orgs) { const n = (pubs.byOrg[o.id] || []).length; if (n) { o.evidence = o.evidence || {}; o.evidence.crossref = n; } }
 w("organizations.json", orgs);
 w("support.json", { stages: STAGES, support, deficits, devProject });

@@ -254,3 +254,13 @@ select{max-width:100%}
 .tree summary{flex-wrap:wrap}
 .lvl{font-size:10.5px;font-weight:600;padding:1px 6px;border-radius:4px}
 .fig .iso-svg{overflow:hidden}
+
+.crumbs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em}
+.crumbs .arrow{color:var(--faint)}
+.ugt-ladder{display:grid;grid-template-columns:repeat(9,minmax(150px,1fr));gap:6px;margin-top:10px;min-width:1350px}
+.ugt-step{background:var(--panel-2);border-radius:8px;padding:10px;font-size:12.5px;position:relative}
+.ugt-n{font-size:22px;font-weight:700;color:var(--link);font-variant-numeric:tabular-nums}
+.ugt-lit{position:absolute;top:12px;right:10px;font-size:10.5px;font-weight:600;color:var(--accent)}
+.ugtbar{display:flex;gap:2px}.ugtbar i{width:8px;height:12px;border-radius:2px;background:var(--panel-2);border:1px solid var(--line)}
+.ugtbar i.on{background:var(--link);border-color:var(--link)}.ugtbar i.tg{background:color-mix(in srgb,var(--accent) 35%,var(--panel));border-color:color-mix(in srgb,var(--accent) 60%,var(--line))}
+@media (max-width:1560px){.stamp{display:none}}
