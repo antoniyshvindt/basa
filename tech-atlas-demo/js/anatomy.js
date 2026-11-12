@@ -71,10 +71,23 @@ export async function mountAnatomy(host, { onSelect, onPhase, onHover } = {}) {
     const order = on ? pieces : [...pieces].reverse();
     order.forEach((p, i) => { p.target = on ? 1 : 0; p.delay = i * 0.035; });
     if (on) setHousing(false);
-    if (!st.sel || !on) st.vbTarget = on ? [-70, -30, W + 140, H + 110] : [0, 0, W, H];
+    st.vbTarget = on ? apartBox() : st.sel && st.focused ? st.vbTarget : [0, 0, W, H];
     kick();
   }
 
+  function apartBox() {
+    let x0 = 0, y0 = 0, x1 = W, y1 = H;
+    for (const p of pieces) {
+      const b = p.el.getBBox();
+      if (!b.width && !b.height) continue;
+      const [dx, dy] = k.axisVector(P, p.ex);
+      x0 = Math.min(x0, b.x + dx); y0 = Math.min(y0, b.y + dy); x1 = Math.max(x1, b.x + b.width + dx); y1 = Math.max(y1, b.y + b.height + dy);
+    }
+    const pad = 24; x0 -= pad; y0 -= pad; x1 += pad; y1 += pad;
+    let w = x1 - x0, h = y1 - y0; const ar = W / H;
+    if (w / h > ar) { const nh = w / ar; y0 -= (nh - h) / 2; h = nh; } else { const nw = h * ar; x0 -= (nw - w) / 2; w = nw; }
+    return [x0, y0, w, h];
+  }
   // ---------- камера (зум на узел) ----------
   function bboxOf(id) {
     const list = sysEls.filter((el) => el.dataset.sys === id && !el.classList.contains("cable"));
@@ -89,7 +102,8 @@ export async function mountAnatomy(host, { onSelect, onPhase, onHover } = {}) {
     return [x0, y0, x1 - x0, y1 - y0];
   }
   function focus(id) {
-    if (!id) { st.vbTarget = [0, 0, W, H]; kick(); return; }
+    st.focused = !!id;
+    if (!id) { st.vbTarget = st.apart ? apartBox() : [0, 0, W, H]; kick(); return; }
     const b = bboxOf(id);
     if (!b) return;
     const pad = 40, ar = W / H;

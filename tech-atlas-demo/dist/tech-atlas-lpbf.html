@@ -379,6 +379,8 @@ select{max-width:100%}
 .ugtbar{display:flex;gap:2px}.ugtbar i{width:8px;height:12px;border-radius:2px;background:var(--panel-2);border:1px solid var(--line)}
 .ugtbar i.on{background:var(--link);border-color:var(--link)}.ugtbar i.tg{background:color-mix(in srgb,var(--accent) 35%,var(--panel));border-color:color-mix(in srgb,var(--accent) 60%,var(--line))}
 @media (max-width:1560px){.stamp{display:none}}
+.chip.static{border-radius:8px;text-align:left}
+.sup-line{padding:2px 0 2px 10px;position:relative}.sup-line::before{content:"";position:absolute;left:0;top:.65em;width:4px;height:4px;border-radius:50%;background:var(--muted)}
 </style>
 </head>
 <body>
@@ -1196,10 +1198,23 @@ async function mountAnatomy(host, { onSelect, onPhase, onHover } = {}) {
     const order = on ? pieces : [...pieces].reverse();
     order.forEach((p, i) => { p.target = on ? 1 : 0; p.delay = i * 0.035; });
     if (on) setHousing(false);
-    if (!st.sel || !on) st.vbTarget = on ? [-70, -30, W + 140, H + 110] : [0, 0, W, H];
+    st.vbTarget = on ? apartBox() : st.sel && st.focused ? st.vbTarget : [0, 0, W, H];
     kick();
   }
 
+  function apartBox() {
+    let x0 = 0, y0 = 0, x1 = W, y1 = H;
+    for (const p of pieces) {
+      const b = p.el.getBBox();
+      if (!b.width && !b.height) continue;
+      const [dx, dy] = k.axisVector(P, p.ex);
+      x0 = Math.min(x0, b.x + dx); y0 = Math.min(y0, b.y + dy); x1 = Math.max(x1, b.x + b.width + dx); y1 = Math.max(y1, b.y + b.height + dy);
+    }
+    const pad = 24; x0 -= pad; y0 -= pad; x1 += pad; y1 += pad;
+    let w = x1 - x0, h = y1 - y0; const ar = W / H;
+    if (w / h > ar) { const nh = w / ar; y0 -= (nh - h) / 2; h = nh; } else { const nw = h * ar; x0 -= (nw - w) / 2; w = nw; }
+    return [x0, y0, w, h];
+  }
   // ---------- камера (зум на узел) ----------
   function bboxOf(id) {
     const list = sysEls.filter((el) => el.dataset.sys === id && !el.classList.contains("cable"));
@@ -1214,7 +1229,8 @@ async function mountAnatomy(host, { onSelect, onPhase, onHover } = {}) {
     return [x0, y0, x1 - x0, y1 - y0];
   }
   function focus(id) {
-    if (!id) { st.vbTarget = [0, 0, W, H]; kick(); return; }
+    st.focused = !!id;
+    if (!id) { st.vbTarget = st.apart ? apartBox() : [0, 0, W, H]; kick(); return; }
     const b = bboxOf(id);
     if (!b) return;
     const pad = 40, ar = W / H;
@@ -1896,7 +1912,7 @@ RENDER.gaps = (el) => {
   el.innerHTML = `<div class="section-head"><div><h1>Технологические дефициты и проект развития</h1><p>Аналитический слой атласа: где данные показывают разрыв между потребностью узла и подтверждённым отечественным предложением.</p></div></div>
   <div class="grid g3">${S.deficits.map((d) => `<div class="card"><div class="pill-row"><span class="badge b-bad">${d.id}</span><span class="muted" style="font-size:12px">острота ${"●".repeat(d.severity)}${"○".repeat(5 - d.severity)}</span></div><h3 style="margin-top:6px">${esc(d.title)}</h3><div class="chips" style="margin:6px 0">${d.nodes.map(chipS).join("")}${d.techs.map(chipT).join("")}</div><h4 style="margin-top:8px">Основания</h4><ul class="list" style="font-size:12.5px">${d.evidence.map((x) => `<li>${esc(x)}</li>`).join("")}</ul><h4 style="margin-top:8px">Потребность</h4><p style="font-size:12.5px">${esc(d.need)}</p></div>`).join("")}</div>
   <div class="card" style="margin-top:14px"><span class="badge b-acc">аналитическая гипотеза</span><h2 style="margin-top:6px">${esc(pj.title.replace("Проект развития (аналитическая гипотеза): ", ""))}</h2><p style="margin-top:6px">${esc(pj.goal)}</p><p class="note" style="margin-top:8px">${esc(pj.disclaimer)}</p>
-  <div style="overflow:auto;margin-top:12px"><table><thead><tr><th>Стадия</th><th>Содержание</th><th>Организации с заделом</th><th>Инструменты поддержки</th></tr></thead><tbody>${pj.stages.map((s) => `<tr><td>${esc(S.stages[s.stage])}</td><td>${esc(s.name)}</td><td>${s.orgs.map((o) => `<button class="chip" data-go-org="${o}">${esc(orgById[o].name.split(" (")[0])}</button>`).join(" ")}</td><td>${s.support.map((m) => `<span class="chip static">${esc(supById[m].name.split(":")[0])}</span>`).join(" ")}</td></tr>`).join("")}</tbody></table></div>
+  <div style="overflow:auto;margin-top:12px"><table><thead><tr><th>Стадия</th><th>Содержание</th><th>Организации с заделом</th><th>Инструменты поддержки</th></tr></thead><tbody>${pj.stages.map((s) => `<tr><td>${esc(S.stages[s.stage])}</td><td>${esc(s.name)}</td><td>${s.orgs.map((o) => `<button class="chip" data-go-org="${o}">${esc(orgById[o].name.split(" (")[0])}</button>`).join(" ")}</td><td style="font-size:12.5px">${s.support.map((m) => `<div class="sup-line">${esc(supById[m].name.split(":")[0].split("(")[0].trim())}</div>`).join("")}</td></tr>`).join("")}</tbody></table></div>
   <h4 style="margin-top:12px">Показатели результата</h4><ul class="list" style="font-size:13px">${pj.kpis.map((k) => `<li>${esc(k)}</li>`).join("")}</ul><div class="chips" style="margin-top:8px">${pj.covers.map((c) => `<span class="badge b-bad">${c}</span>`).join(" ")}</div></div>`;
 };
 

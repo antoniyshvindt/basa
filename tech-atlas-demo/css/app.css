@@ -264,3 +264,5 @@ select{max-width:100%}
 .ugtbar{display:flex;gap:2px}.ugtbar i{width:8px;height:12px;border-radius:2px;background:var(--panel-2);border:1px solid var(--line)}
 .ugtbar i.on{background:var(--link);border-color:var(--link)}.ugtbar i.tg{background:color-mix(in srgb,var(--accent) 35%,var(--panel));border-color:color-mix(in srgb,var(--accent) 60%,var(--line))}
 @media (max-width:1560px){.stamp{display:none}}
+.chip.static{border-radius:8px;text-align:left}
+.sup-line{padding:2px 0 2px 10px;position:relative}.sup-line::before{content:"";position:absolute;left:0;top:.65em;width:4px;height:4px;border-radius:50%;background:var(--muted)}
