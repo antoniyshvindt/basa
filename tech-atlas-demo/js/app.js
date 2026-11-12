@@ -144,6 +144,7 @@ RENDER.anatomy = async (el) => {
   el.innerHTML = `
   <div class="section-head"><div><div class="crumbs"><span>Домен «${esc(P.domain)}»</span><span class="arrow">→</span><span>Отраслевой сегмент «${esc(P.segment)}»</span><span class="arrow">→</span><span>пример станка</span></div><h1>${esc(P.name)}</h1><p>${esc(P.principle)}</p></div>
     <div class="pill-row"><span class="badge b-link">${esc(P.class)}</span><span class="badge b-none">типовая модель, не конкретная установка</span></div></div>
+  <div class="chief card"><div><h4>Что это</h4><p>${esc(P.forChief.what)}</p></div><div><h4>Для чего будет использоваться</h4><ul class="list">${P.forChief.why.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div><div><h4>Что это даёт</h4><ul class="list">${P.forChief.value.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div></div>
   <div class="anat">
     <div>
       <div class="anat-controls" role="toolbar" aria-label="Управление анатомией">
@@ -153,7 +154,6 @@ RENDER.anatomy = async (el) => {
         <span class="sep"></span>
         <button class="btn" id="playBtn" aria-pressed="false">▶ Старт</button>
         <label class="muted" style="font-size:12px">скорость <select id="speedSel"><option value="0.25">0,25×</option><option value="0.5" selected>0,5× учебная</option><option value="1">1×</option><option value="2">2×</option></select></label>
-        <button class="btn" id="apartBtn" aria-pressed="false">Разобрать</button>
         <button class="btn" id="housingBtn" aria-pressed="true">Корпус: показан</button>
         <select id="nodeSel" aria-label="Выбрать узел"><option value="">— выбрать узел —</option>${SYS.map((s) => `<option value="${s.id}">${s.id} · ${esc(s.name)}</option>`).join("")}</select>
         <button class="btn" id="physBtn" aria-pressed="false">Физический процесс</button>
@@ -185,7 +185,7 @@ RENDER.anatomy = async (el) => {
   const setMode = (m) => {
     mode = m;
     document.querySelectorAll("#modeSeg button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
-    anat.setApart(m === "apart"); $("#apartBtn").setAttribute("aria-pressed", String(m === "apart")); $("#apartBtn").textContent = m === "apart" ? "Собрать" : "Разобрать";
+    anat.setApart(m === "apart");
     if (m === "work") { anat.setHousing(false); setPlay(true); }
     if (m === "overview") { anat.setHousing(true); anat.focus(null); }
     if (m === "detail") { anat.setHousing(false); if (!state.node) anatSelect("S03"); anat.focus(state.node || "S03"); } else anat.focus(null);
@@ -199,7 +199,6 @@ RENDER.anatomy = async (el) => {
   $("#modeSeg").addEventListener("click", (e) => { const b = e.target.closest("[data-mode]"); if (b) setMode(b.dataset.mode); });
   $("#playBtn").addEventListener("click", () => setPlay(!anat.state.running));
   $("#speedSel").addEventListener("change", (e) => anat.setSpeed(+e.target.value));
-  $("#apartBtn").addEventListener("click", () => setMode(mode === "apart" ? "overview" : "apart"));
   $("#housingBtn").addEventListener("click", () => { anat.setHousing(!anat.state.housing); syncHousingBtn(); });
   $("#nodeSel").addEventListener("change", (e) => anatSelect(e.target.value || null));
   $("#physBtn").addEventListener("click", () => { const on = $("#physBtn").getAttribute("aria-pressed") !== "true"; $("#physBtn").setAttribute("aria-pressed", String(on)); anat.setForceScan(on); if (on) { anat.setHousing(false); syncHousingBtn(); anatSelect("S03"); setPlay(true); } renderSide(on ? "phys" : null); });
@@ -217,13 +216,13 @@ RENDER.anatomy = async (el) => {
     const id = state.node;
     if (!id) {
       side.innerHTML = `<h2>${esc(D.products.product.short)}</h2><p class="muted" style="font-size:12.5px">Выберите узел на схеме или в списке. 12 подсистем имеют устойчивые идентификаторы S01–S12, связанные с данными.</p>
-      <div class="sec"><h4>Подсистемы</h4><div class="node-list">${SYS.map((s) => `<button data-pick="${s.id}"><span class="id">${s.id}</span>${esc(s.short)}</button>`).join("")}</div></div>
+      <div class="sec"><h4>Подсистемы</h4><div class="node-list">${SYS.map((s) => `<button data-pick="${s.id}" title="${esc(s.plain)}"><span class="id">${s.id}</span>${esc(s.short)}</button>`).join("")}</div></div>
       <div class="sec"><h4>Типовые параметры класса</h4><dl class="kv">${D.products.product.typical.map(([a, b]) => `<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join("")}</dl><p class="src" style="margin-top:6px">${esc(D.products.product.typicalNote)}</p></div>`;
     } else {
       const s = sysById[id]; const comps = COMP.filter((c) => c.sys === id);
       const deps = mode === "deps";
-      side.innerHTML = `<div class="pill-row"><span class="badge b-acc">${id}</span><span class="muted" style="font-size:12px">критичность ${"●".repeat(s.criticality)}${"○".repeat(5 - s.criticality)}</span></div>
-      <h2 style="margin-top:6px">${esc(s.name)}</h2><p style="font-size:13px">${esc(s.purpose)}</p>
+      side.innerHTML = `<button class="back-btn" data-back>← Все подсистемы</button><div class="pill-row"><span class="badge b-acc">${id}</span><span class="muted" style="font-size:12px">критичность ${"●".repeat(s.criticality)}${"○".repeat(5 - s.criticality)}</span></div>
+      <h2 style="margin-top:6px">${esc(s.name)}</h2><div class="plain"><b>Простыми словами.</b> ${esc(s.plain)}</div><p style="font-size:13px">${esc(s.purpose)}</p>
       ${deps ? depsBlock(id) : `
       <div class="sec"><h4>Принцип работы</h4><p style="font-size:13px">${esc(s.principle)}</p></div>
       <div class="sec"><h4>Компоненты</h4>${comps.map((c) => `<div style="font-size:12.5px;margin:4px 0"><span class="mono muted">${c.id}</span> ${esc(c.name)}</div>`).join("")}</div>
@@ -237,6 +236,7 @@ RENDER.anatomy = async (el) => {
       ${mode === "detail" ? `<div class="sec"><h4>Устройство узла (схема)</h4>${schematic(id)}</div>` : ""}`}`;
     }
     side.querySelectorAll("[data-pick]").forEach((b) => b.addEventListener("click", () => anatSelect(b.dataset.pick)));
+    side.querySelector("[data-back]")?.addEventListener("click", () => { anatSelect(null); if (mode === "detail") anat.focus(null); });
   }
   function depsBlock(id) {
     const comps = COMP.filter((c) => c.sys === id);
@@ -268,8 +268,8 @@ RENDER.anatomy = async (el) => {
     const step = (k, v, d, act) => `<div class="step" data-act="${act}"><div class="k">${k}</div><div class="v">${v}</div><div class="d">${esc(d)}</div></div>`;
     el.innerHTML = [
       step("Узел", id, sysById[id].name, "node"),
-      step("Технологии", ts.length, ts.map((t) => techById[t].name.replace("Технологии ", "")).join("; "), "tech"),
       step("ВНТ", vnts.length, vnts.map((v) => "№ " + vntById[v].num).join(", "), "nptl"),
+      step("Технологии", ts.length, ts.map((t) => techById[t].name.replace("Технологии ", "")).join("; "), "tech"),
       step("НИОКТР", rs.length, rs.slice(0, 3).map((r) => r.card.executor).join("; ") || "в выборке нет", "research"),
       step("Коллективы", os.length, os.slice(0, 3).map((o) => o.name.split(" (")[0]).join("; ") || "—", "orgs"),
       step("РИД и патенты", rids.length + pats.length, `${rids.length} РИД ЕГИСУ, ${pats.length} зарубежных документов`, "patents"),
@@ -319,25 +319,52 @@ function meltSchematic() {
 RENDER.nptl = (el) => {
   const opsBy = D.products.operations;
   const techVnt = (v) => TECH.filter((t) => t.vnt.includes(v));
-  el.innerHTML = `<div class="section-head"><div><h1>НПТЛ → федеральный проект → ВНТ → технология → операция → узел</h1>
+  el.innerHTML = `<div class="section-head"><div><h1>НПТЛ → ФП → ВНТ → технология → операция → узел</h1>
   <p>Связи многозначны: одна технология относится к нескольким ВНТ, одна ВНТ — к нескольким ФП. Наименования и коды НП/ФП подтверждены справочником ЕГИСУ НИОКТР; уровни ниже ВНТ — авторская рабочая классификация.</p></div></div>
   <div class="split"><div class="card tree" id="nptlTree"></div>
   <div><div class="card"><h3>Применимость федеральных проектов</h3>${NPTL.fps.map((f) => `<div style="margin-top:10px"><div class="pill-row"><span class="mono">${f.code}</span><b style="font-size:13px">${esc(f.name)}</b></div><div style="font-size:12.5px;margin-top:3px">${esc(f.applicability)}</div><div class="src">сила связи: ${"●".repeat(f.strength)}${"○".repeat(3 - f.strength)}</div></div>`).join("")}<p class="note info" style="margin-top:12px">${esc(NPTL.passportNote)}</p></div>
   <div class="card"><h3>Важнейшие наукоёмкие технологии (Указ № 529)</h3>${NPTL.vnt.map((v) => `<div style="margin-top:10px"><div class="pill-row"><span class="badge ${v.priority === "основная" ? "b-acc" : "b-warn"}">ВНТ № ${v.num} · ${v.priority}</span><span class="src">${v.kind}, код ЕГИСУ ${v.egisu.slice(0, 3)}…</span></div><div style="font-size:13px;margin-top:3px">${esc(v.name)}</div>${v.rationale ? `<div class="note" style="margin-top:6px">${esc(v.rationale)}</div>` : ""}</div>`).join("")}<p class="src" style="margin-top:10px">${esc(NPTL.vntNote)}</p></div>
   <div class="card"><h3>НИОКТР с привязкой к ФП в ЕГИСУ</h3><p class="muted" style="font-size:12.5px">Всего / связанных с аддитивными технологиями (по названию)</p><div class="bars" style="margin-top:8px">${D.research.stats.byFp.map(([c, n, a]) => `<div class="bar"><span class="mono">${c}</span><div class="track"><div class="fill" style="width:${(n / 90) * 100}%;background:var(--line-2)"><div style="width:${(a / n) * 100}%;height:100%;background:var(--accent)"></div></div></div><span class="num">${a}/${n}</span></div>`).join("")}</div></div></div></div>`;
-  const tree = `<details open><summary><span class="lab">НП</span><b>Национальные проекты технологического лидерства</b></summary>
-  ${NPTL.projects.map((p) => `<details open><summary><span class="lab">НП</span>${esc(p.name)} <span class="mono muted">${p.code}</span></summary>
-    ${NPTL.fps.filter((f) => f.np === p.id).map((f) => `<details ${f.strength >= 2 ? "open" : ""}><summary><span class="lab">ФП</span>${esc(f.name)} <span class="mono muted">${f.code}</span></summary>
-      ${NPTL.fpVnt.filter(([fp]) => fp === f.id).map(([, v]) => `<details ${f.strength >= 3 ? "open" : ""}><summary><span class="lab">ВНТ</span>№ ${vntById[v].num}. ${esc(vntById[v].name.slice(0, 90))}${vntById[v].name.length > 90 ? "…" : ""}</summary>
-        ${techVnt(v).map((t) => `<details><summary><span class="lab">Техн.</span>${esc(t.id)} ${esc(t.name)}</summary>
-          ${t.subs.map((s) => { const ops = opsBy.filter((o) => o.techs.includes(s.id)); return `<details><summary><span class="lab">Предм.</span><span class="mono">${s.id}</span> ${esc(s.name)} ${lvlBadge(s.level)}</summary>
-            ${(ops.length ? ops : [{ id: "—", name: "операция цикла не выделена (технология создания/контроля)", nodes: t.nodes }]).map((o) => `<div class="leaf"><span class="lab">Операция</span>${esc(o.name)} → ${o.nodes.map(chipS).join("")}</div>`).join("")}</details>`; }).join("")}
-        </details>`).join("")}
-      </details>`).join("")}
-    </details>`).join("")}
-  </details>`).join("")}</details>`;
-  $("#nptlTree", el).innerHTML = `<h3 style="margin-bottom:8px">Интерактивное дерево</h3>${tree}`;
+  const nav = $("#nptlTree", el);
+  let cur = "NP1";
+  const show = (id) => { cur = id; nav.innerHTML = navigatorHtml(id); };
+  nav.addEventListener("click", (e) => { const b = e.target.closest("[data-nv]"); if (b) { e.preventDefault(); show(b.dataset.nv); } });
+  show(cur);
 };
+// навигатор иерархии: текущая сущность, её родители (слева) и дети (справа)
+const NV_LABEL = { np: "Национальный проект", fp: "Федеральный проект", vnt: "ВНТ", tech: "Технология", sub: "Предметная технология", op: "Операция цикла", node: "Узел станка" };
+function nvEntity(id) {
+  const OPS = D.products.operations;
+  const np = NPTL.projects.find((x) => x.id === id);
+  if (np) return { kind: "np", title: np.name, code: np.code, parents: [], children: NPTL.fps.filter((f) => f.np === id).map((f) => f.id) };
+  const fp = NPTL.fps.find((x) => x.id === id);
+  if (fp) return { kind: "fp", title: fp.name, code: fp.code, note: fp.applicability, parents: [fp.np], children: NPTL.fpVnt.filter(([f]) => f === id).map(([, v]) => v) };
+  if (vntById[id]) { const v = vntById[id]; return { kind: "vnt", title: `№ ${v.num}. ${v.name}`, note: v.rationale || "", parents: NPTL.fpVnt.filter(([, x]) => x === id).map(([f]) => f), children: TECH.filter((t) => t.vnt.includes(id)).map((t) => t.id) }; }
+  const t = TECH.find((x) => x.id === id);
+  if (t) return { kind: "tech", title: `${t.id} ${t.name}`, parents: t.vnt, children: t.subs.map((x) => x.id) };
+  if (techById[id]) { const st = techById[id]; const ops = OPS.filter((o) => o.techs.includes(id)); return { kind: "sub", title: `${st.id} ${st.name}`, note: LEVELS[st.level] + (ops.length ? "" : " · в рабочем цикле станка операция не выделена — ведёт сразу к узлам"), parents: [st.parent], children: ops.length ? ops.map((o) => o.id) : techById[st.parent].nodes }; }
+  const op = OPS.find((x) => x.id === id);
+  if (op) return { kind: "op", title: op.name, parents: op.techs.filter((x) => techById[x]), children: op.nodes };
+  if (sysById[id]) return { kind: "node", title: `${id} ${sysById[id].name}`, note: sysById[id].plain, parents: OPS.filter((o) => o.nodes.includes(id)).map((o) => o.id), children: [] };
+  return null;
+}
+function nvItem(id) {
+  const e = nvEntity(id); if (!e) return "";
+  return `<button class="nv-item" data-nv="${esc(id)}"><span class="nv-kind">${NV_LABEL[e.kind]}</span>${esc(e.title.length > 110 ? e.title.slice(0, 108) + "…" : e.title)}</button>`;
+}
+function navigatorHtml(id) {
+  const e = nvEntity(id);
+  const order = ["np", "fp", "vnt", "tech", "sub", "op", "node"];
+  return `<h3>Национальные проекты технологического лидерства</h3>
+  <p class="muted" style="font-size:12.5px;margin:4px 0 10px">Показана одна сущность, её «родители» и «дети». Нажмите на любую, чтобы перейти. Уровни: ${order.map((k) => `<span class="${k === e.kind ? "nv-on" : ""}">${NV_LABEL[k]}</span>`).join(" → ")}</p>
+  <div class="nv-start">${NPTL.projects.map((p) => `<button class="chip ${p.id === id ? "s" : ""}" data-nv="${p.id}">${esc(p.name.replace("Национальный проект ", "НП "))}</button>`).join("")}</div>
+  <div class="nv-grid">
+    <div class="nv-col"><h4>${e.parents.length ? "Входит в" : "Верхний уровень"}</h4>${e.parents.map(nvItem).join("") || '<div class="muted" style="font-size:12px">—</div>'}</div>
+    <div class="nv-cur"><span class="nv-kind">${NV_LABEL[e.kind]}${e.code ? " · " + e.code : ""}</span><h3>${esc(e.title)}</h3>${e.note ? `<p style="font-size:12.5px;margin-top:6px">${esc(e.note)}</p>` : ""}${e.kind === "node" ? `<button class="chip s" data-go-node="${esc(id)}" style="margin-top:8px">Открыть узел на схеме станка →</button>` : ""}${e.kind === "tech" ? `<button class="chip t" data-go-tech="${esc(id)}" style="margin-top:8px">Открыть технологию →</button>` : ""}</div>
+    <div class="nv-col"><h4>${e.children.length ? "Включает (" + e.children.length + ")" : "Нижний уровень"}</h4>${e.children.map(nvItem).join("") || '<div class="muted" style="font-size:12px">—</div>'}</div>
+  </div>`;
+}
+
 
 // ---------------- 03 ТЕХНОЛОГИИ ----------------
 RENDER.tech = (el) => {
@@ -347,7 +374,7 @@ RENDER.tech = (el) => {
   const byLevel = Object.keys(LEVELS).map((l) => [l, t.subs.filter((s) => s.level === l)]);
   el.innerHTML = `<div class="section-head"><div><h1>Предметные технологии T01–T15</h1><p>Рабочая классификация макета (не официальная). Для каждого направления — 3–4 конкретизированные технологии, разнесённые по уровням: создание узла, функционирование узла, производство изделия, контроль качества.</p></div></div>
   <div class="split"><div>
-    <div class="card"><div class="table-wrap" style="max-height:none"><table><thead><tr><th>Код</th><th>Направление</th><th>Узлы</th><th>ВНТ</th><th>НИОКТР</th><th>РИД</th></tr></thead><tbody>
+    <div class="card"><div class="table-wrap" style="max-height:none"><table><thead><tr><th>Код</th><th>Направление</th><th>Узлы</th><th>№ ВНТ</th><th>НИОКТР</th><th>РИД</th></tr></thead><tbody>
     ${TECH.map((x) => `<tr class="clickable" data-t="${x.id}" ${x.id === cur ? 'style="background:var(--accent-soft)"' : ""}><td class="mono">${x.id}</td><td>${esc(x.name)}</td><td>${x.nodes.map((n) => `<span class="mono">${n}</span>`).join(" ")}</td><td>${x.vnt.map((v) => vntById[v].num).join(", ")}</td><td>${resOfTech(x.id).length}</td><td>${RIDS.filter((r) => r.techs.includes(x.id)).length}</td></tr>`).join("")}
     </tbody></table></div></div>
     <div class="card"><h3>Матрица «технология × узел»</h3><p class="muted" style="font-size:12px">Число связей: подсистема требует направление, компоненты требуют предметные технологии.</p><div style="overflow:auto">${techNodeMatrix()}</div></div>
@@ -370,14 +397,17 @@ function techNodeMatrix() {
 
 // ---------------- 04 НИОКТР ----------------
 RENDER.research = (el) => {
+  const rxStat = /селективн\S* лазерн\S* (сплавл|плавл)|послойн\S* лазерн\S* (сплавл|синтез)/i;
+  const inStat = RES.filter((r) => rxStat.test(r.card.name) && (r.card.start || "") >= "2012").length;
+  const ridLinked = RIDS.filter((r) => resById[r.nioktr]).length;
   const f = state.res || {};
   el.innerHTML = `<div class="section-head"><div><h1>ЕГИСУ НИОКТР: научно-технологический задел</h1>
   <p>Подключение к ЕГИСУ НИОКТР найдено (коннектор <span class="mono">egisuopen</span>, открытые данные: карточки НИОКТР, РИД, ИКРБС, диссертации). Поиск выполнен по каждой предметной технологии с регулярными выражениями и синонимами по названиям карточек; ниже — ${RES.length} отобранных НИОКТР и ${RIDS.length} РИД с регистрационными номерами из первоисточника.</p></div></div>
   <div class="grid g4" style="margin-bottom:14px">
-    <div class="card stat"><b>${D.research.stats.byYear.reduce((a, [, n]) => a + n, 0)}</b><span>НИОКТР по СЛП/послойному лазерному сплавлению (2012–2026, по названию)</span></div>
-    <div class="card stat"><b>${RES.length}</b><span>карточек в макете с аналитической разметкой</span></div>
-    <div class="card stat"><b>${RIDS.length}</b><span>РИД, связанных с технологиями LPBF</span></div>
-    <div class="card stat"><b>${D.research.stats.dissertations.reduce((a, [, n]) => a + n, 0)}</b><span>диссертаций по СЛП (по организациям, ЕГИСУ)</span></div>
+    <div class="card stat"><b>${D.research.stats.byYear.reduce((a, [, n]) => a + n, 0)} <small>НИОКТР</small></b><span>Все НИОКТР в ЕГИСУ за 2012–2026 гг., в названии которых есть «селективное лазерное сплавление/плавление» или «послойное лазерное сплавление/синтез». Общий фон.</span></div>
+    <div class="card stat"><b>${RES.length} <small>карточки в атласе</small></b><span>Отобранные НИОКТР с разметкой по узлам и технологиям: ${inStat} из них входят в ${D.research.stats.byYear.reduce((a, [, n]) => a + n, 0)}, ещё ${RES.length - inStat} найдены поиском по узлам (сканатор, порошки, мониторинг, ПО), где слов «СЛП» в названии нет.</span></div>
+    <div class="card stat"><b>${RIDS.length} <small>РИД</small></b><span>Результаты интеллектуальной деятельности: изобретения, программы, ноу-хау. ${ridLinked} из них получены в рамках 52 карточек, остальные — в других НИОКТР или без указания НИОКТР.</span></div>
+    <div class="card stat"><b>${D.research.stats.dissertations.reduce((a, [, n]) => a + n, 0)} <small>диссертации</small></b><span>Отдельная выборка: защищённые диссертации по СЛП (ЕГИСУ). С НИОКТР напрямую не связаны — показывают, где готовят кадры.</span></div>
   </div>
   <div class="grid g2" style="margin-bottom:14px"><div class="card"><h3>Динамика: НИОКТР по году начала</h3>${colChart(D.research.stats.byYear)}<p class="src">${esc(D.research.stats.queryNote)}</p></div>
   <div class="card"><h3>Диссертации по СЛП по организациям</h3><div class="bars" style="margin-top:8px">${D.research.stats.dissertations.slice(0, 9).map(([o, n]) => `<div class="bar"><span>${esc(o)}</span><div class="track"><div class="fill" style="width:${(n / 7) * 100}%"></div></div><span class="num">${n}</span></div>`).join("")}</div></div></div>
@@ -424,12 +454,12 @@ RENDER.orgs = (el) => {
   const pr = map.proj;
   const project = ([lon, lat]) => { const R = Math.PI / 180; const l = lon < -20 ? lon + 360 : lon; const rho = pr.G - lat * R, th = pr.n * (l - pr.lon0) * R; return [(rho * Math.sin(th) - pr.minX) * pr.s, (-(pr.G - rho * Math.cos(th)) - pr.minY) * pr.s]; };
   const groups = {};
-  for (const o of ORGS) { const key = o.coords.join(","); (groups[key] ||= []).push(o); }
+  for (const o of ORGS) { const key = o.city.split(" (")[0] + "|" + o.precision; (groups[key] ||= []).push(o); }
   el.innerHTML = `<div class="section-head"><div><h1>Карта научных компетенций</h1><p>Карточки организаций построены только на найденных свидетельствах (ЕГИСУ: НИОКТР, РИД, диссертации; отдельные сведения СМИ — с пометкой). Наличие публикации не означает готовности создать промышленный компонент; оценка соответствия технологии — качественная, с основанием.</p></div></div>
   <div class="split"><div>
     <div class="card"><div class="toolbar"><select id="orgT"><option value="">все технологии</option>${TECH.map((t) => `<option value="${t.id}" ${tf === t.id ? "selected" : ""}>${t.id} ${esc(t.name.slice(0, 50))}</option>`).join("")}</select>${filt ? `<span class="badge b-acc">фильтр: организации выбранного узла</span> <button class="btn" id="orgClr">сбросить</button>` : ""}<span class="src">● — город подтверждён карточкой ЕГИСУ · ○ — указан только регион (точка в центре субъекта)</span></div>
     <div class="map"><svg viewBox="-10 -10 ${map.width + 20} ${map.height + 20}" role="img" aria-label="Карта организаций России"><path class="land" d="${map.d}"/>
-    ${(() => { const placed = []; return Object.values(groups).sort((a, b) => b.length - a.length).map((g) => { const [x, y] = project(g[0].coords); const vis = g.filter((o) => (!tf || o.fit.some(([t]) => t === tf)) && (!filt || filt.includes(o.id))); const clash = placed.some(([px, py]) => Math.abs(px - x) < 60 && Math.abs(py - y) < 12); placed.push([x, y]); const name = g[0].city.split(" (")[0]; return `<g>${clash ? "" : `<text class="city" x="${x + 9}" y="${y + 3}">${esc(name)}${g.length > 1 ? " · " + g.length : ""}</text>`}<title>${esc(name)}</title><circle class="dot ${g[0].precision === "регион" ? "reg" : ""} ${vis.length ? "" : "dim"}" cx="${x}" cy="${y}" r="${4 + Math.sqrt(vis.length || g.length) * 3}" data-orgs="${g.map((o) => o.id).join(",")}"/></g>`; }).join(""); })()}
+    ${(() => { const placed = []; return Object.values(groups).sort((a, b) => b.length - a.length).map((g) => { const [x, y] = project(g[0].coords); const vis = g.filter((o) => (!tf || o.fit.some(([t]) => t === tf)) && (!filt || filt.includes(o.id))); const clash = placed.some(([px, py]) => Math.abs(px - x) < 60 && Math.abs(py - y) < 12); placed.push([x, y]); const name = g[0].city.split(" (")[0]; const rr = 4 + Math.sqrt(vis.length || g.length) * 3; return `<g>${clash ? "" : `<text class="city" x="${x + rr + 4}" y="${y + 3}">${esc(name)}${g.length > 1 ? " · " + g.length : ""}</text>`}<title>${esc(name)}</title><circle class="dot ${g[0].precision === "регион" ? "reg" : ""} ${vis.length ? "" : "dim"}" cx="${x}" cy="${y}" r="${4 + Math.sqrt(vis.length || g.length) * 3}" data-orgs="${g.map((o) => o.id).join(",")}"/></g>`; }).join(""); })()}
     </svg></div><p class="src">${esc(map.source)}. Коническая равнопромежуточная проекция.</p></div>
     <div class="card"><h3>Таблица исследовательских коллективов</h3><div class="table-wrap"><table><thead><tr><th>Организация</th><th>Тип</th><th>НИОКТР</th><th>Статьи Crossref</th><th>Соответствие технологиям (основание)</th></tr></thead><tbody id="orgBody"></tbody></table></div></div>
   </div><div class="card side" id="orgSide"></div></div>`;
@@ -438,10 +468,15 @@ RENDER.orgs = (el) => {
     const list = ORGS.filter((o) => (!tv || o.fit.some(([t]) => t === tv)) && (!state.orgFilter || state.orgFilter.includes(o.id)));
     $("#orgBody").innerHTML = list.map((o) => `<tr class="clickable" data-o="${o.id}"><td><b>${esc(o.name)}</b><div class="src">${esc(o.city)}</div></td><td>${esc(o.type)}</td><td>${(o.evidence?.nioktr || []).length}</td><td>${o.evidence?.crossref || "—"}</td><td>${o.fit.filter(([t]) => !tv || t === tv).map(([t, l, b]) => `<div style="margin:2px 0"><span class="chip t static">${t}</span> <span class="badge ${l === "высокий" ? "b-ok" : l === "средний" ? "b-warn" : "b-none"}">${l}</span> <span style="font-size:12px">${esc(b)}</span></div>`).join("")}</td></tr>`).join("");
   };
-  const side = (id) => {
+  let cityGroup = null;
+  const side = (id, group) => {
+    if (group) cityGroup = group; else if (cityGroup && !cityGroup.includes(id)) cityGroup = null;
     const o = orgById[id] || orgById[state.org] || ORGS[0];
+    state.org = o.id;
+    const gi = cityGroup ? cityGroup.indexOf(o.id) : -1;
+    const nav = cityGroup && cityGroup.length > 1 ? `<div class="city-nav"><button class="btn" data-cn="-1" aria-label="Предыдущая организация">‹</button><span>${esc(o.city.split(" (")[0])}: организация ${gi + 1} из ${cityGroup.length}</span><button class="btn" data-cn="1" aria-label="Следующая организация">›</button></div>` : "";
     const ev = o.evidence || {};
-    $("#orgSide").innerHTML = `<span class="badge b-link">${esc(o.type)}</span><h2 style="margin-top:6px">${esc(o.name)}</h2><div class="src">${esc(o.city)} · точность местоположения: ${esc(o.precision)}</div>
+    $("#orgSide").innerHTML = `${nav}<span class="badge b-link">${esc(o.type)}</span><h2 style="margin-top:6px">${esc(o.name)}</h2><div class="src">${esc(o.city)} · точность местоположения: ${esc(o.precision)}</div>
     <div class="sec"><h4>Свидетельства</h4><dl class="kv">
       <dt>Опубликованные исследования</dt><dd>${ev.crossref ? `${ev.crossref} статей по LPBF/СЛП в Crossref (2019–2026, аффилиация подтверждена метаданными)` : "в Crossref по запросу не найдено"}${ev.published ? "; " + esc(ev.published) : ""}</dd>
       <dt>Выполненные НИОКТР</dt><dd><div class="chips">${(ev.nioktr || []).map(chipR).join("") || "—"}</div></dd>
@@ -457,7 +492,8 @@ RENDER.orgs = (el) => {
   $("#orgT").addEventListener("change", () => RENDER.orgs(el));
   $("#orgClr")?.addEventListener("click", () => { state.orgFilter = null; RENDER.orgs(el); });
   $("#orgBody").addEventListener("click", (e) => { const tr = e.target.closest("[data-o]"); if (tr) side(tr.dataset.o); });
-  el.querySelector(".map svg").addEventListener("click", (e) => { const c = e.target.closest("[data-orgs]"); if (c) side(c.dataset.orgs.split(",")[0]); });
+  el.querySelector(".map svg").addEventListener("click", (e) => { const c = e.target.closest("[data-orgs]"); if (c) { const g = c.dataset.orgs.split(","); side(g[0], g); } });
+  $("#orgSide").addEventListener("click", (e) => { const b = e.target.closest("[data-cn]"); if (!b || !cityGroup) return; const cur = cityGroup.indexOf(state.org); const n = cityGroup[(cur + +b.dataset.cn + cityGroup.length) % cityGroup.length]; side(n); });
   el.querySelector(".map svg").addEventListener("pointermove", (e) => { const c = e.target.closest("[data-orgs]"); showTip(c ? c.dataset.orgs.split(",").map((id) => esc(orgById[id].name)).join("<br>") : null, e); });
   el.querySelector(".map svg").addEventListener("pointerleave", (e) => showTip(null, e));
   draw(); side(state.org);
@@ -485,11 +521,15 @@ RENDER.patents = (el) => {
 // ---------------- 07 РЫНОК ----------------
 RENDER.market = (el) => {
   const S = D.suppliers;
+  const hasInfo = (g) => g.ru.length + g.foreign.length > 0;
+  const byNode = Object.fromEntries(S.suppliers.map((g) => [g.node, g]));
+  const all = [byNode.S00, ...SYS.map((x) => byNode[x.id] || { node: x.id, nodeName: x.name, ru: [], foreign: [], gap: "Специализированные поставщики узла в атласе не выделены: узел собирается из типовых деталей. Разбор по компонентам — в разделе «Ввоз и санкции»." })];
+  const GROUPS = [...all.filter(hasInfo), ...all.filter((g) => !hasInfo(g))];
   el.innerHTML = `<div class="section-head"><div><h1>Рынок, поставщики и импортная зависимость</h1><p>Узел → российские производители → зарубежные производители → подтверждённая доступность → правовые ограничения → возможность локализации. Цены, сроки поставки, складские остатки и доступность в России не приводятся — таких подтверждённых сведений нет.</p></div></div>
   <div class="card" style="margin-bottom:14px"><h3>Матрица технологической и импортной зависимости</h3><div style="overflow:auto"><table class="matrix" style="min-width:820px"><thead><tr><th style="text-align:left">Узел</th><th>Российские<br>предложения</th><th>Стадия RU</th><th>Зарубежные</th><th>Доминирующий режим</th><th>Дефицит</th><th style="text-align:left">Возможность локализации (аналитика)</th></tr></thead><tbody>
-  ${S.suppliers.map((g) => { const ruProd = g.ru.filter((r) => r.avail === "ok").length; const stage = ruProd ? "продукт" : g.ru.length ? "НИОКР / опытный образец" : "нет данных"; const worst = g.foreign.some((f) => f.avail === "restricted") ? "restricted" : g.foreign.some((f) => f.avail === "check") ? "check" : "none"; const def = D.support.deficits.find((d) => d.nodes.includes(g.node)); return `<tr><td class="h"><b>${esc(g.nodeName)}</b> <span class="mono muted">${g.node}</span></td><td><div class="cell ${g.ru.length ? (ruProd ? "c3" : "c1") : "c0"}">${g.ru.length}</div></td><td style="font-size:11.5px">${stage}</td><td><div class="cell c2">${g.foreign.length}</div></td><td>${availBadge(worst)}</td><td>${def ? `<span class="badge b-bad">${def.id}</span>` : "—"}</td><td class="h" style="white-space:normal;font-size:11.5px;max-width:320px">${esc(def ? def.need : g.gap || "Есть отечественные решения; требуется подтверждение характеристик и объёмов")}</td></tr>`; }).join("")}
+  ${GROUPS.map((g) => { const ruProd = g.ru.filter((r) => r.avail === "ok").length; const stage = ruProd ? "продукт" : g.ru.length ? "НИОКР / опытный образец" : "нет данных"; const worst = g.foreign.some((f) => f.avail === "restricted") ? "restricted" : g.foreign.some((f) => f.avail === "check") ? "check" : "none"; const def = D.support.deficits.find((d) => d.nodes.includes(g.node)); return `<tr><td class="h"><b>${esc(g.nodeName)}</b> <span class="mono muted">${g.node}</span></td><td><div class="cell ${g.ru.length ? (ruProd ? "c3" : "c1") : "c0"}">${g.ru.length}</div></td><td style="font-size:11.5px">${stage}</td><td><div class="cell c2">${g.foreign.length}</div></td><td>${availBadge(worst)}</td><td>${def ? `<span class="badge b-bad">${def.id}</span>` : "—"}</td><td class="h" style="white-space:normal;font-size:11.5px;max-width:320px">${esc(def ? def.need : g.gap || "Есть отечественные решения; требуется подтверждение характеристик и объёмов")}</td></tr>`; }).join("")}
   </tbody></table></div></div>
-  <div class="grid g2">${S.suppliers.map((g) => `<div class="card"><div class="pill-row"><h3>${esc(g.nodeName)}</h3>${g.node !== "S00" ? chipS(g.node) : ""}</div>
+  <div class="grid g2">${GROUPS.map((g) => `<div class="card"><div class="pill-row"><h3>${esc(g.nodeName)}</h3>${g.node !== "S00" ? chipS(g.node) : ""}</div>
     ${g.gap ? `<p class="note" style="margin-top:8px">${esc(g.gap)}</p>` : ""}
     ${g.ru.length ? `<h4 style="margin-top:10px">Россия</h4>${g.ru.map((s) => `<div style="margin:6px 0;font-size:12.5px"><b>${esc(s.name)}</b> ${availBadge(s.avail)}<div>${esc(s.product)}</div><div class="src">Основание: ${esc(s.evidence)}${s.note ? " · " + esc(s.note) : ""}</div></div>`).join("")}` : ""}
     ${g.foreign.length ? `<h4 style="margin-top:10px">Зарубежные</h4>${g.foreign.map((s) => `<div style="margin:6px 0;font-size:12.5px"><b>${esc(s.name)}</b> <span class="muted">${esc(s.country)}</span> ${availBadge(s.avail)}<div>${esc(s.product)}</div><div class="src">${esc(s.note)}</div></div>`).join("")}` : ""}</div>`).join("")}</div>
@@ -502,11 +542,11 @@ RENDER.market = (el) => {
 // ---------------- 08 ПОДДЕРЖКА ----------------
 RENDER.support = (el) => {
   const st = D.support.stages;
-  el.innerHTML = `<div class="section-head"><div><h1>Инструменты поддержки по стадиям</h1><p>Паспорта мер поддержки с датой проверки. Соответствие программы конкретному проекту не утверждается без проверки заявителя и всех конкурсных условий.</p></div></div>
+  el.innerHTML = `<div class="section-head"><div><span class="badge b-link" style="margin-bottom:6px;display:inline-block">общий раздел отраслевого сегмента «Станкостроение»</span><h1>Инструменты поддержки по стадиям</h1><p>Меры поддержки относятся ко всему сегменту, а не только к этому станку. Связь со станком показана в каждой карточке: к каким технологиям и узлам мера применима. Паспорта мер поддержки с датой проверки. Соответствие программы конкретному проекту не утверждается без проверки заявителя и всех конкурсных условий.</p></div></div>
   <div class="card" style="overflow:auto;margin-bottom:14px"><h3 style="margin-bottom:10px">Шкала стадий</h3><div class="stages"><div></div>${st.map((s) => `<div class="hd">${esc(s)}</div>`).join("")}
   ${D.support.support.map((m) => `<div class="nm" data-m="${m.id}">${esc(m.name.split(":")[0])}<div class="src">${esc((m.name.split(":")[1] || "").trim().slice(0, 60))}</div></div>${st.map((_, i) => `<div class="st ${m.stages.includes(i) ? "on" : ""}" title="${m.stages.includes(i) ? esc(st[i]) : ""}"></div>`).join("")}`).join("")}</div></div>
   <div class="grid g2" id="supCards">${D.support.support.map((m) => `<div class="card" id="m-${m.id}"><span class="badge b-link">${esc(m.operator)}</span><h3 style="margin-top:6px">${esc(m.name)}</h3>
-  <dl class="kv" style="margin-top:8px"><dt>Предмет</dt><dd>${esc(m.subject)}</dd><dt>Заявители</dt><dd>${esc(m.applicants)}</dd><dt>Стадии</dt><dd>${m.stages.map((i) => esc(st[i])).join(", ")}</dd><dt>Условия</dt><dd>${esc(m.conditions)}</dd><dt>Сумма</dt><dd>${esc(m.amount)}</dd><dt>Софинансирование</dt><dd>${esc(m.cofin)}</dd><dt>Допустимые расходы</dt><dd>${esc(m.costs)}</dd><dt>Сроки</dt><dd>${esc(m.term)}</dd><dt>Статус</dt><dd>${esc(m.status)}</dd><dt>Применимость</dt><dd>${esc(m.fit)}</dd><dt>Проверено</dt><dd class="mono">${esc(m.checked)}</dd></dl>
+  <dl class="kv" style="margin-top:8px"><dt>Предмет</dt><dd>${esc(m.subject)}</dd><dt>Заявители</dt><dd>${esc(m.applicants)}</dd><dt>Стадии</dt><dd>${m.stages.map((i) => esc(st[i])).join(", ")}</dd><dt>Условия</dt><dd>${esc(m.conditions)}</dd><dt>Сумма</dt><dd>${esc(m.amount)}</dd><dt>Софинансирование</dt><dd>${esc(m.cofin)}</dd><dt>Допустимые расходы</dt><dd>${esc(m.costs)}</dd><dt>Сроки</dt><dd>${esc(m.term)}</dd><dt>Статус</dt><dd>${esc(m.status)}</dd><dt>Применимость</dt><dd>${esc(m.fit)}</dd><dt>Проверено</dt><dd class="mono">${esc(m.checked)}</dd><dt>Применимо к станку СЛП</dt><dd><div class="chips">${(m.techs || []).filter((t) => techById[t]).map(chipT).join("")}${[...new Set((m.techs || []).flatMap((t) => techById[t]?.nodes || []))].map(chipS).join("")}${(m.techs || []).includes("P-LPBF") ? '<span class="chip static">станок целиком</span>' : ""}</div></dd></dl>
   <p class="src" style="margin-top:6px">${m.src.map(srcLink).join("; ") || "источник не исследован"}</p></div>`).join("")}</div>`;
   el.querySelectorAll("[data-m]").forEach((n) => n.addEventListener("click", () => $("#m-" + n.dataset.m).scrollIntoView({ behavior: "smooth", block: "center" })));
 };
