@@ -204,6 +204,7 @@ export async function mountAnatomy(host, { onSelect, onPhase, onHover } = {}) {
     phases: PHASES,
     state: st,
     select, focus, setHousing, setApart,
+    setRelated(ids) { const set = new Set(ids || []); for (const el of sysEls) el.classList.toggle("is-rel", set.has(el.dataset.sys)); },
     play(on = !st.running) { st.running = on && !reduce.matches; fig.classList.toggle("running", st.running); kick(); return st.running; },
     setSpeed(v) { st.speed = v; },
     setForceScan(on) { st.forceScan = on; if (on && !st.running) this.play(true); kick(); },

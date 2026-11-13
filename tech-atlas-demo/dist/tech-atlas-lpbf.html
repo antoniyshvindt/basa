@@ -226,7 +226,13 @@ tr.clickable{cursor:pointer}tr.clickable:hover td{background:var(--panel-2)}
 .fig .iso-svg{max-height:78vh}
 .fig svg{touch-action:manipulation}
 .fig [data-sys]{cursor:pointer;transition:opacity .35s}
-.fig.has-sel [data-sys]:not(.is-sel){opacity:.22}
+.fig.has-sel svg>:not(.piece):not([data-id="cables"]):not([data-id="beam-layer"]):not(defs){opacity:.16;transition:opacity .35s}
+.fig.has-sel [data-sys]:not(.is-sel){opacity:.5}
+.fig.has-sel [data-sys].is-rel:not(.is-sel){opacity:.95}
+.fig .is-rel:not(.is-sel) .iso-edge{stroke:color-mix(in srgb,var(--accent) 30%,var(--anatomy-mid))}
+.fig .is-sel .iso-edge{stroke-width:1.3}
+.fig .is-sel .iso-top,.fig .is-sel .iso-fill{fill:color-mix(in srgb,var(--accent) 22%,var(--anatomy-paper))}
+.fig .is-sel .iso-shade{fill:color-mix(in srgb,var(--accent) 30%,var(--anatomy-shade-1))}
 .fig.has-sel .housing{opacity:.12!important}
 .fig .is-sel .iso-edge,.fig .is-sel>.iso-wire .iso-line{stroke:var(--accent)!important}
 .fig .is-hover .iso-edge{stroke:var(--accent)}
@@ -401,6 +407,13 @@ select{max-width:100%}
 .nv-kind{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;margin-bottom:2px}
 .nv-cur{border:2px solid var(--accent);border-radius:10px;padding:12px;background:var(--accent-soft)}
 .nv-on{color:var(--accent);font-weight:600}
+
+tr.row-cur td{background:var(--accent-soft)}
+tr.row-rel td{background:color-mix(in srgb,var(--accent) 9%,var(--panel))}
+tr.row-cur td:first-child,tr.row-rel td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
+.tech-desc{margin:-4px 0 14px;font-size:13px}
+.tech-desc summary{cursor:pointer;color:var(--link);font-size:12.5px;margin-bottom:6px}
+.tech-desc p{color:var(--muted);max-width:880px}
 </style>
 </head>
 <body>
@@ -1351,6 +1364,7 @@ async function mountAnatomy(host, { onSelect, onPhase, onHover } = {}) {
     phases: PHASES,
     state: st,
     select, focus, setHousing, setApart,
+    setRelated(ids) { const set = new Set(ids || []); for (const el of sysEls) el.classList.toggle("is-rel", set.has(el.dataset.sys)); },
     play(on = !st.running) { st.running = on && !reduce.matches; fig.classList.toggle("running", st.running); kick(); return st.running; },
     setSpeed(v) { st.speed = v; },
     setForceScan(on) { st.forceScan = on; if (on && !st.running) this.play(true); kick(); },
@@ -1390,6 +1404,7 @@ const vntById = Object.fromEntries(NPTL.vnt.map((v) => [v.id, v]));
 const COMP = D.components;
 const topTech = (id) => (id.includes(".") ? id.split(".")[0] : id);
 const SRC_ = D.sourcing.sourcing;
+const relatedOf = (id) => (id ? [...new Set([...(sysById[id]?.deps || []), ...SYS.filter((x) => x.deps.includes(id)).map((x) => x.id)])].filter((x) => x !== id) : []);
 const BL = D.ugt.backlog;
 const verdictBadge = (v) => ({ ok: '<span class="badge b-ok">ввоз возможен</span>', hard: '<span class="badge b-warn">сложно</span>', critical: '<span class="badge b-bad">критично</span>' })[v] || "";
 function importBlock(id) {
@@ -1447,7 +1462,7 @@ const SECTIONS = [
 ];
 const state = { node: null, tech: null, res: null, org: null };
 $("#tabs").innerHTML = SECTIONS.map(([id, name], i) => `<button class="tab" data-tab="${id}"><span class="n">${String(i + 1).padStart(2, "0")}</span>${name}</button>`).join("");
-$("#tabs").addEventListener("click", (e) => { const b = e.target.closest("[data-tab]"); if (b) go(b.dataset.tab); });
+$("#tabs").addEventListener("click", (e) => { const b = e.target.closest("[data-tab]"); if (!b) return; const had = state.srcNode || state.techNode || state.ugtNode; state.srcNode = state.techNode = state.ugtNode = null; go(b.dataset.tab, { force: !!had && ["sourcing", "tech", "ugt"].includes(b.dataset.tab) }); });
 const views = {};
 const main = $("#main");
 for (const [id] of SECTIONS) { const sec = document.createElement("section"); sec.id = "v-" + id; sec.hidden = true; main.append(sec); views[id] = sec; }
@@ -1471,7 +1486,7 @@ window.addEventListener("hashchange", () => go(location.hash.slice(1)));
 document.addEventListener("click", (e) => {
   const t = e.target.closest("[data-go-tech],[data-go-node],[data-go-res],[data-go-org],[data-go]");
   if (!t || t.closest(".fig svg")) return;
-  if (t.dataset.goTech) { state.tech = t.dataset.goTech; go("tech", { force: true }); }
+  if (t.dataset.goTech) { state.tech = t.dataset.goTech; state.techNode = null; go("tech", { force: true }); }
   else if (t.dataset.goNode) { state.node = t.dataset.goNode; go("anatomy", { after: () => anat && anatSelect(state.node, true) }); }
   else if (t.dataset.goRes) { openResearch(t.dataset.goRes); }
   else if (t.dataset.goOrg) { state.org = t.dataset.goOrg; go("orgs", { force: true }); }
@@ -1508,9 +1523,10 @@ const RENDER = {};
 RENDER.anatomy = async (el) => {
   const P = D.products.product;
   el.innerHTML = `
-  <div class="section-head"><div><div class="crumbs"><span>Домен «${esc(P.domain)}»</span><span class="arrow">→</span><span>Отраслевой сегмент «${esc(P.segment)}»</span><span class="arrow">→</span><span>пример станка</span></div><h1>${esc(P.name)}</h1><p>${esc(P.principle)}</p></div>
+  <div class="section-head"><div><div class="crumbs"><span>Домен «${esc(P.domain)}»</span><span class="arrow">→</span><span>Отраслевой сегмент «${esc(P.segment)}»</span><span class="arrow">→</span><span>пример станка</span></div><h1>${esc(P.name)}</h1></div>
     <div class="pill-row"><span class="badge b-link">${esc(P.class)}</span><span class="badge b-none">типовая модель, не конкретная установка</span></div></div>
   <div class="chief card"><div><h4>Что это</h4><p>${esc(P.forChief.what)}</p></div><div><h4>Для чего будет использоваться</h4><ul class="list">${P.forChief.why.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div><div><h4>Что это даёт</h4><ul class="list">${P.forChief.value.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div></div>
+  <details class="tech-desc" open><summary>Технически: как работает станок</summary><p>${esc(P.principle)}</p></details>
   <div class="anat">
     <div>
       <div class="anat-controls" role="toolbar" aria-label="Управление анатомией">
@@ -1533,7 +1549,7 @@ RENDER.anatomy = async (el) => {
         </div></figure>
       </div>
       <div class="cycle" id="cycle"></div>
-      <div class="fig-legend"><span><i style="background:#ff6a1a"></i>луч и трек сканирования (условно)</span><span><i style="background:var(--accent)"></i>выбранный узел</span><span>Шаг опускания платформы и толщина слоя на схеме увеличены для наглядности; реальный слой — 20–60 мкм.</span></div>
+      <div class="fig-legend"><span><i style="background:#ff6a1a"></i>луч и трек сканирования (условно)</span><span><i style="background:var(--accent)"></i>выбранный узел</span><span><i style="background:color-mix(in srgb,var(--accent) 50%,var(--muted))"></i>связанные узлы</span><span>Шаг опускания платформы и толщина слоя на схеме увеличены для наглядности; реальный слой — 20–60 мкм.</span></div>
       <h3 style="margin-top:22px">Сквозная цепочка для выбранного узла</h3>
       <p class="muted" style="font-size:12.5px">Изделие → подсистема → узел → технология → ВНТ → НИОКТР → коллективы → патенты → рынок → поддержка → дефициты → проект развития. Нажмите на шаг, чтобы перейти.</p>
       <div class="chain" id="chain"></div>
@@ -1542,7 +1558,7 @@ RENDER.anatomy = async (el) => {
   </div>`;
   $("#cycle").innerHTML = ["Дозирование порошка", "Нанесение слоя", "Контроль слоя", "Сканирование и сплавление", "Возврат рекотера", "Опускание платформы"].map((x, i) => `<div data-ph="${i}">${String(i + 1)}. ${x}</div>`).join("");
   anat = await mountAnatomy($("#anatStage"), {
-    onSelect: (id) => { state.node = id; $("#nodeSel").value = id || ""; renderSide(); renderChain(); if (mode === "detail") anat.focus(id); },
+    onSelect: (id) => { anat.setRelated(relatedOf(id)); state.node = id; $("#nodeSel").value = id || ""; renderSide(); renderChain(); if (mode === "detail") anat.focus(id); },
     onPhase: (ph, layer, pi) => { document.querySelectorAll("#cycle div").forEach((d, i) => d.classList.toggle("on", i === pi)); },
     onHover: (id, e) => showTip(id ? `<b>${id}</b> · ${esc(sysById[id].name)}` : null, e),
   });
@@ -1561,7 +1577,7 @@ RENDER.anatomy = async (el) => {
   };
   const syncHousingBtn = () => { const on = anat.state.housing; $("#housingBtn").setAttribute("aria-pressed", String(on)); $("#housingBtn").textContent = on ? "Корпус: показан" : "Корпус: скрыт"; };
   const setPlay = (on) => { const r = anat.play(on); $("#playBtn").textContent = r ? "❚❚ Пауза" : "▶ Старт"; $("#playBtn").setAttribute("aria-pressed", String(r)); };
-  anatSelect = (id, fromOutside) => { anat.select(id, { silent: true }); state.node = id; $("#nodeSel").value = id || ""; renderSide(); renderChain(); if (mode === "detail" || fromOutside) { if (fromOutside && mode === "overview") anat.setHousing(false), syncHousingBtn(); if (mode === "detail") anat.focus(id); } };
+  anatSelect = (id, fromOutside) => { anat.select(id, { silent: true }); anat.setRelated(relatedOf(id)); state.node = id; $("#nodeSel").value = id || ""; renderSide(); renderChain(); if (mode === "detail" || fromOutside) { if (fromOutside && mode === "overview") anat.setHousing(false), syncHousingBtn(); if (mode === "detail") anat.focus(id); } };
   $("#modeSeg").addEventListener("click", (e) => { const b = e.target.closest("[data-mode]"); if (b) setMode(b.dataset.mode); });
   $("#playBtn").addEventListener("click", () => setPlay(!anat.state.running));
   $("#speedSel").addEventListener("change", (e) => anat.setSpeed(+e.target.value));
@@ -1652,7 +1668,9 @@ RENDER.anatomy = async (el) => {
       const s = e.target.closest("[data-act]"); if (!s) return;
       const a = s.dataset.act;
       if (a === "node") return anat.focus(id);
-      if (a === "tech") { state.tech = ts[0]; return go("tech", { force: true }); }
+      if (a === "tech") { state.tech = ts[0]; state.techNode = id; return go("tech", { force: true }); }
+      if (a === "sourcing") { state.srcNode = id; return go("sourcing", { force: true }); }
+      if (a === "ugt") { state.ugtNode = id; return go("ugt", { force: true }); }
       if (a === "research") { state.res = { node: id }; return go("research", { force: true }); }
       if (a === "orgs") { state.org = null; state.orgFilter = os.map((o) => o.id); return go("orgs", { force: true }); }
       if (a === "graph") { state.graphFocus = id; return go("graph", { force: true }); }
@@ -1735,13 +1753,15 @@ function navigatorHtml(id) {
 // ---------------- 03 ТЕХНОЛОГИИ ----------------
 RENDER.tech = (el) => {
   const cur = state.tech || "T10";
+  const relT = state.techNode ? techsOfNode(state.techNode) : [];
   const t = techById[cur];
   const rs = resOfTech(cur); const rids = RIDS.filter((r) => r.techs.includes(cur)); const pats = D.patents.patents.filter((p) => p.techs.includes(cur));
   const byLevel = Object.keys(LEVELS).map((l) => [l, t.subs.filter((s) => s.level === l)]);
   el.innerHTML = `<div class="section-head"><div><h1>Предметные технологии T01–T15</h1><p>Рабочая классификация макета (не официальная). Для каждого направления — 3–4 конкретизированные технологии, разнесённые по уровням: создание узла, функционирование узла, производство изделия, контроль качества.</p></div></div>
   <div class="split"><div>
+    ${state.techNode ? `<div class="note acc" style="margin-bottom:10px">Подсвечены все технологии узла <b>${state.techNode} ${esc(sysById[state.techNode].short)}</b> (${relT.length}). <button class="back-btn" data-clear-tn style="margin:0 0 0 8px">Показать без подсветки</button></div>` : ""}
     <div class="card"><div class="table-wrap" style="max-height:none"><table><thead><tr><th>Код</th><th>Направление</th><th>Узлы</th><th>№ ВНТ</th><th>НИОКТР</th><th>РИД</th></tr></thead><tbody>
-    ${TECH.map((x) => `<tr class="clickable" data-t="${x.id}" ${x.id === cur ? 'style="background:var(--accent-soft)"' : ""}><td class="mono">${x.id}</td><td>${esc(x.name)}</td><td>${x.nodes.map((n) => `<span class="mono">${n}</span>`).join(" ")}</td><td>${x.vnt.map((v) => vntById[v].num).join(", ")}</td><td>${resOfTech(x.id).length}</td><td>${RIDS.filter((r) => r.techs.includes(x.id)).length}</td></tr>`).join("")}
+    ${TECH.map((x) => `<tr class="clickable ${x.id === cur ? "row-cur" : relT.includes(x.id) ? "row-rel" : ""}" data-t="${x.id}"><td class="mono">${x.id}</td><td>${esc(x.name)}</td><td>${x.nodes.map((n) => `<span class="mono">${n}</span>`).join(" ")}</td><td>${x.vnt.map((v) => vntById[v].num).join(", ")}</td><td>${resOfTech(x.id).length}</td><td>${RIDS.filter((r) => r.techs.includes(x.id)).length}</td></tr>`).join("")}
     </tbody></table></div></div>
     <div class="card"><h3>Матрица «технология × узел»</h3><p class="muted" style="font-size:12px">Число связей: подсистема требует направление, компоненты требуют предметные технологии.</p><div style="overflow:auto">${techNodeMatrix()}</div></div>
   </div>
@@ -1755,6 +1775,7 @@ RENDER.tech = (el) => {
     <div class="sec"><h4>Зарубежные патентные документы · ${pats.length}</h4>${pats.map((p) => `<div style="font-size:12px;margin:3px 0"><span class="mono">${esc(p.number)}</span> ${esc(p.title)}</div>`).join("") || '<span class="muted">—</span>'}</div>
   </div></div>`;
   el.querySelectorAll("tr[data-t]").forEach((tr) => tr.addEventListener("click", () => { state.tech = tr.dataset.t; RENDER.tech(el); }));
+  el.querySelector("[data-clear-tn]")?.addEventListener("click", () => { state.techNode = null; RENDER.tech(el); });
 };
 function techNodeMatrix() {
   const cnt = (t, s) => (sysById[s].techs.includes(t.id) ? 1 : 0) + COMP.filter((c) => c.sys === s).reduce((a, c) => a + [...c.techCreate, ...c.techOperate].filter((x) => topTech(x) === t.id).length, 0);
@@ -1994,7 +2015,7 @@ RENDER.sourcing = (el) => {
     <div class="card stat"><b style="color:var(--warn)">${cnt("hard")}</b><span>сложно: ведущие поставщики под ограничениями ЕС/США, ввоз из третьих стран с риском</span></div>
     <div class="card stat"><b style="color:var(--bad)">${cnt("critical")}</b><span>критично: ограничения и нет подтверждённой альтернативы нужного класса</span></div>
   </div>
-  <div class="card"><div class="toolbar"><select id="srcN"><option value="">все узлы</option>${SYS.map((x) => `<option value="${x.id}">${x.id} ${esc(x.short)}</option>`).join("")}</select><select id="srcV"><option value="">все категории</option><option value="critical">критично</option><option value="hard">сложно</option><option value="ok">ввоз возможен</option></select><span class="muted" id="srcCount" style="font-size:12px"></span></div>
+  <div class="card"><div class="toolbar"><select id="srcN"><option value="">все узлы</option>${SYS.map((x) => `<option value="${x.id}" ${state.srcNode === x.id ? "selected" : ""}>${x.id} ${esc(x.short)}</option>`).join("")}</select><select id="srcV"><option value="">все категории</option><option value="critical">критично</option><option value="hard">сложно</option><option value="ok">ввоз возможен</option></select><span class="muted" id="srcCount" style="font-size:12px"></span></div>
   <div class="table-wrap" style="max-height:none"><table><thead><tr><th>Компонент</th><th>Тип</th><th>ТН ВЭД (ориент.)</th><th>Страны-производители</th><th>ЕС</th><th>США</th><th>Итог</th><th>Отечественное решение / задел</th><th>Действие</th><th>Срок ввоза*</th><th>Срок своего решения*</th></tr></thead><tbody id="srcBody"></tbody></table></div>
   <p class="src" style="margin-top:8px">* Сроки — аналитическая оценка макета, не данные поставщиков. ${S.method.map(esc).join(" ")}</p></div>
   <div class="card"><h3>Доступ к программному обеспечению</h3><div class="table-wrap" style="max-height:none;margin-top:8px"><table><thead><tr><th>ПО</th><th>ЕС</th><th>США</th><th>Отечественная альтернатива</th><th>Итог</th></tr></thead><tbody>${S.softwareAccess.map((x) => `<tr><td><b>${esc(x.item)}</b></td><td>${esc(x.eu)}</td><td>${esc(x.us)}</td><td>${esc(x.ru)}</td><td>${verdictBadge(x.verdict)}</td></tr>`).join("")}</tbody></table></div>
@@ -2016,7 +2037,7 @@ RENDER.ugt = (el) => {
   <div class="card" style="overflow:auto"><h3>Шкала УГТ v3.5 и литеры КД</h3><div class="ugt-ladder">${U.scale.levels.map((l) => `<div class="ugt-step"><div class="ugt-n">${l.n}</div><div class="ugt-lit">${l.litera ? "литера «" + esc(l.litera) + "»" : "—"}</div><b>${esc(l.title)}</b><div class="muted" style="font-size:11.5px;margin-top:4px">${esc(l.stage)}</div><details style="margin-top:6px"><summary class="src" style="cursor:pointer">документы (${l.docs.length})</summary><ul class="list" style="font-size:11.5px">${l.docs.map((d) => `<li>${esc(d)}</li>`).join("")}</ul></details></div>`).join("")}</div><p class="src" style="margin-top:8px">${esc(U.scale.estdNote)}</p></div>
   <div class="card"><h3>Задачи на доработку заделов</h3><ul class="list" style="font-size:12.5px;margin:6px 0 10px">${U.note.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>
   <div class="table-wrap" style="max-height:none"><table><thead><tr><th>Задел (НИОКТР)</th><th>Узел</th><th>УГТ сейчас (оценка)</th><th>Почему так</th><th>Подтверждено документами</th><th>Литера «О»</th><th>Цель</th><th>Задача организации</th><th>Срок, мес.*</th><th>Инструменты</th></tr></thead><tbody>
-  ${U.backlog.map((b) => `<tr><td><b>${esc(b.title)}</b><div class="chips" style="margin-top:4px">${b.id.split(" / ").map(chipR).join("")}</div><div class="src">${esc(orgById[b.org]?.name.split(" (")[0] || "")}</div></td><td>${b.node === "S00" ? '<span class="chip static">станок целиком</span>' : chipS(b.node)}</td><td>${ugtBar(b.ugtNow, b.target)}</td><td style="font-size:12px">${esc(b.ugtNowWhy)}${b.ugtEgisu ? `<div class="src">ЕГИСУ: ${esc(b.ugtEgisu)}</div>` : ""}</td><td style="font-size:12px">${esc(b.documented)}</td><td><span class="badge b-warn">не подтверждена</span></td><td><b>УГТ ${b.target}</b></td><td><ul class="list" style="font-size:12px">${b.tasks.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></td><td class="mono">${esc(b.months)}</td><td style="font-size:12px">${b.support.map((m) => `<div>• ${esc(supById[m]?.name.split(":")[0].split("(")[0].trim() || m)}</div>`).join("")}</td></tr>`).join("")}
+  ${[...U.backlog].sort((a, b) => (b.node === state.ugtNode) - (a.node === state.ugtNode)).map((b) => `<tr class="${b.node === state.ugtNode ? "row-rel" : ""}"><td><b>${esc(b.title)}</b><div class="chips" style="margin-top:4px">${b.id.split(" / ").map(chipR).join("")}</div><div class="src">${esc(orgById[b.org]?.name.split(" (")[0] || "")}</div></td><td>${b.node === "S00" ? '<span class="chip static">станок целиком</span>' : chipS(b.node)}</td><td>${ugtBar(b.ugtNow, b.target)}</td><td style="font-size:12px">${esc(b.ugtNowWhy)}${b.ugtEgisu ? `<div class="src">ЕГИСУ: ${esc(b.ugtEgisu)}</div>` : ""}</td><td style="font-size:12px">${esc(b.documented)}</td><td><span class="badge b-warn">не подтверждена</span></td><td><b>УГТ ${b.target}</b></td><td><ul class="list" style="font-size:12px">${b.tasks.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></td><td class="mono">${esc(b.months)}</td><td style="font-size:12px">${b.support.map((m) => `<div>• ${esc(supById[m]?.name.split(":")[0].split("(")[0].trim() || m)}</div>`).join("")}</td></tr>`).join("")}
   </tbody></table></div><p class="src" style="margin-top:6px">* Сроки — аналитическая оценка. УГТ «сейчас» — оценка макета по признакам из карточек ЕГИСУ; уровень считается подтверждённым только при наличии полного пакета документов по шкале.</p></div>`;
 };
 function ugtBar(now, target) {

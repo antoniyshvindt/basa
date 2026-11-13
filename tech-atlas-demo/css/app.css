@@ -111,7 +111,13 @@ tr.clickable{cursor:pointer}tr.clickable:hover td{background:var(--panel-2)}
 .fig .iso-svg{max-height:78vh}
 .fig svg{touch-action:manipulation}
 .fig [data-sys]{cursor:pointer;transition:opacity .35s}
-.fig.has-sel [data-sys]:not(.is-sel){opacity:.22}
+.fig.has-sel svg>:not(.piece):not([data-id="cables"]):not([data-id="beam-layer"]):not(defs){opacity:.16;transition:opacity .35s}
+.fig.has-sel [data-sys]:not(.is-sel){opacity:.5}
+.fig.has-sel [data-sys].is-rel:not(.is-sel){opacity:.95}
+.fig .is-rel:not(.is-sel) .iso-edge{stroke:color-mix(in srgb,var(--accent) 30%,var(--anatomy-mid))}
+.fig .is-sel .iso-edge{stroke-width:1.3}
+.fig .is-sel .iso-top,.fig .is-sel .iso-fill{fill:color-mix(in srgb,var(--accent) 22%,var(--anatomy-paper))}
+.fig .is-sel .iso-shade{fill:color-mix(in srgb,var(--accent) 30%,var(--anatomy-shade-1))}
 .fig.has-sel .housing{opacity:.12!important}
 .fig .is-sel .iso-edge,.fig .is-sel>.iso-wire .iso-line{stroke:var(--accent)!important}
 .fig .is-hover .iso-edge{stroke:var(--accent)}
@@ -286,3 +292,10 @@ select{max-width:100%}
 .nv-kind{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;margin-bottom:2px}
 .nv-cur{border:2px solid var(--accent);border-radius:10px;padding:12px;background:var(--accent-soft)}
 .nv-on{color:var(--accent);font-weight:600}
+
+tr.row-cur td{background:var(--accent-soft)}
+tr.row-rel td{background:color-mix(in srgb,var(--accent) 9%,var(--panel))}
+tr.row-cur td:first-child,tr.row-rel td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
+.tech-desc{margin:-4px 0 14px;font-size:13px}
+.tech-desc summary{cursor:pointer;color:var(--link);font-size:12.5px;margin-bottom:6px}
+.tech-desc p{color:var(--muted);max-width:880px}
