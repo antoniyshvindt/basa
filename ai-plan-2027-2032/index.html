@@ -1,0 +1,498 @@
+<title>План ИИ 2027–2032</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;800&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: dark grid field; glowing hero word + particle sphere + floating task tiles; then a 1100px column of tile-built sections. Single dark look by choice (follows the reference). */
+:root{
+  --bg:#050507; --ink:#EEEBF7; --lav:#D3CAF2; --muted:#8E89A3; --faint:#5C586C;
+  --violet:#7A5CFF; --violet-2:#B596FF; --tile:#121117; --tile-2:#18161F; --line:#25222E;
+  --ok:#5ED3A2; --part:#E7B868; --gap:#FF7D8C;
+  --grid:rgba(255,255,255,.045);
+  --f-display:"Inter Tight","Golos Text",system-ui,sans-serif;
+  --f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 72px;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:96px 96px;background-position:-1px -1px;overflow-x:hidden}
+.wrap{max-width:1120px;margin:0 auto}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+.mono{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+a{color:var(--violet-2)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--violet-2);outline-offset:3px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;height:clamp(460px,64vw,720px);overflow:hidden}
+.hero .word{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;
+  font-family:var(--f-display);font-weight:800;font-size:clamp(120px,27vw,360px);letter-spacing:-.04em;line-height:.8;color:var(--lav);
+  text-shadow:0 0 18px rgba(211,202,242,.55),0 0 60px rgba(181,150,255,.35),0 0 140px rgba(122,92,255,.25);white-space:nowrap}
+.hero .word span{display:inline-block}
+.hero .word .gapw{width:clamp(130px,26vw,330px)}
+#sphere{position:absolute;left:50%;top:50%;width:min(64vw,560px);height:min(64vw,560px);transform:translate(-50%,-50%);display:block}
+.focus{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:14px;
+  font-family:var(--f-body);font-size:clamp(10px,1.2vw,13px);letter-spacing:.06em;text-transform:uppercase;color:#fff;white-space:nowrap;
+  text-shadow:0 0 12px rgba(0,0,0,.8)}
+.focus i{display:block;width:clamp(40px,9vw,110px);height:1px;background:rgba(255,255,255,.7)}
+.tag{position:absolute;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;
+  background:linear-gradient(160deg,#1b1a20,#0e0d12);border:1px solid #2a2832;color:#fff;
+  font-family:var(--f-display);font-weight:600;padding:12px 14px;min-width:70px;min-height:62px;text-align:center;
+  box-shadow:0 18px 40px rgba(0,0,0,.6);animation:drift 9s ease-in-out infinite}
+.tag small{font-family:var(--f-mono);font-weight:400;font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.tag::before,.tag::after{content:"";position:absolute;width:3px;height:3px;background:#55525f;top:5px;left:5px;box-shadow:calc(100% + 0px) 0 0 #55525f}
+.tag.l{font-size:19px;min-width:96px;min-height:86px}
+.tag.m{font-size:15px}
+.tag.s{font-size:12px;min-width:66px;min-height:54px}
+.tag.blur{filter:blur(1.2px);opacity:.85}
+@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@media (prefers-reduced-motion:reduce){.tag{animation:none}}
+@media (max-width:640px){.tag.hide-s{display:none}.tag.l{font-size:15px;min-width:74px;min-height:66px}}
+
+.intro{display:flex;flex-direction:column;gap:20px;margin-top:-8px}
+.intro h1{font-family:var(--f-display);font-weight:600;font-size:clamp(38px,7.2vw,92px);line-height:1.02;letter-spacing:-.02em;text-transform:uppercase;color:#fff}
+.intro .lead{max-width:62ch;font-size:clamp(16px,1.6vw,19px);color:#CFCBDD}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.04em;padding:5px 10px;border:1px solid var(--line);background:var(--tile);color:#CFCBDD}
+
+/* ---------- sections ---------- */
+section{padding-top:88px;display:flex;flex-direction:column;gap:22px}
+.sh{display:grid;grid-template-columns:120px minmax(0,1fr);gap:20px;align-items:baseline}
+.sh .mono{color:var(--violet-2)}
+.sh h2{font-family:var(--f-display);font-weight:600;font-size:clamp(28px,4.2vw,52px);line-height:.98;letter-spacing:-.03em;text-transform:uppercase}
+.sh p{grid-column:2;max-width:68ch;color:#C9C5D6;margin-top:10px}
+@media (max-width:720px){.sh{grid-template-columns:1fr;gap:8px}.sh p{grid-column:1}}
+
+.panel{background:var(--tile);border:1px solid var(--line);padding:20px;min-width:0}
+.grid{display:grid;gap:10px}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g5{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media (max-width:900px){.g5{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.g3,.g2,.g5{grid-template-columns:1fr}}
+
+.cell{background:var(--tile);border:1px solid var(--line);padding:16px 16px 18px;display:flex;flex-direction:column;gap:8px;min-width:0;position:relative}
+.cell .k{font-family:var(--f-mono);font-size:11.5px;color:var(--violet-2);letter-spacing:.06em}
+.cell b{font-family:var(--f-display);font-weight:600;font-size:18px;line-height:1.2}
+.cell p{font-size:14.5px;color:#C2BED0}
+.cell .ref{font-family:var(--f-mono);font-size:11px;color:var(--faint);margin-top:auto}
+
+.big{font-family:var(--f-display);font-weight:800;font-size:clamp(44px,6vw,76px);line-height:.9;letter-spacing:-.04em;color:var(--lav);text-shadow:0 0 30px rgba(181,150,255,.35)}
+
+/* bars */
+.bars{display:flex;flex-direction:column;gap:9px}
+.bar{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:14px;align-items:center}
+.bar .lab{font-size:14px;color:#C2BED0;text-align:right}
+.bar.core .lab{color:#fff;font-weight:600}
+.bar .tr{display:flex;align-items:center;gap:10px;min-width:0}
+.bar .fill{height:16px;background:#3A3746;flex:none}
+.bar.core .fill{background:var(--violet);box-shadow:0 0 18px rgba(122,92,255,.7)}
+.bar .v{font-family:var(--f-mono);font-size:12.5px;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+@media (max-width:640px){.bar{grid-template-columns:1fr;gap:4px}.bar .lab{text-align:left}}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:6px}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);background:var(--tile)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+.tbl table{min-width:760px}
+th,td{text-align:left;vertical-align:top;padding:11px 14px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:#0C0B10}
+td.n{font-family:var(--f-mono);color:var(--violet-2);white-space:nowrap}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.pf{display:inline-block;font-family:var(--f-mono);font-size:11px;padding:2px 7px;border:1px solid}
+.pf.a{color:#fff;border-color:#55525f}.pf.b{color:var(--violet-2);border-color:var(--violet)}.pf.c{color:var(--muted);border-color:var(--line);border-style:dashed}
+.st{font-family:var(--f-mono);font-size:11px;padding:2px 7px}
+.st.gap{color:var(--gap);border:1px solid var(--gap)}.st.part{color:var(--part);border:1px solid var(--part)}.st.ok{color:var(--ok);border:1px solid var(--ok)}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:130px repeat(3,minmax(0,1fr));gap:10px;position:relative}
+.road .h{font-family:var(--f-display);font-weight:600;font-size:17px;padding:4px 2px}
+.road .h small{display:block;font-family:var(--f-mono);font-weight:400;font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.road .lane{font-family:var(--f-display);font-weight:600;font-size:16px;padding-top:14px}
+.road .lane small{display:block;font-family:var(--f-body);font-weight:400;font-size:13px;color:var(--muted)}
+.road .c{background:var(--tile);border:1px solid var(--line);padding:14px;font-size:14px;color:#D8D4E4;min-width:0}
+.road .c.hot{border-color:var(--violet);background:linear-gradient(160deg,rgba(122,92,255,.22),rgba(122,92,255,.06));color:#fff;box-shadow:0 0 30px rgba(122,92,255,.25)}
+.road .gate{grid-column:2 / -1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.road .gate div{font-family:var(--f-mono);font-size:11.5px;color:var(--violet-2);padding:8px 2px;border-top:1px dashed var(--violet)}
+@media (max-width:760px){.road{grid-template-columns:1fr}.road .h.e,.road .gate{display:none}.road .lane{padding-top:18px}}
+
+/* stack transition */
+.swap{display:grid;grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr);gap:8px;align-items:stretch}
+.swap div{padding:12px 14px;font-size:14.5px}
+.swap .from{background:var(--tile);border:1px solid var(--line);color:var(--muted)}
+.swap .to{background:var(--tile-2);border:1px solid var(--violet);color:#fff}
+.swap .ar{display:flex;align-items:center;justify-content:center;color:var(--violet-2);padding:0}
+.swap .from b{display:block;font-family:var(--f-mono);font-weight:500;font-size:11px;color:var(--faint);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+
+.scen{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.scen .cell.base{border-color:var(--violet)}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+
+.cycle{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--line)}
+.cycle div{padding:16px;border-right:1px solid var(--line);background:var(--tile);display:flex;flex-direction:column;gap:6px}
+.cycle div:last-child{border-right:0}
+.cycle .d{font-family:var(--f-display);font-weight:800;font-size:30px;color:var(--lav);letter-spacing:-.03em;line-height:1}
+.cycle p{font-size:14px;color:#C2BED0}
+@media (max-width:760px){.cycle{grid-template-columns:1fr 1fr}.cycle div:nth-child(2){border-right:0}.cycle div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+.money{display:flex;height:40px;border:1px solid var(--line)}
+.money div{display:flex;align-items:center;padding:0 12px;font-family:var(--f-mono);font-size:12px;white-space:nowrap;overflow:hidden;min-width:0}
+footer{padding-top:72px;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--muted)}
+footer ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+</style>
+
+<div class="wrap">
+
+<header class="hero" aria-label="План развития технологий ИИ 2027–2032">
+  <div class="word" aria-hidden="true"><span>ИИ</span><span class="gapw"></span><span>32</span></div>
+  <canvas id="sphere" aria-hidden="true"></canvas>
+  <div class="focus" aria-hidden="true"><span>Главный фокус</span><i></i><span>Следующий стек</span></div>
+  <div class="tag l" style="left:24%;top:16%"><span>Н-1</span><small>внимание</small></div>
+  <div class="tag m" style="left:58%;top:9%;animation-delay:-2s"><span>СЛР</span><small>ст. 1552</small></div>
+  <div class="tag l blur hide-s" style="left:74%;top:38%;animation-delay:-4s"><span>ВП-1</span><small>базовая модель</small></div>
+  <div class="tag s hide-s" style="left:12%;top:56%;animation-delay:-1s"><span>Н-7</span><small>байты</small></div>
+  <div class="tag s" style="left:32%;top:64%;animation-delay:-3s"><span>Н-3</span><small>борт</small></div>
+  <div class="tag m hide-s" style="left:21%;top:78%;animation-delay:-5s"><span>УГТ 1–9</span></div>
+  <div class="tag l" style="left:52%;top:72%;animation-delay:-6s"><span>Н-12</span><small>сеть узлов</small></div>
+  <div class="tag s" style="left:69%;top:66%;animation-delay:-2.5s"><span>Н-13</span><small>оценка шагов</small></div>
+  <div class="tag s hide-s" style="left:84%;top:16%;animation-delay:-7s"><span>Н-15</span><small>синтетика</small></div>
+</header>
+
+<div class="intro">
+  <span class="mono">Проект среднесрочного плана развития технологий · по постановлению № 1552 · 13 ноября 2026</span>
+  <h1>План развития технологий ИИ<br>2027–2032</h1>
+  <p class="lead">Нынешний стек ИИ на декодерных трансформерах выходит на плато. План собирает в одну линию форсайт «Горизонты ИИ», записку «Следующий стек» и реальные заделы из ЕГИСУ НИОКТР. Разрыв между ними превращён в 20 исследовательских задач, 10 видов продукции и три этапа с независимой приёмкой.</p>
+  <div class="meta">
+    <span class="chip">6 лет · п. 8 Положения</span>
+    <span class="chip">старт не ранее 2027 · п. 5 «б»</span>
+    <span class="chip">≈ 3 150 НИОКТР по ИИ с 2021</span>
+    <span class="chip">≈ 1 100 исполнителей</span>
+    <span class="chip">≈ 108 млрд ₽ бюджет · ориентир</span>
+  </div>
+</div>
+
+<section id="logic">
+  <div class="sh"><span class="mono">00 · логика</span><h2>Форсайт − заделы = мероприятия</h2></div>
+  <div class="grid g3">
+    <div class="cell"><span class="k">куда двигаться</span><b>17 барьеров нынешнего стека</b><p>Форсайт учитывает 3, частично 8, не называет 6. Именно невидимые барьеры задают следующий стек.</p><span class="ref">«Горизонты ИИ», «Следующий стек»</span></div>
+    <div class="cell"><span class="k">что уже есть</span><b>Широко, но неглубоко</b><p>564 работы по LLM и меньше 20 по каждой теме ядра следующего стека: вниманию, токенизации, компактности, распределённому выводу.</p><span class="ref">ЕГИСУ НИОКТР, 2021–2026</span></div>
+    <div class="cell"><span class="k">что делать</span><b>20 задач, 3 портфеля, 3 этапа</b><p>А — обязательная основа, Б — целевые программы, В — поисковый резерв. Переход между этапами — только по независимым испытаниям.</p><span class="ref">п. 10 «е», «з» Положения</span></div>
+  </div>
+</section>
+
+<section id="law">
+  <div class="sh"><span class="mono">01 · рамка</span><h2>Что требует постановление 1552</h2>
+    <p>Закон 523-ФЗ вводит план развития технологий (ст. 7, 17), постановление № 1552 от 6 октября 2025 г. задаёт его девять разделов, показатели и годовой цикл отчётности. План построен ровно по этим разделам.</p></div>
+  <div class="grid g3" id="law-grid"></div>
+  <div class="grid g2">
+    <div class="cell"><span class="k">четыре шкалы готовности</span><b>УГТ 1–9 · УГП 1–9 · рыночная · СЛР</b><p>Для ИИ главный измеритель — уровень собственных линий разработки: до 60% индекса — низкий, 60–80 — средний, 80–100 — высокий, 100 — полностью готовые линии.</p><span class="ref">методики, утверждённые постановлением</span></div>
+    <div class="cell"><span class="k">запрет дублирования · п. 7</span><b>Не повторять «дорожную карту» ИИ</b><p>Технологии из действующих дорожных карт и карт технологической кооперации включаются в план только с уведомлением Минэкономразвития. Поэтому план — про следующий стек, а не про внедрение нынешнего.</p><span class="ref">п. 7, 14, 34 Положения</span></div>
+  </div>
+</section>
+
+<section id="foresight">
+  <div class="sh"><span class="mono">02 · форсайт</span><h2>Шесть барьеров, которых нет в форсайте</h2>
+    <p>Форсайт хорошо описывает, что развивать: непрерывное обучение, память, данные. Он почти не называет архитектурные причины, по которым трансформер этого не даст, и риски самого обучающего сигнала.</p></div>
+  <div class="grid g2" id="swaps"></div>
+  <div class="scen">
+    <div class="cell"><span class="k">сценарий · плато</span><b>Трансформеры улучшаются по чуть-чуть</b><p>Цена вывода падает, отставание по вычислениям важнее всего. Ответ плана: усилить портфель А — эффективность, данные, компактные модели.</p></div>
+    <div class="cell base"><span class="k">сценарий · базовый</span><b>Смена стека к 2029–2030</b><p>Гибрид с рекуррентной глубиной, памятью и непрерывным обучением. Окно возможностей: новый стек меньше зависит от масштаба железа.</p></div>
+    <div class="cell"><span class="k">сценарий · рывок</span><b>Самоулучшающиеся системы</b><p>Риск резкого разрыва. Ответ: внеочередная актуализация плана по п. 18 и сдвиг ресурсов в надёжность и безопасность.</p></div>
+  </div>
+</section>
+
+<section id="backlog">
+  <div class="sh"><span class="mono">03 · заделы</span><h2>Ядро следующего стека почти не покрыто</h2>
+    <p>НИОКТР по ИИ в ЕГИСУ с 2021 года по темам. Справа — число работ и организаций-исполнителей. Одна работа может входить в несколько тем.</p></div>
+  <div class="panel">
+    <div class="legend" style="margin-bottom:16px"><span><i style="background:var(--violet)"></i>темы ядра следующего стека, задел менее 20 работ</span><span><i style="background:#3A3746"></i>остальные темы</span></div>
+    <div class="bars" id="bars"></div>
+  </div>
+  <div class="grid g5">
+    <div class="cell"><span class="k">вузы</span><span class="big">1 827</span><p>работ у 280 вузов — 58% всех</p></div>
+    <div class="cell"><span class="k">наука</span><span class="big">649</span><p>работ у 258 институтов РАН и ФИЦ</p></div>
+    <div class="cell"><span class="k">компании</span><span class="big">624</span><p>работы у 533 компаний: задел раздроблен</p></div>
+    <div class="cell"><span class="k">рост</span><span class="big">755</span><p>новых работ в 2025 году против 448 в 2021</p></div>
+    <div class="cell"><span class="k">не найдено</span><span class="big">0</span><p>работ по обучаемому декодированию и консолидации опыта</p></div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Центр компетенций</th><th>Сильные темы по ЕГИСУ</th><th>Задачи плана</th></tr></thead>
+    <tbody id="centers"></tbody>
+  </table></div>
+  <div class="cell"><span class="k">индустриальный задел · Hugging Face</span><b>Открытые модели есть, собственные веса — не у всех</b><p>Сбер публикует GigaChat 3.1 (MoE) и многоязычный распознаватель речи GigaAM, Яндекс — Alice AI Foundation 80B (MoE). Модели T-pro Т-Банка дообучены на зарубежной базовой модели Qwen3. Поэтому уровень СЛР надо мерить по каждой модели.</p></div>
+</section>
+
+<section id="products">
+  <div class="sh"><span class="mono">04 · продукция</span><h2>Десять видов высокотехнологичной продукции</h2>
+    <p>Перечень по п. 10 «а». Категория технологии предложена по п. 52 (критическая) и п. 60 (сквозная); окончательно её определяет экспертный совет.</p></div>
+  <div class="grid g5" id="vp"></div>
+</section>
+
+<section id="kpi">
+  <div class="sh"><span class="mono">05 · показатели</span><h2>Чем измеряется результат</h2>
+    <p>Два обязательных показателя по п. 15 и технические метрики. Исходные значения измеряются в первом полугодии 2027 года; целевые — предложение для технологической сессии.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Показатель</th><th>Ед.</th><th>2028</th><th>2030</th><th>2032</th></tr></thead>
+    <tbody id="kpis"></tbody>
+  </table></div>
+</section>
+
+<section id="road">
+  <div class="sh"><span class="mono">06 · этапы</span><h2>Каждый этап заканчивается приёмкой</h2>
+    <p>Главная веха — собственная базовая модель нового стека в 2029–2030 годах. Портфель А даёт ей данные и измерения, портфель В — архитектурные заделы.</p></div>
+  <div class="road">
+    <div class="h e"></div>
+    <div class="h">Этап 1<small>2027–2028 · измеримая основа</small></div>
+    <div class="h">Этап 2<small>2029–2030 · интеграция</small></div>
+    <div class="h">Этап 3<small>2031–2032 · масштабирование</small></div>
+
+    <div class="lane">А · основа<small>обязательно</small></div>
+    <div class="c">Бенчмарки и закрытые тестовые выборки, каталог данных, общий вычислительный стек, исходные показатели</div>
+    <div class="c">Оценщики, устойчивые к взлому, синтетика с контролем разнообразия, независимый испытательный центр</div>
+    <div class="c">Надёжность 99,9% в эксплуатации, стоимость задачи −10 раз, стандарты испытаний</div>
+
+    <div class="lane">Б · целевые<small>программы</small></div>
+    <div class="c">Конкурсы по Н-1, Н-3, Н-7, Н-8, Н-9, Н-11, Н-12; прототипы в лаборатории</div>
+    <div class="c hot"><b>Базовая модель нового стека (ВП-1)</b>; бортовые модели на полигонах; агентные процессы под контролем</div>
+    <div class="c">Второе семейство моделей; тираж ВП-2, ВП-4, ВП-6; включение технологий в перечни</div>
+
+    <div class="lane">В · поиск<small>по вехам</small></div>
+    <div class="c">Н-2, Н-5, Н-6, Н-16; нейроморфные и фотонные вычислители; гранты по вехам</div>
+    <div class="c">Отбор: лучшие заделы переходят в портфель Б</div>
+    <div class="c">Задел для долгосрочного плана 2033+</div>
+
+    <div class="gate"><div>◆ приёмка 1 · УГТ 4 у 6 задач</div><div>◆ приёмка 2 · УГТ 6 у 5 задач</div><div>◆ итог · УГТ 6+ у 10 задач</div></div>
+  </div>
+</section>
+
+<section id="tasks">
+  <div class="sh"><span class="mono">07 · мероприятия</span><h2>20 задач и 3 инфраструктурных мероприятия</h2>
+    <p>Опорные исполнители — организации с наибольшим числом НИОКТР по теме в ЕГИСУ. Они не назначаются планом, а участвуют в конкурсах.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Код</th><th>Мероприятие</th><th>Портфель</th><th>Старт</th><th>УГТ 2032</th><th>Опорные исполнители</th></tr></thead>
+    <tbody id="tasklist"></tbody>
+  </table></div>
+</section>
+
+<section id="money">
+  <div class="sh"><span class="mono">08 · финансирование</span><h2>≈ 108 млрд ₽ за шесть лет</h2>
+    <p>Экспертный ориентир для обсуждения, не расчёт; плюс не менее трети сверху из внебюджетных источников. Бюджеты ИИ-работ в открытой выгрузке ЕГИСУ не заполнены, поэтому сравнить с текущим уровнем не удалось.</p></div>
+  <div class="money" role="img" aria-label="Портфель А 42, Б 55, В 11 млрд рублей">
+    <div style="flex:42;background:#2C2A35">А · 42</div>
+    <div style="flex:55;background:rgba(122,92,255,.45)">Б · 55</div>
+    <div style="flex:11;background:var(--tile);color:var(--muted)">В · 11</div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Портфель, млрд ₽</th><th>2027–2028</th><th>2029–2030</th><th>2031–2032</th><th>Итого</th><th>Источник</th></tr></thead>
+    <tbody>
+      <tr><td><span class="pf a">А</span> обязательная основа</td><td class="num">12</td><td class="num">15</td><td class="num">15</td><td class="num">42</td><td>госпрограмма НТР, федпроект «ИИ»</td></tr>
+      <tr><td><span class="pf b">Б</span> целевые программы</td><td class="num">10</td><td class="num">20</td><td class="num">25</td><td class="num">55</td><td>агенты развития технологий, нацпроекты техлидерства</td></tr>
+      <tr><td><span class="pf c">В</span> поисковый резерв</td><td class="num">3</td><td class="num">4</td><td class="num">4</td><td class="num">11</td><td>госзадания, РНФ</td></tr>
+      <tr><td><b>Всего бюджет</b></td><td class="num"><b>25</b></td><td class="num"><b>39</b></td><td class="num"><b>44</b></td><td class="num"><b>108</b></td><td></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="control">
+  <div class="sh"><span class="mono">09 · управление</span><h2>Годовой цикл отчёта</h2>
+    <p>Отчёт о реализации плана проходит экспертизу и два президиума каждый год (п. 36–41). Портфели пересматриваются в 2028 и 2030 годах, на стыках этапов.</p></div>
+  <div class="cycle">
+    <div><span class="d">15.03</span><p>Отчёт разработчика: УГТ и УГП по каждой технологии, показатели, исполнители, финансирование</p></div>
+    <div><span class="d">10.04</span><p>Заключения экспертного совета и экспертных организаций</p></div>
+    <div><span class="d">05.05</span><p>Президиум Комиссии по научно-технологическому развитию</p></div>
+    <div><span class="d">01.06</span><p>Президиум Правкомиссии по модернизации утверждает отчёт и при необходимости поручает актуализацию</p></div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Риск</th><th>Признак</th><th>Ответ плана</th></tr></thead>
+    <tbody id="risks"></tbody>
+  </table></div>
+</section>
+
+<footer>
+  <span class="mono">Источники</span>
+  <ul>
+    <li>Постановление Правительства РФ от 06.10.2025 № 1552 «О планировании технологической политики в Российской Федерации» — Положение (п. 1–73) и четыре методики готовности.</li>
+    <li>Федеральный закон от 28.12.2024 № 523-ФЗ «О технологической политике в Российской Федерации» — статьи приведены по ссылкам постановления 1552.</li>
+    <li>«Горизонты искусственного интеллекта: какими будут технологии ИИ через 10 лет», ноябрь 2025 — по аналитической выборке для национального плана; страницы печатные.</li>
+    <li>Аналитическая записка «Следующий стек ИИ», ноябрь 2026 — 17 барьеров, задачи Н-1 — Н-20.</li>
+    <li>ЕГИСУ НИОКТР, открытая выгрузка на 13.11.2026: работы с 2021 года, отбор по терминам ИИ в названии и аннотации или по флагу «область ИИ».</li>
+    <li>Hugging Face Hub: <a href="https://huggingface.co/ai-sage" target="_blank" rel="noopener">ai-sage</a>, <a href="https://huggingface.co/yandex" target="_blank" rel="noopener">yandex</a>, <a href="https://huggingface.co/t-tech" target="_blank" rel="noopener">t-tech</a>.</li>
+  </ul>
+</footer>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  // 1552 п.10 sections
+  const law = [
+    ['а','Продукция и технологии','перечень потенциальной ВП, критических и сквозных технологий','§ 04'],
+    ['б','Вызовы и тренды','что заставляет создавать продукцию','§ 02'],
+    ['в','Текущее состояние','в мире и в России, в том числе по НИОКТР и патентам (п. 13)','§ 03'],
+    ['г','Проблемы и риски','ограничения создания и развития','§ 02, § 09'],
+    ['д','Сценарии','на средне- и долгосрочный период','§ 02'],
+    ['е','Основные направления','развития в Российской Федерации','§ 06'],
+    ['ж','Показатели','технологическая независимость и превосходство (п. 15)','§ 05'],
+    ['з','Мероприятия','со связкой с нацпроектами и госпрограммами (п. 14)','§ 07'],
+    ['и','Финансирование','в том числе внебюджетное','§ 08']
+  ];
+  $('law-grid').innerHTML = law.map(r => `<div class="cell"><span class="k">п. 10 «${r[0]}»</span><b>${esc(r[1])}</b><p>${esc(r[2])}</p><span class="ref">в плане: ${r[3]}</span></div>`).join('');
+
+  const swaps = [
+    ['02','Фиксированная глубина, один проход на шаг','Рекуррентная, переменная глубина','Н-2, Н-5'],
+    ['04','Выбор шага по правилам, подобранным вручную','Обучаемый декодер','Н-6'],
+    ['05','Токен из словаря','Байты и динамическая сегментация','Н-7'],
+    ['12','Одна оценка в конце решения','Оценка шагов и разбор своих ошибок','Н-13'],
+    ['13','Модель-судья, которую взламывают','Оценщики, устойчивые к взлому','Н-14'],
+    ['14','Синтетика без контроля разнообразия','Контроль энтропии всего набора','Н-15']
+  ];
+  $('swaps').innerHTML = swaps.map(s => `<div class="swap"><div class="from"><b>барьер ${s[0]} · сейчас</b>${esc(s[1])}</div><div class="ar" aria-hidden="true">→</div><div class="to">${esc(s[2])}<span class="muted" style="display:block;font-family:var(--f-mono);font-size:11px;margin-top:4px">${s[3]}</span></div></div>`).join('');
+
+  // EGISU topics
+  const topics = [
+    ['Генеративные модели, LLM',564,219,0],['Доверенный ИИ, надёжность (Н-14, Н-19)',177,77,0],['Знания и память (Н-4, Н-11)',114,69,0],
+    ['Мультимодальность (Н-9)',104,58,0],['Нейроморфные и фотонные вычислители',103,41,0],['Агентные системы',67,33,0],
+    ['Бортовые и адаптивные (Н-3)',52,35,0],['Обучение с подкреплением (Н-13)',48,27,0],['Непрерывное обучение (Н-8)',46,31,0],
+    ['Синтетические данные (Н-15)',38,18,0],['Рассуждения (Н-2, Н-5)',29,13,0],['Распределённый вывод (Н-12)',15,12,1],
+    ['Сжатие и компактные модели (Н-17)',12,6,1],['Внимание, длинный контекст (Н-1)',9,6,1],['Токенизация, малые языки (Н-7)',8,4,1]
+  ];
+  const max = Math.max(...topics.map(t => t[1]));
+  $('bars').innerHTML = topics.map(t => `<div class="bar${t[3]?' core':''}"><div class="lab">${esc(t[0])}</div><div class="tr"><div class="fill" style="width:calc(${(t[1]/max*78).toFixed(2)}% + 3px)"></div><span class="v">${t[1]} · ${t[2]} орг.</span></div></div>`).join('');
+
+  const centers = [
+    ['ННГУ им. Лобачевского','32 ИИ-работы с флагом; лидер по нейроморфным вычислителям (14)','ИНФ-1, ИНФ-2'],
+    ['МФТИ','бортовые и адаптивные модели, RL, распределённость, нейроморфика','Н-3, Н-12, Н-13'],
+    ['НИУ ВШЭ','рассуждения, знания, RL, токенизация (СПб), доверенный ИИ','Н-2, Н-4, Н-7, Н-13, Н-18'],
+    ['СПбПУ Петра Великого','внимание, непрерывное обучение, агенты, надёжность','Н-1, Н-8, Н-19'],
+    ['УрФУ','доверенный ИИ, агентные системы','Н-14, Н-19'],
+    ['МГУ','LLM (14), мультимодальность, знания','Н-9, Н-11'],
+    ['ИАПУ ДВО РАН','базы знаний, бортовые системы','Н-4, Н-3'],
+    ['ЮФУ, Самарский университет, ИТМО','20–32 работы с флагом ИИ; прикладные модели, синтетика','Н-10, Н-15'],
+    ['ФИЦ ИУ РАН, ИПМ им. Келдыша, ИПУ РАН','фундаментальная математика ИИ, распределённые вычисления','Н-2, Н-12'],
+    ['НЦМУ «Передовые цифровые технологии», НЦМУ «Интеллектуальные беспилотные авиационные системы»','научные центры мирового уровня в реестре ЕГИСУ','Н-3, Н-12, ВП-2']
+  ];
+  $('centers').innerHTML = centers.map(c => `<tr><td><b>${esc(c[0])}</b></td><td>${esc(c[1])}</td><td class="n">${esc(c[2])}</td></tr>`).join('');
+
+  const vp = [
+    ['ВП-1','Базовая модель нового поколения','гибрид, длинный контекст, память','сквозная','Н-1, Н-2, Н-4, Н-11'],
+    ['ВП-2','Бортовые модели и комплексы edge AI','адаптивные вычисления, сжатие','критическая','Н-3, Н-4, Н-17'],
+    ['ВП-3','Платформа обучения и вывода','компиляторы, библиотеки, планировщики','критическая','Н-1, Н-10, Н-12'],
+    ['ВП-4','Распределённый вывод «борт — узел — ЦОД»','удалённые территории, Арктика, космос','критическая','Н-12, Н-3'],
+    ['ВП-5','Доверенная агентная платформа','журналирование, передача управления','сквозная','Н-8, Н-13, Н-19'],
+    ['ВП-6','Модели для языков народов России','байтовые модели без токенизатора','сквозная','Н-7'],
+    ['ВП-7','Нативно мультимодальные модели','медицина, промышленное зрение, роботы','сквозная','Н-9'],
+    ['ВП-8','Национальный ресурс данных','бенчмарки, проверяемая синтетика','сквозная','Н-10, Н-15, Н-17'],
+    ['ВП-9','Комплекс испытаний ИИ','оценщики, стресс-тесты, «девятки»','критическая','Н-14, Н-18, Н-19'],
+    ['ВП-10','Модели для науки','материалы, химия, биология','сквозная','Н-10, Н-16']
+  ];
+  $('vp').innerHTML = vp.map(v => `<div class="cell"><span class="k">${v[0]} · ${v[3]}</span><b>${esc(v[1])}</b><p>${esc(v[2])}</p><span class="ref">${v[4]}</span></div>`).join('');
+
+  const kpis = [
+    ['Уровень технологической независимости','доля ВП-1 — ВП-10 с индексом СЛР от 80%','% номенклатуры','30','60','80'],
+    ['Уровень превосходства','виды ВП-2, ВП-4, ВП-6, превосходящие лучший зарубежный аналог на независимых испытаниях','видов','0','1','3'],
+    ['Задачи с результатом не ниже УГТ 4','из 20','задач','6','14','18'],
+    ['Задачи с результатом не ниже УГТ 6','прототип в целевой среде','задач','0','5','10'],
+    ['Стоимость и энергия на решённую задачу','при фиксированном качестве, к базе 2027','раз','−2','−4','−10'],
+    ['Контекст при линейном росте затрат','без потери качества поиска дальних связей','млн токенов','1','5','20'],
+    ['Языки народов России','качество речи и текста не ниже порога бенчмарка','языков','10','25','40'],
+    ['Завершённые агентные задачи','на отраслевом бенчмарке','п. п. к базе','база','+20','+40'],
+    ['Надёжность агентных систем в эксплуатации','90% → 99% → 99,9%','«девяток»','1','2','3'],
+    ['Собственные базовые модели нового стека','обучены с нуля','семейств','0','1','2'],
+    ['Охраняемые РИД по задачам плана','нарастающим итогом','ед.','40','150','300']
+  ];
+  $('kpis').innerHTML = kpis.map(k => `<tr><td><b>${esc(k[0])}</b><small>${esc(k[1])}</small></td><td class="muted">${esc(k[2])}</td><td class="num">${k[3]}</td><td class="num">${k[4]}</td><td class="num" style="color:var(--violet-2)">${k[5]}</td></tr>`).join('');
+
+  const tasks = [
+    ['Н-1','Субквадратичные архитектуры без потери качества','b',2027,6,'СПбПУ, ИТФ им. Ландау РАН — задел слабый'],
+    ['Н-2','Рекуррентная глубина вычислений','c',2027,4,'ВШЭ, ИДСТУ СО РАН, ИМ СО РАН'],
+    ['Н-3','Адаптивное время вычислений, «рефлекс — обдумывание»','b',2027,7,'МФТИ, Иннополис, ИАПУ ДВО РАН, КузГТУ'],
+    ['Н-4','Разделение знаний и когнитивных операций','b',2027,6,'ИАПУ ДВО РАН, ВШЭ, МГУ'],
+    ['Н-5','Сквозное обучение длинных рассуждений','c',2028,4,'ВШЭ, МФТИ'],
+    ['Н-6','Обучаемое декодирование','c',2028,4,'задел не найден'],
+    ['Н-7','Модели без токенизатора, языки народов России','b',2027,7,'ВШЭ (СПб), малые компании, Сбер (GigaAM)'],
+    ['Н-8','Непрерывное усвоение навыков','b',2027,6,'СПбПУ, ЕУСПб, МФТИ, «Сириус»'],
+    ['Н-9','Нативная мультимодальность','b',2027,6,'РЭУ им. Плеханова, МГУ, НГУ'],
+    ['Н-10','Рост качества за счёт вычислений при тех же данных','a',2027,6,'ИОА СО РАН, СГУ, УлГТУ, ИТМО'],
+    ['Н-11','Встроенная долговременная память','b',2027,6,'ИАПУ ДВО РАН, ВШЭ, МГУ'],
+    ['Н-12','Асинхронный распределённый вывод','b',2028,7,'ИПМ им. Келдыша РАН, МФТИ, ВШЭ'],
+    ['Н-13','Оценка процесса, а не только итога','a',2027,6,'ВШЭ, МФТИ, КНИТУ-КАИ'],
+    ['Н-14','Оценщики, устойчивые к взлому','a',2027,7,'УрФУ, ВШЭ, БФУ им. Канта, СПбПУ'],
+    ['Н-15','Синтетика без схлопывания','a',2027,6,'ИТМО, СГУ, ИОА СО РАН'],
+    ['Н-16','Консолидация опыта, активное предобучение','c',2028,4,'задел не найден'],
+    ['Н-17','Очистка данных под когнитивное ядро','a',2027,7,'СКФУ, ИФПМ СО РАН, РТУ МИРЭА'],
+    ['Н-18','Метрики полезности вместо гонки за AGI','a',2027,7,'ВШЭ, СПбПУ, УрФУ'],
+    ['Н-19','Инженерия надёжности в «девятках»','a',2027,8,'УрФУ, СПбПУ, МФТИ'],
+    ['Н-20','Экономика распространения ИИ','a',2027,'—','ВШЭ, РАНХиГС, РЭУ им. Плеханова'],
+    ['ИНФ-1','Общий стек обучения и вывода; совместная оптимизация железа и алгоритмов','a',2027,8,'ННГУ им. Лобачевского, МФТИ, МГУ'],
+    ['ИНФ-2','Нейроморфные, фотонные, мемристорные вычислители','c',2027,4,'ННГУ им. Лобачевского, МФТИ, МГУ'],
+    ['ИНФ-3','Национальный каталог данных и бенчмарков','a',2027,'—','уполномоченная организация с вузами']
+  ];
+  const pfName = {a:'А',b:'Б',c:'В'};
+  $('tasklist').innerHTML = tasks.map(t => `<tr><td class="n">${t[0]}</td><td>${esc(t[1])}</td><td><span class="pf ${t[2]}">${pfName[t[2]]}${t[0]==='Н-2'?'→Б':''}</span></td><td class="num">${t[3]}</td><td class="num">${t[4]}</td><td>${t[5].startsWith('задел не найден')?'<span class="st gap">задел не найден</span>':esc(t[5])}</td></tr>`).join('');
+
+  const risks = [
+    ['Дефицит вычислителей и энергии','очередь на общий кластер дольше месяца','алгоритмическая эффективность (Н-1, Н-3, Н-17), компактные модели'],
+    ['Зависимость от зарубежных базовых моделей','отечественные модели дообучены на чужих весах','СЛР по каждой ВП; ВП-1 обучается с нуля'],
+    ['Распыление средств','1 100 исполнителей, большинство с 1–2 работами','консорциумы вокруг опорных исполнителей, до 3 команд на задачу'],
+    ['Демо вместо продукта','отчёты о пилотах без испытаний','приёмка только независимым центром, надёжность в «девятках»'],
+    ['Коллапс на синтетике, взлом оценщиков','награда растёт, качество на закрытом тесте — нет','Н-14, Н-15 в обязательном портфеле А'],
+    ['Отток кадров','исследователи уходят в прикладной сектор','совместные лаборатории вузов и компаний'],
+    ['Рывок в мире быстрее плана','смена стека раньше 2029 года','внеочередная актуализация (п. 18), резерв портфеля В']
+  ];
+  $('risks').innerHTML = risks.map(r => `<tr><td><b>${esc(r[0])}</b></td><td class="muted">${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join('');
+
+  // ---------- particle sphere ----------
+  const cv = $('sphere'); if(!cv) return;
+  const ctx = cv.getContext('2d');
+  const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W = 0, R = 0, dpr = 1;
+  const N = 2600, pts = [];
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for(let i=0;i<N;i++){
+    const u = rnd()*2-1, th = rnd()*Math.PI*2, s = Math.sqrt(1-u*u);
+    const fuzz = 1 + (rnd() < .18 ? rnd()*0.12 : rnd()*0.02);
+    pts.push({x:s*Math.cos(th)*fuzz, y:u*fuzz, z:s*Math.sin(th)*fuzz, h: 250 + rnd()*40, sz: rnd() < .08 ? 2.2 : 1 + rnd()*0.9, bloom: rnd() < .06});
+  }
+  function size(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const r = cv.getBoundingClientRect(); W = r.width || 400;
+    cv.width = Math.round(W*dpr); cv.height = Math.round(W*dpr); R = W*0.36;
+  }
+  function draw(t){
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,W,W);
+    const c = W/2, a = t*0.00012, tilt = 0.35;
+    const g = ctx.createRadialGradient(c - R*.25, c - R*.3, R*.1, c, c, R*1.15);
+    g.addColorStop(0,'rgba(120,90,255,.55)'); g.addColorStop(.55,'rgba(52,30,140,.55)'); g.addColorStop(1,'rgba(10,6,30,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(c,c,R*1.08,0,Math.PI*2); ctx.fill();
+    const ca = Math.cos(a), sa = Math.sin(a), ct = Math.cos(tilt), st = Math.sin(tilt);
+    for(const p of pts){
+      let x = p.x*ca - p.z*sa, z = p.x*sa + p.z*ca, y = p.y*ct - z*st; z = p.y*st + z*ct;
+      if(z < -0.15) continue;
+      const k = (z+1)/2, px = c + x*R, py = c + y*R;
+      const l = 30 + k*45;
+      ctx.fillStyle = `hsla(${p.h},85%,${l}%,${0.25 + k*0.7})`;
+      const s = p.sz*(0.6 + k*0.8);
+      if(p.bloom){ ctx.fillStyle = `hsla(${p.h+20},95%,${55+k*20}%,${0.5+k*0.5})`; ctx.beginPath(); ctx.arc(px,py,s*1.6,0,Math.PI*2); ctx.fill(); }
+      else ctx.fillRect(px,py,s,s);
+    }
+    const rim = ctx.createRadialGradient(c,c,R*.92,c,c,R*1.12);
+    rim.addColorStop(0,'rgba(181,150,255,0)'); rim.addColorStop(.5,'rgba(181,150,255,.18)'); rim.addColorStop(1,'rgba(181,150,255,0)');
+    ctx.fillStyle = rim; ctx.beginPath(); ctx.arc(c,c,R*1.12,0,Math.PI*2); ctx.fill();
+  }
+  size(); draw(0);
+  window.addEventListener('resize', () => { size(); draw(performance.now()); });
+  if(!reduce){ const loop = t => { draw(t); requestAnimationFrame(loop); }; requestAnimationFrame(loop); }
+})();
+</script>
