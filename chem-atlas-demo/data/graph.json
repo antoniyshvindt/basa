@@ -1,0 +1,3292 @@
+{
+ "nodes": [
+  {
+   "id": "P-ZN",
+   "type": "Product",
+   "label": "Катализатор Циглера–Натта (ПП)"
+  },
+  {
+   "id": "E-CROSSREF",
+   "type": "Evidence",
+   "label": "Crossref: публикации"
+  },
+  {
+   "id": "S01",
+   "type": "Assembly",
+   "label": "S01 Носитель MgCl₂"
+  },
+  {
+   "id": "S02",
+   "type": "Assembly",
+   "label": "S02 TiCl₄"
+  },
+  {
+   "id": "S03",
+   "type": "Assembly",
+   "label": "S03 Внутренний донор"
+  },
+  {
+   "id": "S04",
+   "type": "Assembly",
+   "label": "S04 Внешний донор"
+  },
+  {
+   "id": "S05",
+   "type": "Assembly",
+   "label": "S05 Сокатализатор ТЭА"
+  },
+  {
+   "id": "S06",
+   "type": "Assembly",
+   "label": "S06 Морфология частицы"
+  },
+  {
+   "id": "S07",
+   "type": "Assembly",
+   "label": "S07 Растворители и N₂"
+  },
+  {
+   "id": "S08",
+   "type": "Assembly",
+   "label": "S08 Производство (титанирование)"
+  },
+  {
+   "id": "S09",
+   "type": "Assembly",
+   "label": "S09 Рекуперация"
+  },
+  {
+   "id": "S10",
+   "type": "Assembly",
+   "label": "S10 Предполимеризация и фасовка"
+  },
+  {
+   "id": "S11",
+   "type": "Assembly",
+   "label": "S11 Полимеризация ПП"
+  },
+  {
+   "id": "S12",
+   "type": "Assembly",
+   "label": "S12 Контроль и испытания"
+  },
+  {
+   "id": "C01.1",
+   "type": "Component",
+   "label": "Безводный MgCl₂ высокой чистоты"
+  },
+  {
+   "id": "C01.2",
+   "type": "Component",
+   "label": "Сферический аддукт MgCl₂·nEtOH (эмульсия/распыление)"
+  },
+  {
+   "id": "C01.3",
+   "type": "Component",
+   "label": "Масла, ПАВ и среды эмульгирования"
+  },
+  {
+   "id": "C02.1",
+   "type": "Component",
+   "label": "TiCl₄ высокой чистоты"
+  },
+  {
+   "id": "C02.2",
+   "type": "Component",
+   "label": "Склад и дозирование TiCl₄"
+  },
+  {
+   "id": "C03.1",
+   "type": "Component",
+   "label": "Фталатный внутренний донор (ДИБФ)"
+  },
+  {
+   "id": "C03.2",
+   "type": "Component",
+   "label": "Нефталатные доноры (диэфиры, сукцинаты, диолдиэфиры)"
+  },
+  {
+   "id": "C04.1",
+   "type": "Component",
+   "label": "Алкоксисиланы (внешние доноры)"
+  },
+  {
+   "id": "C05.1",
+   "type": "Component",
+   "label": "Триэтилалюминий (ТЭА)"
+  },
+  {
+   "id": "C05.2",
+   "type": "Component",
+   "label": "Хранение и транспорт пирофорных алюминийалкилов"
+  },
+  {
+   "id": "C06.1",
+   "type": "Component",
+   "label": "Распределение частиц по размеру и сферичность"
+  },
+  {
+   "id": "C06.2",
+   "type": "Component",
+   "label": "Пористость и механическая прочность частицы"
+  },
+  {
+   "id": "C07.1",
+   "type": "Component",
+   "label": "Осушенные растворители (гептан, гексан)"
+  },
+  {
+   "id": "C07.2",
+   "type": "Component",
+   "label": "Азот высокой чистоты"
+  },
+  {
+   "id": "C07.3",
+   "type": "Component",
+   "label": "Адсорбенты осушки и очистки"
+  },
+  {
+   "id": "C08.1",
+   "type": "Component",
+   "label": "Реакторы титанирования с рубашкой и мешалкой"
+  },
+  {
+   "id": "C08.2",
+   "type": "Component",
+   "label": "Фильтр-сушилка (нутч-фильтр)"
+  },
+  {
+   "id": "C08.3",
+   "type": "Component",
+   "label": "АСУ ТП периодического процесса"
+  },
+  {
+   "id": "C09.1",
+   "type": "Component",
+   "label": "Ректификация TiCl₄ и растворителей"
+  },
+  {
+   "id": "C09.2",
+   "type": "Component",
+   "label": "Нейтрализация хлорсодержащих отходов"
+  },
+  {
+   "id": "C10.1",
+   "type": "Component",
+   "label": "Реактор предполимеризации"
+  },
+  {
+   "id": "C10.2",
+   "type": "Component",
+   "label": "Инертная фасовка и тара"
+  },
+  {
+   "id": "C11.1",
+   "type": "Component",
+   "label": "Технология процесса полимеризации (лицензия)"
+  },
+  {
+   "id": "C11.2",
+   "type": "Component",
+   "label": "Дозирование катализатора, ТЭА и донора; водород"
+  },
+  {
+   "id": "C12.1",
+   "type": "Component",
+   "label": "Лабораторный автоклав и стандартная методика полимеризации"
+  },
+  {
+   "id": "C12.2",
+   "type": "Component",
+   "label": "Аналитический комплекс (ИСП, ГХ, лазерная дифракция, БЭТ, ЯМР)"
+  },
+  {
+   "id": "T01",
+   "type": "Technology",
+   "label": "T01 безводного хлорида магния высокой чистоты",
+   "level": "group"
+  },
+  {
+   "id": "T01.1",
+   "type": "Technology",
+   "label": "T01.1",
+   "full": "Получение безводного MgCl₂ без оксихлоридов (обезвоживание в токе HCl, хлорирование)",
+   "level": "produce"
+  },
+  {
+   "id": "T01.2",
+   "type": "Technology",
+   "label": "T01.2",
+   "full": "Очистка от Fe, Ca, сульфатов до уровня катализаторного сырья",
+   "level": "produce"
+  },
+  {
+   "id": "T02",
+   "type": "Technology",
+   "label": "T02 тетрахлорида титана катализаторной чистоты",
+   "level": "group"
+  },
+  {
+   "id": "T02.1",
+   "type": "Technology",
+   "label": "T02.1",
+   "full": "Хлорирование титанового сырья и ректификация TiCl₄",
+   "level": "produce"
+  },
+  {
+   "id": "T02.2",
+   "type": "Technology",
+   "label": "T02.2",
+   "full": "Глубокая очистка от VOCl₃, SiCl₄, Fe",
+   "level": "produce"
+  },
+  {
+   "id": "T03",
+   "type": "Technology",
+   "label": "T03 Синтез электронодонорных соединений (внутренние доноры)",
+   "level": "group"
+  },
+  {
+   "id": "T03.1",
+   "type": "Technology",
+   "label": "T03.1",
+   "full": "Фталатные доноры и их вывод из рецептур",
+   "level": "produce"
+  },
+  {
+   "id": "T03.2",
+   "type": "Technology",
+   "label": "T03.2",
+   "full": "Нефталатные доноры: 1,3-диэфиры, сукцинаты, диолдиэфиры",
+   "level": "create"
+  },
+  {
+   "id": "T03.3",
+   "type": "Technology",
+   "label": "T03.3",
+   "full": "Доноры из возобновляемого сырья (терпеновые фрагменты)",
+   "level": "create"
+  },
+  {
+   "id": "T04",
+   "type": "Technology",
+   "label": "T04 Синтез алкоксисиланов (внешние доноры)",
+   "level": "group"
+  },
+  {
+   "id": "T04.1",
+   "type": "Technology",
+   "label": "T04.1",
+   "full": "Синтез и очистка циклоалкилалкоксисиланов без хлорсиланов",
+   "level": "produce"
+  },
+  {
+   "id": "T05",
+   "type": "Technology",
+   "label": "T05 Алюминийорганический синтез (сокатализаторы)",
+   "level": "group"
+  },
+  {
+   "id": "T05.1",
+   "type": "Technology",
+   "label": "T05.1",
+   "full": "Прямой синтез ТЭА из Al, H₂ и этилена; модифицированные активаторы",
+   "level": "produce"
+  },
+  {
+   "id": "T06",
+   "type": "Technology",
+   "label": "T06 Управление морфологией частиц катализатора",
+   "level": "group"
+  },
+  {
+   "id": "T06.1",
+   "type": "Technology",
+   "label": "T06.1",
+   "full": "Эмульсионный синтез и распылительное охлаждение аддукта",
+   "level": "create"
+  },
+  {
+   "id": "T06.2",
+   "type": "Technology",
+   "label": "T06.2",
+   "full": "Контроль распределения по размеру и сферичности",
+   "level": "control"
+  },
+  {
+   "id": "T06.3",
+   "type": "Technology",
+   "label": "T06.3",
+   "full": "Пористость и прочность: фрагментация и реплика",
+   "level": "create"
+  },
+  {
+   "id": "T07",
+   "type": "Technology",
+   "label": "T07 Технология титанирования и масштабирование производства",
+   "level": "group"
+  },
+  {
+   "id": "T07.1",
+   "type": "Technology",
+   "label": "T07.1",
+   "full": "Режимы многократного титанирования и введения донора",
+   "level": "produce"
+  },
+  {
+   "id": "T07.2",
+   "type": "Technology",
+   "label": "T07.2",
+   "full": "Аппаратура: эмалированные реакторы, фильтр-сушилки, коррозионная защита",
+   "level": "create"
+  },
+  {
+   "id": "T07.3",
+   "type": "Technology",
+   "label": "T07.3",
+   "full": "АСУ ТП периодических процессов и воспроизводимость партий",
+   "level": "operate"
+  },
+  {
+   "id": "T08",
+   "type": "Technology",
+   "label": "T08 Обращение с влаго- и воздухочувствительными и пирофорными веществами",
+   "level": "group"
+  },
+  {
+   "id": "T08.1",
+   "type": "Technology",
+   "label": "T08.1",
+   "full": "Осушка растворителей и газов до ppm; инертная техника",
+   "level": "operate"
+  },
+  {
+   "id": "T08.2",
+   "type": "Technology",
+   "label": "T08.2",
+   "full": "Хранение и транспорт пирофорных алюминийалкилов",
+   "level": "operate"
+  },
+  {
+   "id": "T09",
+   "type": "Technology",
+   "label": "T09 Рекуперация и переработка отходов производства катализаторов",
+   "level": "group"
+  },
+  {
+   "id": "T09.1",
+   "type": "Technology",
+   "label": "T09.1",
+   "full": "Ректификация TiCl₄ и растворителей",
+   "level": "operate"
+  },
+  {
+   "id": "T09.2",
+   "type": "Technology",
+   "label": "T09.2",
+   "full": "Нейтрализация хлорсодержащих кубовых остатков",
+   "level": "operate"
+  },
+  {
+   "id": "T10",
+   "type": "Technology",
+   "label": "T10 Предполимеризация и стабилизация катализатора",
+   "level": "group"
+  },
+  {
+   "id": "T10.1",
+   "type": "Technology",
+   "label": "T10.1",
+   "full": "Режимы предполимеризации для прочности частиц",
+   "level": "produce"
+  },
+  {
+   "id": "T10.2",
+   "type": "Technology",
+   "label": "T10.2",
+   "full": "Инертная фасовка: сухая и в масляной суспензии",
+   "level": "produce"
+  },
+  {
+   "id": "T11",
+   "type": "Technology",
+   "label": "T11 Процессы полимеризации пропилена и управление свойствами ПП",
+   "level": "group"
+  },
+  {
+   "id": "T11.1",
+   "type": "Technology",
+   "label": "T11.1",
+   "full": "Жидкофазные и газофазные процессы; адаптация катализатора к технологии лицензиара",
+   "level": "operate"
+  },
+  {
+   "id": "T11.2",
+   "type": "Technology",
+   "label": "T11.2",
+   "full": "Соотношения Al/Ti, Al/Si, водород: управление MFR и изотактичностью",
+   "level": "operate"
+  },
+  {
+   "id": "T12",
+   "type": "Technology",
+   "label": "T12 Аналитика и испытания катализаторов",
+   "level": "group"
+  },
+  {
+   "id": "T12.1",
+   "type": "Technology",
+   "label": "T12.1",
+   "full": "Стандартная лабораторная полимеризация и сопоставимость с промышленностью",
+   "level": "control"
+  },
+  {
+   "id": "T12.2",
+   "type": "Technology",
+   "label": "T12.2",
+   "full": "Анализ состава, морфологии и активных центров (ИСП, ГХ, лазерная дифракция, ЭПР, ЯМР)",
+   "level": "control"
+  },
+  {
+   "id": "T13",
+   "type": "Technology",
+   "label": "T13 Цифровой и вычислительный дизайн катализаторов",
+   "level": "group"
+  },
+  {
+   "id": "T13.1",
+   "type": "Technology",
+   "label": "T13.1",
+   "full": "Квантово-химическое моделирование активных центров и доноров",
+   "level": "create"
+  },
+  {
+   "id": "T13.2",
+   "type": "Technology",
+   "label": "T13.2",
+   "full": "Машинное обучение по данным испытаний для подбора рецептур",
+   "level": "create"
+  },
+  {
+   "id": "O1",
+   "type": "Process",
+   "label": "Синтез сферического носителя"
+  },
+  {
+   "id": "O2",
+   "type": "Process",
+   "label": "Титанирование и введение внутреннего донора"
+  },
+  {
+   "id": "O3",
+   "type": "Process",
+   "label": "Отмывка, фильтрация и сушка"
+  },
+  {
+   "id": "O4",
+   "type": "Process",
+   "label": "Рекуперация TiCl₄ и растворителей"
+  },
+  {
+   "id": "O5",
+   "type": "Process",
+   "label": "Предполимеризация и фасовка"
+  },
+  {
+   "id": "O6",
+   "type": "Process",
+   "label": "Полимеризация пропилена у потребителя"
+  },
+  {
+   "id": "O7",
+   "type": "Process",
+   "label": "Контроль качества"
+  },
+  {
+   "id": "V24",
+   "type": "VNT",
+   "label": "ВНТ № 24",
+   "full": "Технологии производства малотоннажной химической продукции, включая особо чистые вещества, для фармацевтики, энергетики и микроэлектроники"
+  },
+  {
+   "id": "V23",
+   "type": "VNT",
+   "label": "ВНТ № 23",
+   "full": "Технологии создания новых материалов с заданными свойствами и эксплуатационными характеристиками"
+  },
+  {
+   "id": "V25",
+   "type": "VNT",
+   "label": "ВНТ № 25",
+   "full": "Технологии искусственного интеллекта в отраслях экономики, социальной сферы (включая сферу общественной безопасности) и в органах публичной власти"
+  },
+  {
+   "id": "NP2",
+   "type": "NationalProject",
+   "label": "НП «Новые материалы и химия»"
+  },
+  {
+   "id": "FP1",
+   "type": "NationalProject",
+   "label": "ФП 20N00201",
+   "full": "Развитие производства химической продукции"
+  },
+  {
+   "id": "FP5",
+   "type": "NationalProject",
+   "label": "ФП 20N00205",
+   "full": "Разработка важнейших наукоемких технологий по направлению новых материалов и химии"
+  },
+  {
+   "id": "FP6",
+   "type": "NationalProject",
+   "label": "ФП 20N00206",
+   "full": "Опережающая подготовка и переподготовка квалифицированных кадров по направлению новых материалов и химии"
+  },
+  {
+   "id": "FP3",
+   "type": "NationalProject",
+   "label": "ФП 20N00203",
+   "full": "Развитие производства композитных материалов (композитов) и изделий из них"
+  },
+  {
+   "id": "ORG-IK",
+   "type": "Organization",
+   "label": "ФИЦ «Институт катализа им. Г.К. Борескова СО РАН"
+  },
+  {
+   "id": "ORG-MSU",
+   "type": "Organization",
+   "label": "МГУ имени М.В. Ломоносова"
+  },
+  {
+   "id": "ORG-TIPS",
+   "type": "Organization",
+   "label": "Институт нефтехимического синтеза им. А.В. Топчи"
+  },
+  {
+   "id": "ORG-UFIC",
+   "type": "Organization",
+   "label": "Уфимский федеральный исследовательский центр РАН"
+  },
+  {
+   "id": "ORG-NIOCH",
+   "type": "Organization",
+   "label": "Новосибирский институт органической химии им. Н."
+  },
+  {
+   "id": "ORG-SIBUR",
+   "type": "Organization",
+   "label": "ПАО «СИБУР Холдинг»"
+  },
+  {
+   "id": "ORG-NKNH",
+   "type": "Organization",
+   "label": "ПАО «Нижнекамскнефтехим»"
+  },
+  {
+   "id": "ORG-KFU",
+   "type": "Organization",
+   "label": "Казанский федеральный университет"
+  },
+  {
+   "id": "ORG-NIFHI",
+   "type": "Organization",
+   "label": "ФГУП «НИФХИ им. Л.Я. Карпова»"
+  },
+  {
+   "id": "ORG-YUFU",
+   "type": "Organization",
+   "label": "Южный федеральный университет"
+  },
+  {
+   "id": "TEAM-IK-ENG",
+   "type": "ResearchTeam",
+   "label": "Инжиниринговый центр «Катализаторы и сорбенты для перспективных процессов» (ИК СО РАН)"
+  },
+  {
+   "id": "TEAM-KFU-ENG",
+   "type": "ResearchTeam",
+   "label": "Инжиниринговая площадка «Гетерогенные катализаторы» (КФУ)"
+  },
+  {
+   "id": "TEAM-MSU-ENG",
+   "type": "ResearchTeam",
+   "label": "Площадка «Сорбционные и каталитические технологии» (МГУ)"
+  },
+  {
+   "id": "123120500039-8",
+   "type": "ResearchProject",
+   "label": "123120500039-8",
+   "full": "Создание технологий синтеза катализаторов полимеризации олефинов. Катализаторы Циглера-Натта для промышленных процессов производства Полипропилена по газофазным и суспензионным технологиям. Лот 5"
+  },
+  {
+   "id": "123080400019-8",
+   "type": "ResearchProject",
+   "label": "123080400019-8",
+   "full": "Создание технологий синтеза катализаторов полимеризации олефинов. Новые компоненты «электронодорные соединения» катализаторов Циглера-Натта для производства полипропилена по суспензионным технологиям"
+  },
+  {
+   "id": "123120500037-4",
+   "type": "ResearchProject",
+   "label": "123120500037-4",
+   "full": "Создание технологий синтеза катализаторов полимеризации олефинов. Катализаторы Циглера-Натта для промышленных процессов производства Полиэтилена по газофазным и суспензионным технологиям. Лот 4"
+  },
+  {
+   "id": "123080400034-1",
+   "type": "ResearchProject",
+   "label": "123080400034-1",
+   "full": "Создание технологий синтеза катализаторов полимеризации олефинов. Нанесенные на силикагель катализаторы Циглера для промышленного производства Полиэтилена по газофазной технологии"
+  },
+  {
+   "id": "124060700040-0",
+   "type": "ResearchProject",
+   "label": "124060700040-0",
+   "full": "Создание технологий синтеза катализаторов полимеризации олефинов. Металлоценовые и пост-металлоценовые катализаторы для газофазных процессов производства Полиэтилена"
+  },
+  {
+   "id": "124061800001-7",
+   "type": "ResearchProject",
+   "label": "124061800001-7",
+   "full": "Создание технологий синтеза катализаторов полимеризации олефинов. Хромовые катализаторы на силикагеле для промышленных процессов производства Полиэтилена"
+  },
+  {
+   "id": "123060100016-2",
+   "type": "ResearchProject",
+   "label": "123060100016-2",
+   "full": "Новые составы металлорганических алюминий-магниевых активаторов – компонентов каталитических систем Циглера-Натта"
+  },
+  {
+   "id": "01201271126",
+   "type": "ResearchProject",
+   "label": "01201271126",
+   "full": "Исследование кинетики полимеризации олефинов на новых модификациях нанесенных титанмагниевых катализаторов по данным о числе и реакционной способности активных центров"
+  },
+  {
+   "id": "АААА-А16-116012050248-4",
+   "type": "ResearchProject",
+   "label": "АААА-А16-116012050248-4",
+   "full": "Исследование распределения активных центров по стереоспецифичности и их реакционной способности в полимеризации пропилена на TiCl4/MgCl2 катализаторах различного состава"
+  },
+  {
+   "id": "01201056727",
+   "type": "ResearchProject",
+   "label": "01201056727",
+   "full": "Модифицированные полидентатными фосфорилсодержащими комплексонами титан-магниевые катализаторы полимеризации олефинов"
+  },
+  {
+   "id": "122082200011-9",
+   "type": "ResearchProject",
+   "label": "122082200011-9",
+   "full": "Хиральное распознавание в системах типа Циглера-Натта: разработка стереоселективных каталитических систем и развитие модели катализа"
+  },
+  {
+   "id": "АААА-А19-119022290004-8",
+   "type": "ResearchProject",
+   "label": "АААА-А19-119022290004-8",
+   "full": "Дизайн и изучение механизма действия катализаторов Циглера-Натта в реакциях превращения непредельных и металлорганических соединений"
+  },
+  {
+   "id": "122040400033-9",
+   "type": "ResearchProject",
+   "label": "122040400033-9",
+   "full": "Разработка методов создания библиотек химических соединений… путем направленной трансформации природных и синтетических стартовых молекул"
+  },
+  {
+   "id": "АААА-А19-119051590101-1",
+   "type": "ResearchProject",
+   "label": "АААА-А19-119051590101-1",
+   "full": "Физико-химические основы энергоресурсоэффективной экологически безопасной технологии производства тетрахлорида титана на основе глубокой переработки флотационных кварц-лейкоксеновых концентратов"
+  },
+  {
+   "id": "126030518387-8",
+   "type": "ResearchProject",
+   "label": "126030518387-8",
+   "full": "Механизмы реакций димеризации и олигомеризации терминальных алкенов под действием гомогенных каталитических систем типа Циглера-Натта"
+  },
+  {
+   "id": "RID-625062700013-2",
+   "type": "Patent",
+   "label": "RU изобретение",
+   "full": "Диэтил 2,2-диалкилмалонат и 2,2-диалкил-1,3-диметоксипропан, содержащие 6,6-диметилбицикло[3.1.1]гептановый фрагмент природного происхождения, способ их получения и титан-магниевый катализатор",
+   "rid": "625062700013-2"
+  },
+  {
+   "id": "RID-625062700022-4",
+   "type": "Patent",
+   "label": "RU изобретение",
+   "full": "1,3-Диметоксипропаны, содержащие 6,6-диметилбицикло[3.1.1]гептановый фрагмент природного происхождения и н-алкильный заместитель, способ их получения и титан-магниевый катализатор",
+   "rid": "625062700022-4"
+  },
+  {
+   "id": "RID-АААА-Г20-620091790006-4",
+   "type": "Patent",
+   "label": "RU изобретение",
+   "full": "Способ получения диалкил 2,3-диизобутилсукцината, компонента титан-магниевых катализаторов полимеризации олефинов",
+   "rid": "АААА-Г20-620091790006-4"
+  },
+  {
+   "id": "RID-15065.7725009733.12.5.001/001",
+   "type": "Evidence",
+   "label": "Секрет производства (ноу хау)",
+   "full": "Способ получения модифицированного титан-магниевого нанокатализатора",
+   "rid": "15065.7725009733.12.5.001/001"
+  },
+  {
+   "id": "RID-625041500066-5",
+   "type": "Evidence",
+   "label": "Секрет производства (ноу хау)",
+   "full": "Способ получения алюмосиликатного носителя для синтеза нанесённых катализаторов полимеризации этилена и способ анализа физико-химических характеристик полученных носителей",
+   "rid": "625041500066-5"
+  },
+  {
+   "id": "PUB-ORG-IK",
+   "type": "Publication",
+   "label": "диссертации по теме в ЕГИСУ: 4"
+  },
+  {
+   "id": "PUB-ORG-TIPS",
+   "type": "Publication",
+   "label": "диссертации: 1"
+  },
+  {
+   "id": "PUB-ORG-NKNH",
+   "type": "Publication",
+   "label": "диссертации: 1 (2019)"
+  },
+  {
+   "id": "DOI:10.1002/macp.201500486",
+   "type": "Publication",
+   "label": "2016 · Effect of AlEt3and an External Donor on …",
+   "full": "Nikolaeva M., Mikenas T., Matsko M., Zakharov V. Effect of AlEt3and an External Donor on the Distribution of Active Sites According to Their Stereospecificity in Propylene Polymerization over TiCl4/MgCl2Catalysts with Different Titanium Content. Macromolecular Chemistry and Physics, 2016. doi:10.1002/macp.201500486"
+  },
+  {
+   "id": "DOI:10.1021/acs.jpcc.5b11286",
+   "type": "Publication",
+   "label": "2016 · Electron Paramagnetic Resonance Study of…",
+   "full": "Koshevoy E., Mikenas T., Zakharov V., Shubin A. и др. Electron Paramagnetic Resonance Study of the Interaction of Surface Titanium Species with AlR3 Cocatalyst in Supported Ziegler–Natta Catalysts with a Low Titanium Content. The Journal of Physical Chemistry C, 2016. doi:10.1021/acs.jpcc.5b11286"
+  },
+  {
+   "id": "DOI:10.1002/app.46291",
+   "type": "Publication",
+   "label": "2018 · Propylene polymerization over supported …",
+   "full": "Nikolaeva M., Matsko M., Zakharov V. Propylene polymerization over supported Ziegler–Natta catalysts: Effect of internal and external donors on distribution of active sites according to stereospecificity. Journal of Applied Polymer Science, 2018. doi:10.1002/app.46291"
+  },
+  {
+   "id": "DOI:10.1515/pac-2016-1131",
+   "type": "Publication",
+   "label": "2017 · Non-traditional Ziegler-Natta catalysis …",
+   "full": "Nifant’ev I., Ivchenko P., Tavtorkin A., Vinogradov A. и др. Non-traditional Ziegler-Natta catalysis in α-olefin transformations: reaction mechanisms and product design. Pure and Applied Chemistry, 2017. doi:10.1515/pac-2016-1131"
+  },
+  {
+   "id": "DOI:10.1021/acscatal.1c01611",
+   "type": "Publication",
+   "label": "2021 · Rigid Postmetallocene Catalysts for Prop…",
+   "full": "Goryunov G., Sharikov M., Iashin A., Canich J. и др. Rigid Postmetallocene Catalysts for Propylene Polymerization: Ligand Design Prevents the Temperature-Dependent Loss of Stereo- and Regioselectivities. ACS Catalysis, 2021. doi:10.1021/acscatal.1c01611"
+  },
+  {
+   "id": "DOI:10.1039/c7ra11622e",
+   "type": "Publication",
+   "label": "2017 · Testing a simple approach for theoretica…",
+   "full": "Matveev P., Mitrofanov A., Petrov V., Zhokhov S. и др. Testing a simple approach for theoretical evaluation of radiolysis products in extraction systems. A case of N,O-donor ligands for Am/Eu separation. RSC Advances, 2017. doi:10.1039/c7ra11622e"
+  },
+  {
+   "id": "DOI:10.1039/d1py01039e",
+   "type": "Publication",
+   "label": "2021 · Cocatalyst\n                    versus\n  …",
+   "full": "Bermesheva E., Nazarov I., Kataranova K., Khrychikova A. и др. Cocatalyst\n                    versus\n                    precatalyst impact on the vinyl-addition polymerization of norbornenes with polar groups: looking at the other side of the coin. Polymer Chemistry, 2021. doi:10.1039/d1py01039e"
+  },
+  {
+   "id": "DOI:10.3390/en14185890",
+   "type": "Publication",
+   "label": "2021 · Non-Catalytic Dissolution of Biochar Obt…",
+   "full": "Krylova A., Krysanova K., Kulikova M., Kulikov A. Non-Catalytic Dissolution of Biochar Obtained by Hydrothermal Carbonization of Sawdust in Hydrogen Donor Solvent. Energies, 2021. doi:10.3390/en14185890"
+  },
+  {
+   "id": "DOI:10.1002/chem.201703018",
+   "type": "Publication",
+   "label": "2017 · Nature of Bonding in Donor–Acceptor Inte…",
+   "full": "Pushkarevsky N., Petrov P., Grigoriev D., Smolentsev A. и др. Nature of Bonding in Donor–Acceptor Interactions Exemplified by Complexes of N‐Heterocyclic Carbenes with 1,2,5‐Telluradiazoles. Chemistry – A European Journal, 2017. doi:10.1002/chem.201703018"
+  },
+  {
+   "id": "DOI:10.1002/aoc.6529",
+   "type": "Publication",
+   "label": "2021 · Ring size enlargement in an ortho‐cycloa…",
+   "full": "Han M., Oleynik I., Liu M., Ma Y. и др. Ring size enlargement in an ortho‐cycloalkyl‐substituted bis(imino)pyridine‐cobalt ethylene polymerization catalyst and its impact on performance and polymer properties. Applied Organometallic Chemistry, 2021. doi:10.1002/aoc.6529"
+  },
+  {
+   "id": "DOI:10.3390/ma10050496",
+   "type": "Publication",
+   "label": "2017 · A Study of Ziegler–Natta Propylene Polym…",
+   "full": "Tkachenko O., Kucherov A., Kustov L., Virkkunen V. и др. A Study of Ziegler–Natta Propylene Polymerization Catalysts by Spectroscopic Methods. Materials, 2017. doi:10.3390/ma10050496"
+  },
+  {
+   "id": "DOI:10.3390/pr10122705",
+   "type": "Publication",
+   "label": "2022 · Modelling of Propylene Polymerization in…",
+   "full": "Manuyko G., Bronskaya V., Kharitonova O., Ignashina T. и др. Modelling of Propylene Polymerization in a Loop Reactor on the Titanium–Magnesium Catalyst Taking into Account the Transformation of Active Centers. Processes, 2022. doi:10.3390/pr10122705"
+  },
+  {
+   "id": "DOI:10.3390/polym14235183",
+   "type": "Publication",
+   "label": "2022 · Temperature Dependence of the Kinetic Pa…",
+   "full": "Bronskaya V., Manuyko G., Aminova G., Kharitonova O. и др. Temperature Dependence of the Kinetic Parameters of the Titanium–Magnesium Catalyzed Propylene Polymerization. Polymers, 2022. doi:10.3390/polym14235183"
+  },
+  {
+   "id": "DOI:10.47664/0022-9466-2026-85-4-240-247",
+   "type": "Publication",
+   "label": "2026 · A Theoretical Study of a Methylaluminoxa…",
+   "full": "Masliy A., Akhmetov I., Davletbaeva I., Falyakhov M. и др. A Theoretical Study of a Methylaluminoxane-Modified Neodymium Ziegler–Natta Catalyst System for the Polymerization of 1,3-Butadiene. Part 2. Formation of Active Sites of Polymerization. Kauchuk i Rezina, 2026. doi:10.47664/0022-9466-2026-85-4-240-247"
+  },
+  {
+   "id": "DOI:10.47664/0022-9466-2026-85-2-78-85",
+   "type": "Publication",
+   "label": "2026 · Theoretical Study of Methylaluminoxane-M…",
+   "full": "Masliy A., Akhmetov I., Davletbaeva I., Falyakhov M. и др. Theoretical Study of Methylaluminoxane-Modified Neodymium Ziegler-Natta Catalyst System for the Polymerization of 1,3-Butadiene. Part 1. Study of the Molecular Species of Methylaluminoxane. Kauchuk i Rezina, 2026. doi:10.47664/0022-9466-2026-85-2-78-85"
+  },
+  {
+   "id": "DOI:10.3390/catal16100864",
+   "type": "Publication",
+   "label": "2026 · ONIOM Quantum Chemical Examination of 1,…",
+   "full": "Masliy A., Akhmetov I., Davletbaeva I., Falyakhov M. и др. ONIOM Quantum Chemical Examination of 1,3-Butadiene Polymerization Catalyzed by the Methylaluminoxane-Modified Neodymium Ziegler–Natta System. Catalysts, 2026. doi:10.3390/catal16100864"
+  },
+  {
+   "id": "MFR-ПАОСИБУРХолдингфабрикака",
+   "type": "Manufacturer",
+   "label": "ПАО «СИБУР Холдинг» — фабрика катализаторов (Казань)",
+   "country": "Россия"
+  },
+  {
+   "id": "MFR-ФИЦИнституткатализаСОРАН",
+   "type": "Manufacturer",
+   "label": "ФИЦ «Институт катализа СО РАН»",
+   "country": "Россия"
+  },
+  {
+   "id": "SUP-LyondellBasell",
+   "type": "Manufacturer",
+   "label": "LyondellBasell",
+   "country": "Нидерланды/США"
+  },
+  {
+   "id": "SUP-WRGrace",
+   "type": "Manufacturer",
+   "label": "W.R. Grace",
+   "country": "США"
+  },
+  {
+   "id": "SUP-Clariant",
+   "type": "Manufacturer",
+   "label": "Clariant",
+   "country": "Швейцария"
+  },
+  {
+   "id": "SUP-MitsuiChemicalsTohoTitan",
+   "type": "Manufacturer",
+   "label": "Mitsui Chemicals, Toho Titanium, Sumitomo Chemical",
+   "country": "Япония"
+  },
+  {
+   "id": "SUP-SinopecCatalystCoLiaonin",
+   "type": "Manufacturer",
+   "label": "Sinopec Catalyst Co., Liaoning Xiangyang, Liaoning Dingjide",
+   "country": "Китай"
+  },
+  {
+   "id": "MFR-ТомскнефтехимСИБУР",
+   "type": "Supplier",
+   "label": "«Томскнефтехим» (СИБУР)",
+   "country": "Россия"
+  },
+  {
+   "id": "SUP-NouryonAlbemarleTosohFin",
+   "type": "Supplier",
+   "label": "Nouryon, Albemarle, Tosoh Finechem и китайские производители",
+   "country": "Нидерланды, США, Япония, Китай"
+  },
+  {
+   "id": "MFR-Производителититановойгу",
+   "type": "Supplier",
+   "label": "Производители титановой губки (хлорный передел)",
+   "country": "Россия"
+  },
+  {
+   "id": "SUP-ПроизводителиTiClКНРЯпон",
+   "type": "Supplier",
+   "label": "Производители TiCl₄ (КНР, Япония и др.)",
+   "country": "Китай, Япония"
+  },
+  {
+   "id": "MFR-Производителимагнияитита",
+   "type": "Supplier",
+   "label": "Производители магния и титана (электролиз MgCl₂)",
+   "country": "Россия"
+  },
+  {
+   "id": "SUP-ПоставщикибезводногоMgCl",
+   "type": "Supplier",
+   "label": "Поставщики безводного MgCl₂",
+   "country": "Китай, Израиль и др."
+  },
+  {
+   "id": "MFR-НИОХСОРАН",
+   "type": "Supplier",
+   "label": "НИОХ СО РАН",
+   "country": "Россия"
+  },
+  {
+   "id": "MFR-МГУ",
+   "type": "Supplier",
+   "label": "МГУ",
+   "country": "Россия"
+  },
+  {
+   "id": "SUP-Производителидиэфировсук",
+   "type": "Supplier",
+   "label": "Производители диэфиров/сукцинатов",
+   "country": "Китай, ЕС"
+  },
+  {
+   "id": "SUP-EvonikWackerShinEtsuкита",
+   "type": "Supplier",
+   "label": "Evonik, Wacker, Shin-Etsu, китайские производители",
+   "country": "Германия, Япония, Китай"
+  },
+  {
+   "id": "SUP-LyondellBasellSpheripolS",
+   "type": "Supplier",
+   "label": "LyondellBasell (Spheripol, Spherizone), Grace (Unipol PP), INEOS (Innovene PP), Mitsui (Hypol), Borealis (Borstar)",
+   "country": "ЕС, США, Япония"
+  },
+  {
+   "id": "SUP-RSF-3049",
+   "type": "SupportMeasure",
+   "label": "РНФ: конкурс № 3049 — гранты в рамк"
+  },
+  {
+   "id": "SUP-RSF-LOTS",
+   "type": "SupportMeasure",
+   "label": "РНФ: программа технологических пред"
+  },
+  {
+   "id": "SUP-MPT-NIOKR",
+   "type": "SupportMeasure",
+   "label": "Субсидия Минпромторга на НИОКР по современным технологиям (решение № 22-68462-00692-Р, версия 7 от 03.07.2026)"
+  },
+  {
+   "id": "SUP-KIP",
+   "type": "SupportMeasure",
+   "label": "Кластерная инвестиционная платформа (КИП)"
+  },
+  {
+   "id": "SUP-FRP",
+   "type": "SupportMeasure",
+   "label": "ФРП: займы («Комплектующие изделия»"
+  },
+  {
+   "id": "SUP-ENG",
+   "type": "SupportMeasure",
+   "label": "Инжиниринговые центры и площадки опытно-промышленного производства НП «Новые материалы и химия»"
+  },
+  {
+   "id": "SUP-FSI",
+   "type": "SupportMeasure",
+   "label": "ФСИ: «Старт», «Развитие», «Коммерци"
+  },
+  {
+   "id": "E-EGISU-NIOKTR",
+   "type": "Evidence",
+   "label": "ЕГИСУ: карточки НИОКТР (открытые данные)"
+  },
+  {
+   "id": "E-EGISU-RID",
+   "type": "Evidence",
+   "label": "ЕГИСУ: карточки РИД"
+  },
+  {
+   "id": "E-EGISU-DISS",
+   "type": "Evidence",
+   "label": "ЕГИСУ: диссертации"
+  },
+  {
+   "id": "E-EGISU-FP",
+   "type": "Evidence",
+   "label": "ЕГИСУ: национальные и федеральные проект"
+  },
+  {
+   "id": "E-EGISU-VNT",
+   "type": "Evidence",
+   "label": "ЕГИСУ: сквозные технологии по Указу № 52"
+  }
+ ],
+ "edges": [
+  {
+   "id": "S01|PART_OF|P-ZN",
+   "source": "S01",
+   "target": "P-ZN",
+   "type": "PART_OF"
+  },
+  {
+   "id": "S02|PART_OF|P-ZN",
+   "source": "S02",
+   "target": "P-ZN",
+   "type": "PART_OF"
+  },
+  {
+   "id": "S03|PART_OF|P-ZN",
+   "source": "S03",
+   "target": "P-ZN",
+   "type": "PART_OF"
+  },
+  {
+   "id": "S04|PART_OF|P-ZN",
+   "source": "S04",
+   "target": "P-ZN",
+   "type": "PART_OF"
+  },
+  {
+   "id": "S05|PART_OF|P-ZN",
+   "source": "S05",
+   "target": "P-ZN",
+   "type": "PART_OF"
+  },
+  {
+   "id": "S06|PART_OF|P-ZN",
+   "source": "S06",
+   "target": "P-ZN",
+   "type": "PART_OF"
+  },
+  {
+   "id": "S07|PART_OF|P-ZN",
+   "source": "S07",
+   "target": "P-ZN",
+   "type": "PART_OF"
+  },
+  {
+   "id": "S08|PART_OF|P-ZN",
+   "source": "S08",
+   "target": "P-ZN",
+   "type": "PART_OF"
+  },
+  {
+   "id": "S09|PART_OF|P-ZN",
+   "source": "S09",
+   "target": "P-ZN",
+   "type": "PART_OF"
+  },
+  {
+   "id": "S10|PART_OF|P-ZN",
+   "source": "S10",
+   "target": "P-ZN",
+   "type": "PART_OF"
+  },
+  {
+   "id": "S11|PART_OF|P-ZN",
+   "source": "S11",
+   "target": "P-ZN",
+   "type": "PART_OF"
+  },
+  {
+   "id": "S12|PART_OF|P-ZN",
+   "source": "S12",
+   "target": "P-ZN",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C01.1|PART_OF|S01",
+   "source": "C01.1",
+   "target": "S01",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C01.2|PART_OF|S01",
+   "source": "C01.2",
+   "target": "S01",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C01.3|PART_OF|S01",
+   "source": "C01.3",
+   "target": "S01",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C02.1|PART_OF|S02",
+   "source": "C02.1",
+   "target": "S02",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C02.2|PART_OF|S02",
+   "source": "C02.2",
+   "target": "S02",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C03.1|PART_OF|S03",
+   "source": "C03.1",
+   "target": "S03",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C03.2|PART_OF|S03",
+   "source": "C03.2",
+   "target": "S03",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C04.1|PART_OF|S04",
+   "source": "C04.1",
+   "target": "S04",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C05.1|PART_OF|S05",
+   "source": "C05.1",
+   "target": "S05",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C05.2|PART_OF|S05",
+   "source": "C05.2",
+   "target": "S05",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C06.1|PART_OF|S06",
+   "source": "C06.1",
+   "target": "S06",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C06.2|PART_OF|S06",
+   "source": "C06.2",
+   "target": "S06",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C07.1|PART_OF|S07",
+   "source": "C07.1",
+   "target": "S07",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C07.2|PART_OF|S07",
+   "source": "C07.2",
+   "target": "S07",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C07.3|PART_OF|S07",
+   "source": "C07.3",
+   "target": "S07",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C08.1|PART_OF|S08",
+   "source": "C08.1",
+   "target": "S08",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C08.2|PART_OF|S08",
+   "source": "C08.2",
+   "target": "S08",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C08.3|PART_OF|S08",
+   "source": "C08.3",
+   "target": "S08",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C09.1|PART_OF|S09",
+   "source": "C09.1",
+   "target": "S09",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C09.2|PART_OF|S09",
+   "source": "C09.2",
+   "target": "S09",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C10.1|PART_OF|S10",
+   "source": "C10.1",
+   "target": "S10",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C10.2|PART_OF|S10",
+   "source": "C10.2",
+   "target": "S10",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C11.1|PART_OF|S11",
+   "source": "C11.1",
+   "target": "S11",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C11.2|PART_OF|S11",
+   "source": "C11.2",
+   "target": "S11",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C12.1|PART_OF|S12",
+   "source": "C12.1",
+   "target": "S12",
+   "type": "PART_OF"
+  },
+  {
+   "id": "C12.2|PART_OF|S12",
+   "source": "C12.2",
+   "target": "S12",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T01.1|PART_OF|T01",
+   "source": "T01.1",
+   "target": "T01",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T01.2|PART_OF|T01",
+   "source": "T01.2",
+   "target": "T01",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T02.1|PART_OF|T02",
+   "source": "T02.1",
+   "target": "T02",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T02.2|PART_OF|T02",
+   "source": "T02.2",
+   "target": "T02",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T03.1|PART_OF|T03",
+   "source": "T03.1",
+   "target": "T03",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T03.2|PART_OF|T03",
+   "source": "T03.2",
+   "target": "T03",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T03.3|PART_OF|T03",
+   "source": "T03.3",
+   "target": "T03",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T04.1|PART_OF|T04",
+   "source": "T04.1",
+   "target": "T04",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T05.1|PART_OF|T05",
+   "source": "T05.1",
+   "target": "T05",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T06.1|PART_OF|T06",
+   "source": "T06.1",
+   "target": "T06",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T06.2|PART_OF|T06",
+   "source": "T06.2",
+   "target": "T06",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T06.3|PART_OF|T06",
+   "source": "T06.3",
+   "target": "T06",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T07.1|PART_OF|T07",
+   "source": "T07.1",
+   "target": "T07",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T07.2|PART_OF|T07",
+   "source": "T07.2",
+   "target": "T07",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T07.3|PART_OF|T07",
+   "source": "T07.3",
+   "target": "T07",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T08.1|PART_OF|T08",
+   "source": "T08.1",
+   "target": "T08",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T08.2|PART_OF|T08",
+   "source": "T08.2",
+   "target": "T08",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T09.1|PART_OF|T09",
+   "source": "T09.1",
+   "target": "T09",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T09.2|PART_OF|T09",
+   "source": "T09.2",
+   "target": "T09",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T10.1|PART_OF|T10",
+   "source": "T10.1",
+   "target": "T10",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T10.2|PART_OF|T10",
+   "source": "T10.2",
+   "target": "T10",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T11.1|PART_OF|T11",
+   "source": "T11.1",
+   "target": "T11",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T11.2|PART_OF|T11",
+   "source": "T11.2",
+   "target": "T11",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T12.1|PART_OF|T12",
+   "source": "T12.1",
+   "target": "T12",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T12.2|PART_OF|T12",
+   "source": "T12.2",
+   "target": "T12",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T13.1|PART_OF|T13",
+   "source": "T13.1",
+   "target": "T13",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T13.2|PART_OF|T13",
+   "source": "T13.2",
+   "target": "T13",
+   "type": "PART_OF"
+  },
+  {
+   "id": "O1|IMPLEMENTS|S01",
+   "source": "O1",
+   "target": "S01",
+   "type": "IMPLEMENTS"
+  },
+  {
+   "id": "O1|IMPLEMENTS|S07",
+   "source": "O1",
+   "target": "S07",
+   "type": "IMPLEMENTS"
+  },
+  {
+   "id": "O1|REQUIRES|T01.1",
+   "source": "O1",
+   "target": "T01.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "O1|REQUIRES|T06.1",
+   "source": "O1",
+   "target": "T06.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "O2|IMPLEMENTS|S02",
+   "source": "O2",
+   "target": "S02",
+   "type": "IMPLEMENTS"
+  },
+  {
+   "id": "O2|IMPLEMENTS|S03",
+   "source": "O2",
+   "target": "S03",
+   "type": "IMPLEMENTS"
+  },
+  {
+   "id": "O2|IMPLEMENTS|S08",
+   "source": "O2",
+   "target": "S08",
+   "type": "IMPLEMENTS"
+  },
+  {
+   "id": "O2|REQUIRES|T07.1",
+   "source": "O2",
+   "target": "T07.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "O2|REQUIRES|T03.2",
+   "source": "O2",
+   "target": "T03.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "O3|IMPLEMENTS|S08",
+   "source": "O3",
+   "target": "S08",
+   "type": "IMPLEMENTS"
+  },
+  {
+   "id": "O3|IMPLEMENTS|S07",
+   "source": "O3",
+   "target": "S07",
+   "type": "IMPLEMENTS"
+  },
+  {
+   "id": "O3|REQUIRES|T07.3",
+   "source": "O3",
+   "target": "T07.3",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "O3|REQUIRES|T08.1",
+   "source": "O3",
+   "target": "T08.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "O4|IMPLEMENTS|S09",
+   "source": "O4",
+   "target": "S09",
+   "type": "IMPLEMENTS"
+  },
+  {
+   "id": "O4|REQUIRES|T09.1",
+   "source": "O4",
+   "target": "T09.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "O4|REQUIRES|T09.2",
+   "source": "O4",
+   "target": "T09.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "O5|IMPLEMENTS|S10",
+   "source": "O5",
+   "target": "S10",
+   "type": "IMPLEMENTS"
+  },
+  {
+   "id": "O5|REQUIRES|T10.1",
+   "source": "O5",
+   "target": "T10.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "O5|REQUIRES|T10.2",
+   "source": "O5",
+   "target": "T10.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "O6|IMPLEMENTS|S11",
+   "source": "O6",
+   "target": "S11",
+   "type": "IMPLEMENTS"
+  },
+  {
+   "id": "O6|IMPLEMENTS|S05",
+   "source": "O6",
+   "target": "S05",
+   "type": "IMPLEMENTS"
+  },
+  {
+   "id": "O6|IMPLEMENTS|S04",
+   "source": "O6",
+   "target": "S04",
+   "type": "IMPLEMENTS"
+  },
+  {
+   "id": "O6|REQUIRES|T11.1",
+   "source": "O6",
+   "target": "T11.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "O6|REQUIRES|T11.2",
+   "source": "O6",
+   "target": "T11.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "O7|IMPLEMENTS|S12",
+   "source": "O7",
+   "target": "S12",
+   "type": "IMPLEMENTS"
+  },
+  {
+   "id": "O7|REQUIRES|T12.1",
+   "source": "O7",
+   "target": "T12.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "O7|REQUIRES|T12.2",
+   "source": "O7",
+   "target": "T12.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C01.1|REQUIRES|T01.1",
+   "source": "C01.1",
+   "target": "T01.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C01.2|REQUIRES|T06.1",
+   "source": "C01.2",
+   "target": "T06.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C01.2|REQUIRES|T06.2",
+   "source": "C01.2",
+   "target": "T06.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C01.3|REQUIRES|T06.1",
+   "source": "C01.3",
+   "target": "T06.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C02.1|REQUIRES|T02.1",
+   "source": "C02.1",
+   "target": "T02.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C02.1|REQUIRES|T02.2",
+   "source": "C02.1",
+   "target": "T02.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C02.2|REQUIRES|T08.1",
+   "source": "C02.2",
+   "target": "T08.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C02.2|REQUIRES|T07.1",
+   "source": "C02.2",
+   "target": "T07.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C03.1|REQUIRES|T03.1",
+   "source": "C03.1",
+   "target": "T03.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C03.1|REQUIRES|T07.1",
+   "source": "C03.1",
+   "target": "T07.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C03.2|REQUIRES|T03.2",
+   "source": "C03.2",
+   "target": "T03.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C03.2|REQUIRES|T03.3",
+   "source": "C03.2",
+   "target": "T03.3",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C03.2|REQUIRES|T07.1",
+   "source": "C03.2",
+   "target": "T07.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C04.1|REQUIRES|T04.1",
+   "source": "C04.1",
+   "target": "T04.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C04.1|REQUIRES|T11.2",
+   "source": "C04.1",
+   "target": "T11.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C05.1|REQUIRES|T05.1",
+   "source": "C05.1",
+   "target": "T05.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C05.1|REQUIRES|T11.2",
+   "source": "C05.1",
+   "target": "T11.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C05.2|REQUIRES|T08.2",
+   "source": "C05.2",
+   "target": "T08.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C06.1|REQUIRES|T06.2",
+   "source": "C06.1",
+   "target": "T06.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C06.1|REQUIRES|T12.2",
+   "source": "C06.1",
+   "target": "T12.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C06.2|REQUIRES|T06.3",
+   "source": "C06.2",
+   "target": "T06.3",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C06.2|REQUIRES|T10.1",
+   "source": "C06.2",
+   "target": "T10.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C07.1|REQUIRES|T08.1",
+   "source": "C07.1",
+   "target": "T08.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C07.2|REQUIRES|T08.1",
+   "source": "C07.2",
+   "target": "T08.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C07.3|REQUIRES|T08.1",
+   "source": "C07.3",
+   "target": "T08.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C08.1|REQUIRES|T07.2",
+   "source": "C08.1",
+   "target": "T07.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C08.1|REQUIRES|T07.1",
+   "source": "C08.1",
+   "target": "T07.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C08.2|REQUIRES|T07.2",
+   "source": "C08.2",
+   "target": "T07.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C08.2|REQUIRES|T07.3",
+   "source": "C08.2",
+   "target": "T07.3",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C08.3|REQUIRES|T07.3",
+   "source": "C08.3",
+   "target": "T07.3",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C08.3|REQUIRES|T07.1",
+   "source": "C08.3",
+   "target": "T07.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C09.1|REQUIRES|T09.1",
+   "source": "C09.1",
+   "target": "T09.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C09.2|REQUIRES|T09.2",
+   "source": "C09.2",
+   "target": "T09.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C10.1|REQUIRES|T10.1",
+   "source": "C10.1",
+   "target": "T10.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C10.2|REQUIRES|T10.2",
+   "source": "C10.2",
+   "target": "T10.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C10.2|REQUIRES|T08.2",
+   "source": "C10.2",
+   "target": "T08.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C11.1|REQUIRES|T11.1",
+   "source": "C11.1",
+   "target": "T11.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C11.2|REQUIRES|T11.2",
+   "source": "C11.2",
+   "target": "T11.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C12.1|REQUIRES|T12.1",
+   "source": "C12.1",
+   "target": "T12.1",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "C12.2|REQUIRES|T12.2",
+   "source": "C12.2",
+   "target": "T12.2",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S01|REQUIRES|T01",
+   "source": "S01",
+   "target": "T01",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S01|REQUIRES|T06",
+   "source": "S01",
+   "target": "T06",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S01|DEPENDS_ON|S07",
+   "source": "S01",
+   "target": "S07",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S01|DEPENDS_ON|S08",
+   "source": "S01",
+   "target": "S08",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S02|REQUIRES|T02",
+   "source": "S02",
+   "target": "T02",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S02|REQUIRES|T07",
+   "source": "S02",
+   "target": "T07",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S02|DEPENDS_ON|S08",
+   "source": "S02",
+   "target": "S08",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S02|DEPENDS_ON|S09",
+   "source": "S02",
+   "target": "S09",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S03|REQUIRES|T03",
+   "source": "S03",
+   "target": "T03",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S03|DEPENDS_ON|S08",
+   "source": "S03",
+   "target": "S08",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S04|REQUIRES|T04",
+   "source": "S04",
+   "target": "T04",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S04|DEPENDS_ON|S05",
+   "source": "S04",
+   "target": "S05",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S04|DEPENDS_ON|S11",
+   "source": "S04",
+   "target": "S11",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S05|REQUIRES|T05",
+   "source": "S05",
+   "target": "T05",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S05|REQUIRES|T08",
+   "source": "S05",
+   "target": "T08",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S05|DEPENDS_ON|S11",
+   "source": "S05",
+   "target": "S11",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S06|REQUIRES|T06",
+   "source": "S06",
+   "target": "T06",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S06|REQUIRES|T12",
+   "source": "S06",
+   "target": "T12",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S06|DEPENDS_ON|S01",
+   "source": "S06",
+   "target": "S01",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S06|DEPENDS_ON|S10",
+   "source": "S06",
+   "target": "S10",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S07|REQUIRES|T08",
+   "source": "S07",
+   "target": "T08",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S07|DEPENDS_ON|S01",
+   "source": "S07",
+   "target": "S01",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S07|DEPENDS_ON|S08",
+   "source": "S07",
+   "target": "S08",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S08|REQUIRES|T07",
+   "source": "S08",
+   "target": "T07",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S08|REQUIRES|T08",
+   "source": "S08",
+   "target": "T08",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S08|DEPENDS_ON|S01",
+   "source": "S08",
+   "target": "S01",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S08|DEPENDS_ON|S02",
+   "source": "S08",
+   "target": "S02",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S08|DEPENDS_ON|S03",
+   "source": "S08",
+   "target": "S03",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S08|DEPENDS_ON|S07",
+   "source": "S08",
+   "target": "S07",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S08|DEPENDS_ON|S09",
+   "source": "S08",
+   "target": "S09",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S09|REQUIRES|T09",
+   "source": "S09",
+   "target": "T09",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S09|DEPENDS_ON|S02",
+   "source": "S09",
+   "target": "S02",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S09|DEPENDS_ON|S08",
+   "source": "S09",
+   "target": "S08",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S10|REQUIRES|T10",
+   "source": "S10",
+   "target": "T10",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S10|DEPENDS_ON|S06",
+   "source": "S10",
+   "target": "S06",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S10|DEPENDS_ON|S11",
+   "source": "S10",
+   "target": "S11",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S11|REQUIRES|T11",
+   "source": "S11",
+   "target": "T11",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S11|DEPENDS_ON|S04",
+   "source": "S11",
+   "target": "S04",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S11|DEPENDS_ON|S05",
+   "source": "S11",
+   "target": "S05",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S11|DEPENDS_ON|S10",
+   "source": "S11",
+   "target": "S10",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S12|REQUIRES|T12",
+   "source": "S12",
+   "target": "T12",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S12|REQUIRES|T13",
+   "source": "S12",
+   "target": "T13",
+   "type": "REQUIRES"
+  },
+  {
+   "id": "S12|DEPENDS_ON|S08",
+   "source": "S12",
+   "target": "S08",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "S12|DEPENDS_ON|S11",
+   "source": "S12",
+   "target": "S11",
+   "type": "DEPENDS_ON"
+  },
+  {
+   "id": "FP1|PART_OF|NP2",
+   "source": "FP1",
+   "target": "NP2",
+   "type": "PART_OF"
+  },
+  {
+   "id": "FP5|PART_OF|NP2",
+   "source": "FP5",
+   "target": "NP2",
+   "type": "PART_OF"
+  },
+  {
+   "id": "FP6|PART_OF|NP2",
+   "source": "FP6",
+   "target": "NP2",
+   "type": "PART_OF"
+  },
+  {
+   "id": "FP3|PART_OF|NP2",
+   "source": "FP3",
+   "target": "NP2",
+   "type": "PART_OF"
+  },
+  {
+   "id": "V24|CONTRIBUTES_TO_NPTL|FP1",
+   "source": "V24",
+   "target": "FP1",
+   "type": "CONTRIBUTES_TO_NPTL"
+  },
+  {
+   "id": "V23|CONTRIBUTES_TO_NPTL|FP1",
+   "source": "V23",
+   "target": "FP1",
+   "type": "CONTRIBUTES_TO_NPTL"
+  },
+  {
+   "id": "V24|CONTRIBUTES_TO_NPTL|FP5",
+   "source": "V24",
+   "target": "FP5",
+   "type": "CONTRIBUTES_TO_NPTL"
+  },
+  {
+   "id": "V23|CONTRIBUTES_TO_NPTL|FP5",
+   "source": "V23",
+   "target": "FP5",
+   "type": "CONTRIBUTES_TO_NPTL"
+  },
+  {
+   "id": "V25|CONTRIBUTES_TO_NPTL|FP5",
+   "source": "V25",
+   "target": "FP5",
+   "type": "CONTRIBUTES_TO_NPTL"
+  },
+  {
+   "id": "V24|CONTRIBUTES_TO_NPTL|FP6",
+   "source": "V24",
+   "target": "FP6",
+   "type": "CONTRIBUTES_TO_NPTL"
+  },
+  {
+   "id": "V23|CONTRIBUTES_TO_NPTL|FP3",
+   "source": "V23",
+   "target": "FP3",
+   "type": "CONTRIBUTES_TO_NPTL"
+  },
+  {
+   "id": "T01|BELONGS_TO_VNT|V24",
+   "source": "T01",
+   "target": "V24",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "T01|BELONGS_TO_VNT|V23",
+   "source": "T01",
+   "target": "V23",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "T02|BELONGS_TO_VNT|V24",
+   "source": "T02",
+   "target": "V24",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "T03|BELONGS_TO_VNT|V24",
+   "source": "T03",
+   "target": "V24",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "T04|BELONGS_TO_VNT|V24",
+   "source": "T04",
+   "target": "V24",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "T05|BELONGS_TO_VNT|V24",
+   "source": "T05",
+   "target": "V24",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "T06|BELONGS_TO_VNT|V23",
+   "source": "T06",
+   "target": "V23",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "T06|BELONGS_TO_VNT|V24",
+   "source": "T06",
+   "target": "V24",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "T07|BELONGS_TO_VNT|V24",
+   "source": "T07",
+   "target": "V24",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "T08|BELONGS_TO_VNT|V24",
+   "source": "T08",
+   "target": "V24",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "T09|BELONGS_TO_VNT|V24",
+   "source": "T09",
+   "target": "V24",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "T10|BELONGS_TO_VNT|V24",
+   "source": "T10",
+   "target": "V24",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "T11|BELONGS_TO_VNT|V23",
+   "source": "T11",
+   "target": "V23",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "T12|BELONGS_TO_VNT|V24",
+   "source": "T12",
+   "target": "V24",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "T13|BELONGS_TO_VNT|V25",
+   "source": "T13",
+   "target": "V25",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "T13|BELONGS_TO_VNT|V24",
+   "source": "T13",
+   "target": "V24",
+   "type": "BELONGS_TO_VNT"
+  },
+  {
+   "id": "TEAM-IK-ENG|PART_OF|ORG-IK",
+   "source": "TEAM-IK-ENG",
+   "target": "ORG-IK",
+   "type": "PART_OF"
+  },
+  {
+   "id": "TEAM-KFU-ENG|PART_OF|ORG-KFU",
+   "source": "TEAM-KFU-ENG",
+   "target": "ORG-KFU",
+   "type": "PART_OF"
+  },
+  {
+   "id": "TEAM-MSU-ENG|PART_OF|ORG-MSU",
+   "source": "TEAM-MSU-ENG",
+   "target": "ORG-MSU",
+   "type": "PART_OF"
+  },
+  {
+   "id": "T07|RESEARCHED_IN|123120500039-8",
+   "source": "T07",
+   "target": "123120500039-8",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "T06|RESEARCHED_IN|123120500039-8",
+   "source": "T06",
+   "target": "123120500039-8",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "T03|RESEARCHED_IN|123120500039-8",
+   "source": "T03",
+   "target": "123120500039-8",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "T11|RESEARCHED_IN|123120500039-8",
+   "source": "T11",
+   "target": "123120500039-8",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "123120500039-8|EXECUTED_BY|ORG-IK",
+   "source": "123120500039-8",
+   "target": "ORG-IK",
+   "type": "EXECUTED_BY"
+  },
+  {
+   "id": "T03|RESEARCHED_IN|123080400019-8",
+   "source": "T03",
+   "target": "123080400019-8",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "T07|RESEARCHED_IN|123080400019-8",
+   "source": "T07",
+   "target": "123080400019-8",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "123080400019-8|EXECUTED_BY|ORG-MSU",
+   "source": "123080400019-8",
+   "target": "ORG-MSU",
+   "type": "EXECUTED_BY"
+  },
+  {
+   "id": "T07|RESEARCHED_IN|123120500037-4",
+   "source": "T07",
+   "target": "123120500037-4",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "T06|RESEARCHED_IN|123120500037-4",
+   "source": "T06",
+   "target": "123120500037-4",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "123120500037-4|EXECUTED_BY|ORG-IK",
+   "source": "123120500037-4",
+   "target": "ORG-IK",
+   "type": "EXECUTED_BY"
+  },
+  {
+   "id": "T07|RESEARCHED_IN|123080400034-1",
+   "source": "T07",
+   "target": "123080400034-1",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "123080400034-1|EXECUTED_BY|ORG-MSU",
+   "source": "123080400034-1",
+   "target": "ORG-MSU",
+   "type": "EXECUTED_BY"
+  },
+  {
+   "id": "T13|RESEARCHED_IN|124060700040-0",
+   "source": "T13",
+   "target": "124060700040-0",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "124060700040-0|EXECUTED_BY|ORG-TIPS",
+   "source": "124060700040-0",
+   "target": "ORG-TIPS",
+   "type": "EXECUTED_BY"
+  },
+  {
+   "id": "T07|RESEARCHED_IN|124061800001-7",
+   "source": "T07",
+   "target": "124061800001-7",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "124061800001-7|EXECUTED_BY|ORG-TIPS",
+   "source": "124061800001-7",
+   "target": "ORG-TIPS",
+   "type": "EXECUTED_BY"
+  },
+  {
+   "id": "T05|RESEARCHED_IN|123060100016-2",
+   "source": "T05",
+   "target": "123060100016-2",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "123060100016-2|EXECUTED_BY|ORG-MSU",
+   "source": "123060100016-2",
+   "target": "ORG-MSU",
+   "type": "EXECUTED_BY"
+  },
+  {
+   "id": "T12|RESEARCHED_IN|01201271126",
+   "source": "T12",
+   "target": "01201271126",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "T07|RESEARCHED_IN|01201271126",
+   "source": "T07",
+   "target": "01201271126",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "01201271126|EXECUTED_BY|ORG-IK",
+   "source": "01201271126",
+   "target": "ORG-IK",
+   "type": "EXECUTED_BY"
+  },
+  {
+   "id": "T12|RESEARCHED_IN|АААА-А16-116012050248-4",
+   "source": "T12",
+   "target": "АААА-А16-116012050248-4",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "T03|RESEARCHED_IN|АААА-А16-116012050248-4",
+   "source": "T03",
+   "target": "АААА-А16-116012050248-4",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "АААА-А16-116012050248-4|EXECUTED_BY|ORG-IK",
+   "source": "АААА-А16-116012050248-4",
+   "target": "ORG-IK",
+   "type": "EXECUTED_BY"
+  },
+  {
+   "id": "T03|RESEARCHED_IN|01201056727",
+   "source": "T03",
+   "target": "01201056727",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "01201056727|EXECUTED_BY|ORG-NIFHI",
+   "source": "01201056727",
+   "target": "ORG-NIFHI",
+   "type": "EXECUTED_BY"
+  },
+  {
+   "id": "T13|RESEARCHED_IN|122082200011-9",
+   "source": "T13",
+   "target": "122082200011-9",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "122082200011-9|EXECUTED_BY|ORG-UFIC",
+   "source": "122082200011-9",
+   "target": "ORG-UFIC",
+   "type": "EXECUTED_BY"
+  },
+  {
+   "id": "T13|RESEARCHED_IN|АААА-А19-119022290004-8",
+   "source": "T13",
+   "target": "АААА-А19-119022290004-8",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "T05|RESEARCHED_IN|АААА-А19-119022290004-8",
+   "source": "T05",
+   "target": "АААА-А19-119022290004-8",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "АААА-А19-119022290004-8|EXECUTED_BY|ORG-UFIC",
+   "source": "АААА-А19-119022290004-8",
+   "target": "ORG-UFIC",
+   "type": "EXECUTED_BY"
+  },
+  {
+   "id": "T03|RESEARCHED_IN|122040400033-9",
+   "source": "T03",
+   "target": "122040400033-9",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "122040400033-9|EXECUTED_BY|ORG-NIOCH",
+   "source": "122040400033-9",
+   "target": "ORG-NIOCH",
+   "type": "EXECUTED_BY"
+  },
+  {
+   "id": "T02|RESEARCHED_IN|АААА-А19-119051590101-1",
+   "source": "T02",
+   "target": "АААА-А19-119051590101-1",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "АААА-А19-119051590101-1|EXECUTED_BY|ORG-TIPS",
+   "source": "АААА-А19-119051590101-1",
+   "target": "ORG-TIPS",
+   "type": "EXECUTED_BY"
+  },
+  {
+   "id": "T13|RESEARCHED_IN|126030518387-8",
+   "source": "T13",
+   "target": "126030518387-8",
+   "type": "RESEARCHED_IN"
+  },
+  {
+   "id": "126030518387-8|EXECUTED_BY|ORG-UFIC",
+   "source": "126030518387-8",
+   "target": "ORG-UFIC",
+   "type": "EXECUTED_BY"
+  },
+  {
+   "id": "122040400033-9|HAS_RESULT|RID-625062700013-2",
+   "source": "122040400033-9",
+   "target": "RID-625062700013-2",
+   "type": "HAS_RESULT"
+  },
+  {
+   "id": "RID-625062700013-2|PROTECTS|T03",
+   "source": "RID-625062700013-2",
+   "target": "T03",
+   "type": "PROTECTS"
+  },
+  {
+   "id": "122040400033-9|HAS_RESULT|RID-625062700022-4",
+   "source": "122040400033-9",
+   "target": "RID-625062700022-4",
+   "type": "HAS_RESULT"
+  },
+  {
+   "id": "RID-625062700022-4|PROTECTS|T03",
+   "source": "RID-625062700022-4",
+   "target": "T03",
+   "type": "PROTECTS"
+  },
+  {
+   "id": "RID-АААА-Г20-620091790006-4|PROTECTS|T03",
+   "source": "RID-АААА-Г20-620091790006-4",
+   "target": "T03",
+   "type": "PROTECTS"
+  },
+  {
+   "id": "RID-15065.7725009733.12.5.001/001|PROTECTS|T07",
+   "source": "RID-15065.7725009733.12.5.001/001",
+   "target": "T07",
+   "type": "PROTECTS"
+  },
+  {
+   "id": "RID-625041500066-5|PROTECTS|T06",
+   "source": "RID-625041500066-5",
+   "target": "T06",
+   "type": "PROTECTS"
+  },
+  {
+   "id": "PUB-ORG-IK|PART_OF|ORG-IK",
+   "source": "PUB-ORG-IK",
+   "target": "ORG-IK",
+   "type": "PART_OF"
+  },
+  {
+   "id": "PUB-ORG-TIPS|PART_OF|ORG-TIPS",
+   "source": "PUB-ORG-TIPS",
+   "target": "ORG-TIPS",
+   "type": "PART_OF"
+  },
+  {
+   "id": "PUB-ORG-NKNH|PART_OF|ORG-NKNH",
+   "source": "PUB-ORG-NKNH",
+   "target": "ORG-NKNH",
+   "type": "PART_OF"
+  },
+  {
+   "id": "DOI:10.1002/macp.201500486|AUTHORED_BY|ORG-IK",
+   "source": "DOI:10.1002/macp.201500486",
+   "target": "ORG-IK",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.1002/macp.201500486|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.1002/macp.201500486",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.1021/acs.jpcc.5b11286|AUTHORED_BY|ORG-IK",
+   "source": "DOI:10.1021/acs.jpcc.5b11286",
+   "target": "ORG-IK",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.1021/acs.jpcc.5b11286|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.1021/acs.jpcc.5b11286",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.1002/app.46291|AUTHORED_BY|ORG-IK",
+   "source": "DOI:10.1002/app.46291",
+   "target": "ORG-IK",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.1002/app.46291|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.1002/app.46291",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.1515/pac-2016-1131|AUTHORED_BY|ORG-MSU",
+   "source": "DOI:10.1515/pac-2016-1131",
+   "target": "ORG-MSU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.1515/pac-2016-1131|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.1515/pac-2016-1131",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.1021/acscatal.1c01611|AUTHORED_BY|ORG-MSU",
+   "source": "DOI:10.1021/acscatal.1c01611",
+   "target": "ORG-MSU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.1021/acscatal.1c01611|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.1021/acscatal.1c01611",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.1039/c7ra11622e|AUTHORED_BY|ORG-MSU",
+   "source": "DOI:10.1039/c7ra11622e",
+   "target": "ORG-MSU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.1039/c7ra11622e|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.1039/c7ra11622e",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.1515/pac-2016-1131|AUTHORED_BY|ORG-TIPS",
+   "source": "DOI:10.1515/pac-2016-1131",
+   "target": "ORG-TIPS",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.1039/d1py01039e|AUTHORED_BY|ORG-TIPS",
+   "source": "DOI:10.1039/d1py01039e",
+   "target": "ORG-TIPS",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.1039/d1py01039e|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.1039/d1py01039e",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/en14185890|AUTHORED_BY|ORG-TIPS",
+   "source": "DOI:10.3390/en14185890",
+   "target": "ORG-TIPS",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/en14185890|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/en14185890",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.1002/chem.201703018|AUTHORED_BY|ORG-NIOCH",
+   "source": "DOI:10.1002/chem.201703018",
+   "target": "ORG-NIOCH",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.1002/chem.201703018|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.1002/chem.201703018",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.1002/aoc.6529|AUTHORED_BY|ORG-NIOCH",
+   "source": "DOI:10.1002/aoc.6529",
+   "target": "ORG-NIOCH",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.1002/aoc.6529|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.1002/aoc.6529",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/ma10050496|AUTHORED_BY|ORG-NIOCH",
+   "source": "DOI:10.3390/ma10050496",
+   "target": "ORG-NIOCH",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/ma10050496|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/ma10050496",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/pr10122705|AUTHORED_BY|ORG-KFU",
+   "source": "DOI:10.3390/pr10122705",
+   "target": "ORG-KFU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/pr10122705|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/pr10122705",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/polym14235183|AUTHORED_BY|ORG-KFU",
+   "source": "DOI:10.3390/polym14235183",
+   "target": "ORG-KFU",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/polym14235183|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/polym14235183",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.47664/0022-9466-2026-85-4-240-247|AUTHORED_BY|ORG-NKNH",
+   "source": "DOI:10.47664/0022-9466-2026-85-4-240-247",
+   "target": "ORG-NKNH",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.47664/0022-9466-2026-85-4-240-247|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.47664/0022-9466-2026-85-4-240-247",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.47664/0022-9466-2026-85-2-78-85|AUTHORED_BY|ORG-NKNH",
+   "source": "DOI:10.47664/0022-9466-2026-85-2-78-85",
+   "target": "ORG-NKNH",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.47664/0022-9466-2026-85-2-78-85|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.47664/0022-9466-2026-85-2-78-85",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "DOI:10.3390/catal16100864|AUTHORED_BY|ORG-NKNH",
+   "source": "DOI:10.3390/catal16100864",
+   "target": "ORG-NKNH",
+   "type": "AUTHORED_BY"
+  },
+  {
+   "id": "DOI:10.3390/catal16100864|EVIDENCED_BY|E-CROSSREF",
+   "source": "DOI:10.3390/catal16100864",
+   "target": "E-CROSSREF",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "MFR-ПАОСИБУРХолдингфабрикака|SUPPLIES|P-ZN",
+   "source": "MFR-ПАОСИБУРХолдингфабрикака",
+   "target": "P-ZN",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "MFR-ФИЦИнституткатализаСОРАН|SUPPLIES|P-ZN",
+   "source": "MFR-ФИЦИнституткатализаСОРАН",
+   "target": "P-ZN",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "SUP-LyondellBasell|SUPPLIES|P-ZN",
+   "source": "SUP-LyondellBasell",
+   "target": "P-ZN",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "SUP-WRGrace|SUPPLIES|P-ZN",
+   "source": "SUP-WRGrace",
+   "target": "P-ZN",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "SUP-Clariant|SUPPLIES|P-ZN",
+   "source": "SUP-Clariant",
+   "target": "P-ZN",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "SUP-MitsuiChemicalsTohoTitan|SUPPLIES|P-ZN",
+   "source": "SUP-MitsuiChemicalsTohoTitan",
+   "target": "P-ZN",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "SUP-SinopecCatalystCoLiaonin|SUPPLIES|P-ZN",
+   "source": "SUP-SinopecCatalystCoLiaonin",
+   "target": "P-ZN",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "MFR-ТомскнефтехимСИБУР|SUPPLIES|S05",
+   "source": "MFR-ТомскнефтехимСИБУР",
+   "target": "S05",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "SUP-NouryonAlbemarleTosohFin|SUPPLIES|S05",
+   "source": "SUP-NouryonAlbemarleTosohFin",
+   "target": "S05",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "MFR-Производителититановойгу|SUPPLIES|S02",
+   "source": "MFR-Производителититановойгу",
+   "target": "S02",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "SUP-ПроизводителиTiClКНРЯпон|SUPPLIES|S02",
+   "source": "SUP-ПроизводителиTiClКНРЯпон",
+   "target": "S02",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "MFR-Производителимагнияитита|SUPPLIES|S01",
+   "source": "MFR-Производителимагнияитита",
+   "target": "S01",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "SUP-ПоставщикибезводногоMgCl|SUPPLIES|S01",
+   "source": "SUP-ПоставщикибезводногоMgCl",
+   "target": "S01",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "MFR-НИОХСОРАН|SUPPLIES|S03",
+   "source": "MFR-НИОХСОРАН",
+   "target": "S03",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "MFR-МГУ|SUPPLIES|S03",
+   "source": "MFR-МГУ",
+   "target": "S03",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "SUP-Производителидиэфировсук|SUPPLIES|S03",
+   "source": "SUP-Производителидиэфировсук",
+   "target": "S03",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "SUP-EvonikWackerShinEtsuкита|SUPPLIES|S04",
+   "source": "SUP-EvonikWackerShinEtsuкита",
+   "target": "S04",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "SUP-LyondellBasellSpheripolS|SUPPLIES|S11",
+   "source": "SUP-LyondellBasellSpheripolS",
+   "target": "S11",
+   "type": "SUPPLIES"
+  },
+  {
+   "id": "SUP-RSF-3049|SUPPORTS|T03",
+   "source": "SUP-RSF-3049",
+   "target": "T03",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-3049|SUPPORTS|T05",
+   "source": "SUP-RSF-3049",
+   "target": "T05",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-3049|SUPPORTS|T06",
+   "source": "SUP-RSF-3049",
+   "target": "T06",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-3049|SUPPORTS|T07",
+   "source": "SUP-RSF-3049",
+   "target": "T07",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-LOTS|SUPPORTS|T07",
+   "source": "SUP-RSF-LOTS",
+   "target": "T07",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-LOTS|SUPPORTS|T03",
+   "source": "SUP-RSF-LOTS",
+   "target": "T03",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-LOTS|SUPPORTS|T05",
+   "source": "SUP-RSF-LOTS",
+   "target": "T05",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-LOTS|SUPPORTS|T13",
+   "source": "SUP-RSF-LOTS",
+   "target": "T13",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-MPT-NIOKR|SUPPORTS|T07",
+   "source": "SUP-MPT-NIOKR",
+   "target": "T07",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-MPT-NIOKR|SUPPORTS|T03",
+   "source": "SUP-MPT-NIOKR",
+   "target": "T03",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-MPT-NIOKR|SUPPORTS|T04",
+   "source": "SUP-MPT-NIOKR",
+   "target": "T04",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-MPT-NIOKR|SUPPORTS|T05",
+   "source": "SUP-MPT-NIOKR",
+   "target": "T05",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-KIP|SUPPORTS|P-ZN",
+   "source": "SUP-KIP",
+   "target": "P-ZN",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-FRP|SUPPORTS|P-ZN",
+   "source": "SUP-FRP",
+   "target": "P-ZN",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-ENG|SUPPORTS|T12",
+   "source": "SUP-ENG",
+   "target": "T12",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-ENG|SUPPORTS|T07",
+   "source": "SUP-ENG",
+   "target": "T07",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-FSI|SUPPORTS|T03",
+   "source": "SUP-FSI",
+   "target": "T03",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-FSI|SUPPORTS|T04",
+   "source": "SUP-FSI",
+   "target": "T04",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-FSI|SUPPORTS|T12",
+   "source": "SUP-FSI",
+   "target": "T12",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-LOTS|SUPPORTS|T11",
+   "source": "SUP-RSF-LOTS",
+   "target": "T11",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-LOTS|SUPPORTS|T04",
+   "source": "SUP-RSF-LOTS",
+   "target": "T04",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-LOTS|SUPPORTS|T01",
+   "source": "SUP-RSF-LOTS",
+   "target": "T01",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-RSF-LOTS|SUPPORTS|T06",
+   "source": "SUP-RSF-LOTS",
+   "target": "T06",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-ENG|SUPPORTS|T11",
+   "source": "SUP-ENG",
+   "target": "T11",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-ENG|SUPPORTS|T03",
+   "source": "SUP-ENG",
+   "target": "T03",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-ENG|SUPPORTS|T04",
+   "source": "SUP-ENG",
+   "target": "T04",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-ENG|SUPPORTS|T01",
+   "source": "SUP-ENG",
+   "target": "T01",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-ENG|SUPPORTS|T06",
+   "source": "SUP-ENG",
+   "target": "T06",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-MPT-NIOKR|SUPPORTS|T11",
+   "source": "SUP-MPT-NIOKR",
+   "target": "T11",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-MPT-NIOKR|SUPPORTS|T01",
+   "source": "SUP-MPT-NIOKR",
+   "target": "T01",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-MPT-NIOKR|SUPPORTS|T06",
+   "source": "SUP-MPT-NIOKR",
+   "target": "T06",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-KIP|SUPPORTS|T07",
+   "source": "SUP-KIP",
+   "target": "T07",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-KIP|SUPPORTS|T11",
+   "source": "SUP-KIP",
+   "target": "T11",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-KIP|SUPPORTS|T03",
+   "source": "SUP-KIP",
+   "target": "T03",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-KIP|SUPPORTS|T04",
+   "source": "SUP-KIP",
+   "target": "T04",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-KIP|SUPPORTS|T01",
+   "source": "SUP-KIP",
+   "target": "T01",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-KIP|SUPPORTS|T06",
+   "source": "SUP-KIP",
+   "target": "T06",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-FRP|SUPPORTS|T07",
+   "source": "SUP-FRP",
+   "target": "T07",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-FRP|SUPPORTS|T11",
+   "source": "SUP-FRP",
+   "target": "T11",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-FRP|SUPPORTS|T03",
+   "source": "SUP-FRP",
+   "target": "T03",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-FRP|SUPPORTS|T04",
+   "source": "SUP-FRP",
+   "target": "T04",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-FRP|SUPPORTS|T01",
+   "source": "SUP-FRP",
+   "target": "T01",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "SUP-FRP|SUPPORTS|T06",
+   "source": "SUP-FRP",
+   "target": "T06",
+   "type": "SUPPORTS"
+  },
+  {
+   "id": "123120500039-8|EVIDENCED_BY|E-EGISU-NIOKTR",
+   "source": "123120500039-8",
+   "target": "E-EGISU-NIOKTR",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "123080400019-8|EVIDENCED_BY|E-EGISU-NIOKTR",
+   "source": "123080400019-8",
+   "target": "E-EGISU-NIOKTR",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "123120500037-4|EVIDENCED_BY|E-EGISU-NIOKTR",
+   "source": "123120500037-4",
+   "target": "E-EGISU-NIOKTR",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "123080400034-1|EVIDENCED_BY|E-EGISU-NIOKTR",
+   "source": "123080400034-1",
+   "target": "E-EGISU-NIOKTR",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "124060700040-0|EVIDENCED_BY|E-EGISU-NIOKTR",
+   "source": "124060700040-0",
+   "target": "E-EGISU-NIOKTR",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "124061800001-7|EVIDENCED_BY|E-EGISU-NIOKTR",
+   "source": "124061800001-7",
+   "target": "E-EGISU-NIOKTR",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "123060100016-2|EVIDENCED_BY|E-EGISU-NIOKTR",
+   "source": "123060100016-2",
+   "target": "E-EGISU-NIOKTR",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "01201271126|EVIDENCED_BY|E-EGISU-NIOKTR",
+   "source": "01201271126",
+   "target": "E-EGISU-NIOKTR",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "АААА-А16-116012050248-4|EVIDENCED_BY|E-EGISU-NIOKTR",
+   "source": "АААА-А16-116012050248-4",
+   "target": "E-EGISU-NIOKTR",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "01201056727|EVIDENCED_BY|E-EGISU-NIOKTR",
+   "source": "01201056727",
+   "target": "E-EGISU-NIOKTR",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "122082200011-9|EVIDENCED_BY|E-EGISU-NIOKTR",
+   "source": "122082200011-9",
+   "target": "E-EGISU-NIOKTR",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "АААА-А19-119022290004-8|EVIDENCED_BY|E-EGISU-NIOKTR",
+   "source": "АААА-А19-119022290004-8",
+   "target": "E-EGISU-NIOKTR",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "122040400033-9|EVIDENCED_BY|E-EGISU-NIOKTR",
+   "source": "122040400033-9",
+   "target": "E-EGISU-NIOKTR",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "АААА-А19-119051590101-1|EVIDENCED_BY|E-EGISU-NIOKTR",
+   "source": "АААА-А19-119051590101-1",
+   "target": "E-EGISU-NIOKTR",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "126030518387-8|EVIDENCED_BY|E-EGISU-NIOKTR",
+   "source": "126030518387-8",
+   "target": "E-EGISU-NIOKTR",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "V24|EVIDENCED_BY|E-EGISU-VNT",
+   "source": "V24",
+   "target": "E-EGISU-VNT",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "V23|EVIDENCED_BY|E-EGISU-VNT",
+   "source": "V23",
+   "target": "E-EGISU-VNT",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "V25|EVIDENCED_BY|E-EGISU-VNT",
+   "source": "V25",
+   "target": "E-EGISU-VNT",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "RID-625062700013-2|EVIDENCED_BY|E-EGISU-RID",
+   "source": "RID-625062700013-2",
+   "target": "E-EGISU-RID",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "RID-625062700022-4|EVIDENCED_BY|E-EGISU-RID",
+   "source": "RID-625062700022-4",
+   "target": "E-EGISU-RID",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "RID-АААА-Г20-620091790006-4|EVIDENCED_BY|E-EGISU-RID",
+   "source": "RID-АААА-Г20-620091790006-4",
+   "target": "E-EGISU-RID",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "RID-15065.7725009733.12.5.001/001|EVIDENCED_BY|E-EGISU-RID",
+   "source": "RID-15065.7725009733.12.5.001/001",
+   "target": "E-EGISU-RID",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "RID-625041500066-5|EVIDENCED_BY|E-EGISU-RID",
+   "source": "RID-625041500066-5",
+   "target": "E-EGISU-RID",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "PUB-ORG-IK|EVIDENCED_BY|E-EGISU-DISS",
+   "source": "PUB-ORG-IK",
+   "target": "E-EGISU-DISS",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "PUB-ORG-TIPS|EVIDENCED_BY|E-EGISU-DISS",
+   "source": "PUB-ORG-TIPS",
+   "target": "E-EGISU-DISS",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "PUB-ORG-NKNH|EVIDENCED_BY|E-EGISU-DISS",
+   "source": "PUB-ORG-NKNH",
+   "target": "E-EGISU-DISS",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "FP1|EVIDENCED_BY|E-EGISU-FP",
+   "source": "FP1",
+   "target": "E-EGISU-FP",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "FP5|EVIDENCED_BY|E-EGISU-FP",
+   "source": "FP5",
+   "target": "E-EGISU-FP",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "FP6|EVIDENCED_BY|E-EGISU-FP",
+   "source": "FP6",
+   "target": "E-EGISU-FP",
+   "type": "EVIDENCED_BY"
+  },
+  {
+   "id": "FP3|EVIDENCED_BY|E-EGISU-FP",
+   "source": "FP3",
+   "target": "E-EGISU-FP",
+   "type": "EVIDENCED_BY"
+  }
+ ]
+}

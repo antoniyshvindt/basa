@@ -1,0 +1,688 @@
+import { mountAnatomy, PHASES } from "./anatomy.js";
+const PHASE_LABELS = PHASES.map((p) => p.label);
+
+// ---------------- данные ----------------
+const files = ["products", "components", "technologies", "research", "organizations", "patents", "suppliers", "support", "graph", "evidence", "publications", "sourcing", "ugt", "norms"];
+const D = Object.fromEntries(await Promise.all(files.map(async (f) => [f, await fetch(`data/${f}.json`).then((r) => r.json())])));
+const map = await fetch("assets/images/russia-map.json").then((r) => r.json());
+
+const SYS = D.products.subsystems;
+const sysById = Object.fromEntries(SYS.map((s) => [s.id, s]));
+const TECH = D.technologies.technologies;
+const techById = {};
+for (const t of TECH) { techById[t.id] = t; for (const s of t.subs) techById[s.id] = { ...s, parent: t.id }; }
+const LEVELS = D.technologies.levels;
+const NPTL = D.technologies.nptl;
+const RES = D.research.research;
+const resById = Object.fromEntries(RES.map((r) => [r.id, r]));
+const RIDS = D.research.rids;
+const ORGS = D.organizations;
+const orgById = Object.fromEntries(ORGS.map((o) => [o.id, o]));
+const SUP = D.support.support;
+const supById = Object.fromEntries(SUP.map((s) => [s.id, s]));
+const SRC = Object.fromEntries(D.evidence.map((s) => [s.id, s]));
+const vntById = Object.fromEntries(NPTL.vnt.map((v) => [v.id, v]));
+const COMP = D.components;
+const topTech = (id) => (id.includes(".") ? id.split(".")[0] : id);
+const SRC_ = D.sourcing.sourcing;
+const relatedOf = (id) => (id ? [...new Set([...(sysById[id]?.deps || []), ...SYS.filter((x) => x.deps.includes(id)).map((x) => x.id)])].filter((x) => x !== id) : []);
+const BL = D.ugt.backlog;
+const verdictBadge = (v) => ({ ok: '<span class="badge b-ok">ввоз возможен</span>', hard: '<span class="badge b-warn">сложно</span>', critical: '<span class="badge b-bad">критично</span>' })[v] || "";
+function importBlock(id) {
+  const list = SRC_.filter((c) => c.id.startsWith("C" + id.slice(1) + "."));
+  if (!list.length) return "";
+  return `<div class="sec"><h4>Ввоз в РФ по компонентам</h4>${list.map((c) => `<div style="font-size:12.5px;margin:5px 0">${verdictBadge(c.verdict)} <span class="mono muted">${c.id}</span> ${esc(c.name)}<div class="muted" style="font-size:11.5px">Происхождение: ${esc(c.origins.join(", "))} · ввоз: ${esc(c.tImport)} · своё решение: ${esc(c.tLocal)}</div></div>`).join("")}<button class="chip" data-go="sourcing">Подробно: ввоз и санкции →</button></div>`;
+}
+function ugtBlock(id) {
+  const list = BL.filter((b) => b.node === id);
+  if (!list.length) return "";
+  return `<div class="sec"><h4>Заделы РФ и УГТ</h4>${list.map((b) => `<div style="font-size:12.5px;margin:5px 0"><span class="badge b-link">УГТ ${b.ugtNow} → ${b.target}</span> ${esc(b.title)}<div class="muted" style="font-size:11.5px">Литера «О»: не подтверждена в открытых данных · срок доработки: ${esc(b.months)} мес. (оценка)</div></div>`).join("")}<button class="chip" data-go="ugt">Задачи на доработку →</button></div>`;
+}
+
+// ---------------- утилиты ----------------
+const $ = (s, r = document) => r.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const fmtBudget = (b) => (b == null ? "—" : Number(b).toLocaleString("ru-RU", { maximumFractionDigits: 1 }));
+const year = (d) => (d ? d.slice(0, 4) : "—");
+const chipT = (id) => `<button class="chip t" data-go-tech="${esc(topTech(id))}" title="${esc(techById[id]?.name || "")}">${esc(id)}</button>`;
+const chipS = (id) => `<button class="chip s" data-go-node="${esc(id)}" title="${esc(sysById[id]?.name || "")}">${esc(id)} ${esc(sysById[id]?.short || "")}</button>`;
+const chipV = (id) => `<button class="chip v" data-go="nptl" title="${esc(vntById[id]?.name || "")}">ВНТ № ${vntById[id]?.num}</button>`;
+const chipR = (id) => resById[id] ? `<button class="chip" data-go-res="${esc(id)}">${esc(id)}</button>` : `<span class="chip static" title="карточка не входит в выборку макета">${esc(id)}</span>`;
+const srcLink = (id) => { const s = SRC[id]; return s ? `<a href="${esc(s.url)}" target="_blank" rel="noopener" title="${esc(s.title)}">${esc(s.title.length > 70 ? s.title.slice(0, 68) + "…" : s.title)}</a>` : ""; };
+const availBadge = (a) => ({ ok: '<span class="badge b-ok">поставка подтверждена</span>', check: '<span class="badge b-warn">требуется проверка</span>', restricted: '<span class="badge b-bad">ограничения</span>', none: '<span class="badge b-none">нет данных</span>' })[a] || "";
+const lvlBadge = (l) => `<span class="lvl lvl-${l}">${esc(LEVELS[l])}</span>`;
+
+// связи «узел → …»
+function techsOfNode(id) {
+  const s = sysById[id]; const set = new Set(s.techs);
+  for (const c of COMP.filter((c) => c.sys === id)) for (const t of [...c.techCreate, ...c.techOperate]) set.add(topTech(t));
+  for (const t of TECH) if (t.nodes.includes(id)) set.add(t.id);
+  return [...set].sort();
+}
+const resOfNode = (id) => RES.filter((r) => r.analytic.nodes.includes(id));
+const resOfTech = (tid) => RES.filter((r) => r.analytic.techs.includes(tid));
+const orgsOfRes = (list) => [...new Set(list.map((r) => r.analytic.org).filter(Boolean))].map((o) => orgById[o]);
+const ridsOfTechs = (ts) => RIDS.filter((r) => r.techs.some((t) => ts.includes(t)));
+const patentsOfNode = (id) => D.patents.patents.filter((p) => p.nodes.includes(id));
+const suppliersOfNode = (id) => D.suppliers.suppliers.filter((g) => g.node === id || (id === "S07" && g.node === "S08") || (id === "S10" && g.node === "S09"));
+const vntOfTechs = (ts) => [...new Set(ts.flatMap((t) => techById[t]?.vnt || []))];
+const deficitsOfNode = (id) => D.support.deficits.filter((d) => d.nodes.includes(id));
+function supportOfTechs(ts) {
+  const out = new Set();
+  for (const d of D.support.deficits.filter((d) => d.techs.some((t) => ts.includes(t)))) for (const st of D.support.devProject.stages) if (D.support.devProject.covers.includes(d.id)) st.support.forEach((s) => out.add(s));
+  if (ts.some((t) => ["T08", "T09"].includes(t))) out.add("SUP-RSF-BASIC");
+  out.add("SUP-RSF-NPTL");
+  if (ts.some((t) => ["T13", "T12"].includes(t))) out.add("SUP-RSF-3052");
+  return [...out].map((s) => supById[s]).filter(Boolean);
+}
+
+// ---------------- маршрутизация ----------------
+const SECTIONS = [
+  ["anatomy", "Анатомия"], ["nptl", "НПТЛ и ВНТ"], ["tech", "Технологии"], ["research", "НИОКТР"], ["orgs", "Компетенции"],
+  ["patents", "Патенты"], ["market", "Рынок"], ["sourcing", "Ввоз и санкции"], ["ugt", "УГТ и КД"], ["norms", "Стандарты и среды"], ["support", "Поддержка"], ["graph", "Граф знаний"], ["gaps", "Дефициты и проект"], ["sources", "Источники"],
+];
+const state = { node: null, tech: null, res: null, org: null };
+$("#tabs").innerHTML = SECTIONS.map(([id, name], i) => `<button class="tab" data-tab="${id}"><span class="n">${String(i + 1).padStart(2, "0")}</span>${name}</button>`).join("");
+$("#tabs").addEventListener("click", (e) => { const b = e.target.closest("[data-tab]"); if (!b) return; const had = state.srcNode || state.techNode || state.ugtNode; state.srcNode = state.techNode = state.ugtNode = null; go(b.dataset.tab, { force: !!had && ["sourcing", "tech", "ugt"].includes(b.dataset.tab) }); });
+const views = {};
+const main = $("#main");
+for (const [id] of SECTIONS) { const sec = document.createElement("section"); sec.id = "v-" + id; sec.hidden = true; main.append(sec); views[id] = sec; }
+const rendered = new Set();
+let current = null;
+function go(id, opts = {}) {
+  if (!views[id]) id = "anatomy";
+  document.querySelector(".drawer")?.classList.remove("open");
+  if (current !== id || opts.force) {
+    for (const [k, v] of Object.entries(views)) v.hidden = k !== id;
+    document.querySelectorAll(".tab").forEach((t) => t.setAttribute("aria-current", t.dataset.tab === id ? "page" : "false"));
+    current = id;
+    if (location.hash.slice(1) !== id) history.replaceState(null, "", "#" + id);
+  }
+  if (!rendered.has(id) || opts.force) { RENDER[id](views[id]); rendered.add(id); }
+  if (opts.after) opts.after();
+  if (!opts.keepScroll) window.scrollTo({ top: 0, behavior: "smooth" });
+}
+window.addEventListener("hashchange", () => go(location.hash.slice(1)));
+// глобальные переходы по чипам
+document.addEventListener("click", (e) => {
+  const t = e.target.closest("[data-go-tech],[data-go-node],[data-go-res],[data-go-org],[data-go]");
+  if (!t || t.closest(".fig svg")) return;
+  if (t.dataset.goTech) { state.tech = t.dataset.goTech; state.techNode = null; go("tech", { force: true }); }
+  else if (t.dataset.goNode) { state.node = t.dataset.goNode; go("anatomy", { after: () => anat && anatSelect(state.node, true) }); }
+  else if (t.dataset.goRes) { openResearch(t.dataset.goRes); }
+  else if (t.dataset.goOrg) { state.org = t.dataset.goOrg; go("orgs", { force: true }); }
+  else if (t.dataset.go) { go(t.dataset.go); }
+});
+// тема
+const savedTheme = (() => { try { return localStorage.getItem("atlas-theme"); } catch { return null; } })();
+if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+$("#themeBtn").addEventListener("click", () => {
+  const t = isoTheme() === "dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = t;
+  try { localStorage.setItem("atlas-theme", t); } catch {}
+  document.querySelectorAll(".iso").forEach((el) => el.setAttribute("data-theme", t));
+  if (cy) styleGraph();
+});
+const darkMQ = matchMedia("(prefers-color-scheme: dark)");
+const isoTheme = () => { const t = document.documentElement.dataset.theme; return t === "dark" || (!t && darkMQ.matches) ? "dark" : "light"; };
+const syncIsoTheme = () => { document.querySelectorAll(".iso").forEach((el) => el.setAttribute("data-theme", isoTheme())); if (typeof cy !== "undefined" && cy) styleGraph(); };
+darkMQ.addEventListener?.("change", syncIsoTheme);
+new MutationObserver(syncIsoTheme).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+// тултип
+const tip = $("#tooltip");
+function showTip(html, e) { if (!html) { tip.hidden = true; return; } tip.innerHTML = html; tip.hidden = false; const x = Math.min(e.clientX + 14, innerWidth - 320); tip.style.left = x + "px"; tip.style.top = e.clientY + 14 + "px"; }
+// выдвижная панель
+const drawer = document.createElement("aside"); drawer.className = "drawer"; drawer.setAttribute("aria-live", "polite"); document.body.append(drawer);
+function openDrawer(html) { drawer.innerHTML = `<button class="btn close" data-close>Закрыть ✕</button>${html}`; drawer.classList.add("open"); drawer.scrollTop = 0; }
+drawer.addEventListener("click", (e) => { if (e.target.closest("[data-close]")) drawer.classList.remove("open"); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") drawer.classList.remove("open"); });
+
+// ---------------- 01 АНАТОМИЯ ----------------
+let anat = null;
+let anatSelect = () => {};
+const RENDER = {};
+RENDER.anatomy = async (el) => {
+  const P = D.products.product;
+  el.innerHTML = `
+  <div class="section-head"><div><div class="crumbs"><span>Домен «${esc(P.domain)}»</span><span class="arrow">→</span><span>Отраслевой сегмент «${esc(P.segment)}»</span><span class="arrow">→</span><span>пример продукта</span></div><h1>${esc(P.name)}</h1></div>
+    <div class="pill-row"><span class="badge b-link">${esc(P.class)}</span><span class="badge b-none">типовая модель, не конкретная установка</span></div></div>
+  <div class="chief card"><div><h4>Что это</h4><p>${esc(P.forChief.what)}</p></div><div><h4>Для чего будет использоваться</h4><ul class="list">${P.forChief.why.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div><div><h4>Что это даёт</h4><ul class="list">${P.forChief.value.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div></div>
+  <details class="tech-desc" open><summary>Технически: как работает катализатор</summary><p>${esc(P.principle)}</p></details>
+  <div class="anat">
+    <div>
+      <div class="anat-controls" role="toolbar" aria-label="Управление анатомией">
+        <div class="seg" id="modeSeg" role="group" aria-label="Режим">
+          <button data-mode="overview" aria-pressed="true">1 · Общий вид</button><button data-mode="apart">2 · Взрыв-схема</button><button data-mode="work">3 · Работа</button><button data-mode="detail">4 · Узел</button><button data-mode="deps">5 · Зависимости</button>
+        </div>
+        <span class="sep"></span>
+        <button class="btn" id="playBtn" aria-pressed="false">▶ Старт</button>
+        <label class="muted" style="font-size:12px">скорость <select id="speedSel"><option value="0.25">0,25×</option><option value="0.5" selected>0,5× учебная</option><option value="1">1×</option><option value="2">2×</option></select></label>
+        <button class="btn" id="housingBtn" aria-pressed="true">Корпус: показан</button>
+        <select id="nodeSel" aria-label="Выбрать узел"><option value="">— выбрать узел —</option>${SYS.map((s) => `<option value="${s.id}">${s.id} · ${esc(s.name)}</option>`).join("")}</select>
+        <button class="btn" id="physBtn" aria-pressed="false">Как работает частица</button>
+        <button class="btn" id="toTechBtn">Перейти к технологии →</button>
+        <button class="btn" id="resetBtn">Сброс вида</button>
+      </div>
+      <div class="fig iso" data-theme="${isoTheme()}">
+        <figure class="iso-figure"><div class="iso-plate">
+          <div class="iso-plate-corners" aria-hidden="true"><span class="iso-plate-corner" data-corner="fig">Рис. 1</span><span class="iso-plate-corner" data-corner="title">ТМК для ПП · технологическая схема</span><span class="iso-plate-corner" data-corner="hint" id="figHint">нажмите на узел</span><span class="iso-plate-corner" data-corner="readout" id="figReadout">партия 1 · синтез носителя</span></div>
+          <div class="iso-stage" id="anatStage" tabindex="0" role="group" aria-label="Интерактивная схема производства катализатора: нажмите на узел, чтобы выбрать его"></div>
+        </div></figure>
+      </div>
+      <div class="cycle" id="cycle"></div>
+      <div class="fig-legend"><span><i style="background:#ff6a1a"></i>активный поток стадии (условно)</span><span><i style="background:var(--accent)"></i>выбранный узел</span><span><i style="background:color-mix(in srgb,var(--accent) 50%,var(--muted))"></i>связанные узлы</span><span>Схема условная: аппараты, их число и масштаб — типовые для периодического производства катализатора, не проект конкретного завода. Линза справа — частица катализатора, увеличенная в ~10⁵ раз.</span></div>
+      <h3 style="margin-top:22px">Сквозная цепочка для выбранного узла</h3>
+      <p class="muted" style="font-size:12.5px">Изделие → подсистема → узел → технология → ВНТ → НИОКТР → коллективы → патенты → рынок → поддержка → дефициты → проект развития. Нажмите на шаг, чтобы перейти.</p>
+      <div class="chain" id="chain"></div>
+    </div>
+    <aside class="card side" id="side"></aside>
+  </div>`;
+  $("#cycle").innerHTML = PHASE_LABELS.map((x, i) => `<div data-ph="${i}">${String(i + 1)}. ${x}</div>`).join("");
+  anat = await mountAnatomy($("#anatStage"), {
+    onSelect: (id) => { anat.setRelated(relatedOf(id)); state.node = id; $("#nodeSel").value = id || ""; renderSide(); renderChain(); if (mode === "detail") anat.focus(id); },
+    onPhase: (ph, layer, pi) => { document.querySelectorAll("#cycle div").forEach((d, i) => d.classList.toggle("on", i === pi)); },
+    onHover: (id, e) => showTip(id ? `<b>${id}</b> · ${esc(sysById[id].name)}` : null, e),
+  });
+  anat.onTick((info) => { $("#figReadout").textContent = `партия ${info.layer} · ${info.phase.label[0].toLowerCase() + info.phase.label.slice(1)}`; });
+  let mode = "overview";
+  const setMode = (m) => {
+    mode = m;
+    document.querySelectorAll("#modeSeg button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
+    anat.setApart(m === "apart");
+    if (m === "work") { anat.setHousing(false); setPlay(true); }
+    if (m === "overview") { anat.setHousing(true); anat.focus(null); }
+    if (m === "detail") { anat.setHousing(false); if (!state.node) anatSelect("S08"); anat.focus(state.node || "S08"); } else anat.focus(null);
+    if (m === "deps" && !state.node) anatSelect("S08");
+    syncHousingBtn(); $("#figHint").textContent = { overview: "нажмите на узел", apart: "узлы раздвинуты, связи сохранены", work: "цикл: от носителя до полимера", detail: "камера приближена к узлу", deps: "технологии выбранной детали" }[m];
+    renderSide();
+  };
+  const syncHousingBtn = () => { const on = anat.state.housing; $("#housingBtn").setAttribute("aria-pressed", String(on)); $("#housingBtn").textContent = on ? "Корпус: показан" : "Корпус: скрыт"; };
+  const setPlay = (on) => { const r = anat.play(on); $("#playBtn").textContent = r ? "❚❚ Пауза" : "▶ Старт"; $("#playBtn").setAttribute("aria-pressed", String(r)); };
+  anatSelect = (id, fromOutside) => { anat.select(id, { silent: true }); anat.setRelated(relatedOf(id)); state.node = id; $("#nodeSel").value = id || ""; renderSide(); renderChain(); if (mode === "detail" || fromOutside) { if (fromOutside && mode === "overview") anat.setHousing(false), syncHousingBtn(); if (mode === "detail") anat.focus(id); } };
+  $("#modeSeg").addEventListener("click", (e) => { const b = e.target.closest("[data-mode]"); if (b) setMode(b.dataset.mode); });
+  $("#playBtn").addEventListener("click", () => setPlay(!anat.state.running));
+  $("#speedSel").addEventListener("change", (e) => anat.setSpeed(+e.target.value));
+  $("#housingBtn").addEventListener("click", () => { anat.setHousing(!anat.state.housing); syncHousingBtn(); });
+  $("#nodeSel").addEventListener("change", (e) => anatSelect(e.target.value || null));
+  $("#physBtn").addEventListener("click", () => { const on = $("#physBtn").getAttribute("aria-pressed") !== "true"; $("#physBtn").setAttribute("aria-pressed", String(on)); anat.setForceScan(on); if (on) { anat.setHousing(false); syncHousingBtn(); anatSelect("S03"); setPlay(true); } renderSide(on ? "phys" : null); });
+  $("#toTechBtn").addEventListener("click", () => { state.tech = state.node ? techsOfNode(state.node)[0] : "T07"; go("tech", { force: true }); });
+  $("#resetBtn").addEventListener("click", () => { anat.reset(); setPlay(false); $("#physBtn").setAttribute("aria-pressed", "false"); setMode("overview"); syncHousingBtn(); renderSide(); renderChain(); });
+  $("#anatStage").addEventListener("keydown", (e) => {
+    const ids = SYS.map((s) => s.id); const i = ids.indexOf(state.node);
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") { anatSelect(ids[(i + 1) % ids.length]); e.preventDefault(); }
+    if (e.key === "ArrowLeft" || e.key === "ArrowUp") { anatSelect(ids[(i - 1 + ids.length) % ids.length]); e.preventDefault(); }
+    if (e.key === "Escape") anatSelect(null);
+  });
+  function renderSide(extra) {
+    const side = $("#side");
+    if (extra === "phys" || (!extra && $("#physBtn").getAttribute("aria-pressed") === "true")) { side.innerHTML = physPanel(); return; }
+    const id = state.node;
+    if (!id) {
+      side.innerHTML = `<h2>${esc(D.products.product.short)}</h2><p class="muted" style="font-size:12.5px">Выберите узел на схеме или в списке. 12 подсистем имеют устойчивые идентификаторы S01–S12, связанные с данными.</p>
+      <div class="sec"><h4>Подсистемы</h4><div class="node-list">${SYS.map((s) => `<button data-pick="${s.id}" title="${esc(s.plain)}"><span class="id">${s.id}</span>${esc(s.short)}</button>`).join("")}</div></div>
+      <div class="sec"><h4>Типовые параметры класса</h4><dl class="kv">${D.products.product.typical.map(([a, b]) => `<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join("")}</dl><p class="src" style="margin-top:6px">${esc(D.products.product.typicalNote)}</p></div>`;
+    } else {
+      const s = sysById[id]; const comps = COMP.filter((c) => c.sys === id);
+      const deps = mode === "deps";
+      side.innerHTML = `<button class="back-btn" data-back>← Все подсистемы</button><div class="pill-row"><span class="badge b-acc">${id}</span><span class="muted" style="font-size:12px">критичность ${"●".repeat(s.criticality)}${"○".repeat(5 - s.criticality)}</span></div>
+      <h2 style="margin-top:6px">${esc(s.name)}</h2><div class="plain"><b>Простыми словами.</b> ${esc(s.plain)}</div><p style="font-size:13px">${esc(s.purpose)}</p>
+      ${deps ? depsBlock(id) : `
+      <div class="sec"><h4>Принцип работы</h4><p style="font-size:13px">${esc(s.principle)}</p></div>
+      <div class="sec"><h4>Компоненты</h4>${comps.map((c) => `<div style="font-size:12.5px;margin:4px 0"><span class="mono muted">${c.id}</span> ${esc(c.name)}</div>`).join("")}</div>
+      <div class="sec"><h4>Физические процессы</h4><ul class="list" style="font-size:12.5px">${s.physics.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>
+      <div class="sec"><h4>Материалы</h4><ul class="list" style="font-size:12.5px">${s.materials.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>
+      <div class="sec"><h4>Компетенции</h4><div class="chips">${s.competences.map((x) => `<span class="chip static">${esc(x)}</span>`).join("")}</div></div>
+      <div class="sec"><h4>Критичные характеристики</h4><ul class="list" style="font-size:12.5px">${s.critical.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>
+      <div class="sec"><h4>Зависит от узлов</h4><div class="chips">${s.deps.map(chipS).join("")}</div></div>
+      <div class="sec"><h4>Технологии</h4><div class="chips">${techsOfNode(id).map(chipT).join("")}</div><p class="src" style="margin-top:6px">Режим «5 · Зависимости» раскладывает технологии по уровням создания/функционирования/контроля.</p></div>
+      ${importBlock(id)}${ugtBlock(id)}
+      ${mode === "detail" ? `<div class="sec"><h4>Устройство узла (схема)</h4>${schematic(id)}</div>` : ""}`}`;
+    }
+    side.querySelectorAll("[data-pick]").forEach((b) => b.addEventListener("click", () => anatSelect(b.dataset.pick)));
+    side.querySelector("[data-back]")?.addEventListener("click", () => { anatSelect(null); if (mode === "detail") anat.focus(null); });
+  }
+  function depsBlock(id) {
+    const comps = COMP.filter((c) => c.sys === id);
+    const byTech = new Map();
+    for (const c of comps) for (const t of [...c.techCreate, ...c.techOperate]) { if (!byTech.has(t)) byTech.set(t, []); if (!byTech.get(t).includes(c)) byTech.get(t).push(c); }
+    const order = { create: 0, operate: 1, produce: 2, control: 3 };
+    const rows = [...byTech].map(([t, cs]) => [cs, t, techById[t]?.level || "operate"]).sort((a, b) => order[a[2]] - order[b[2]] || a[1].localeCompare(b[1]));
+    const produce = TECH.flatMap((t) => t.subs.filter((s) => s.level === "produce" && t.nodes.includes(id) && !byTech.has(s.id)));
+    return `<div class="sec"><h4>Технологии, необходимые для узла</h4><div class="dep-tech">${rows.map(([cs, t, l]) => `<div class="row">${lvlBadge(l)}<div><b class="mono" style="font-size:11.5px">${esc(t)}</b> ${esc(techById[t]?.name || "")}<div class="muted" style="font-size:11.5px">${cs.map((c) => esc(c.id) + " · " + esc(c.name)).join("; ")}</div></div></div>`).join("")}
+    ${produce.map((t) => `<div class="row">${lvlBadge("produce")}<div><b class="mono" style="font-size:11.5px">${t.id}</b> ${esc(t.name)}<div class="muted" style="font-size:11.5px">технология производства продукта</div></div></div>`).join("")}</div>
+    <p class="src" style="margin-top:8px">Уровни не смешиваются: создание узла, функционирование узла, производство готового изделия, контроль качества. Классификация — рабочая авторская.</p></div>
+    <div class="sec"><h4>ВНТ</h4><div class="chips">${vntOfTechs(techsOfNode(id)).map(chipV).join("")}</div></div>`;
+  }
+  function physPanel() {
+    return `<span class="badge b-acc">Как работает частица</span><h2 style="margin-top:6px">Активный центр и «реплика» частицы</h2>
+    <p style="font-size:13px">Частица катализатора (20–60 мкм) — это пористый агломерат кристаллитов MgCl₂ размером в единицы нанометров. На их боковых гранях закреплены атомы титана — активные центры. Внутренний донор занимает «неправильные» места на поверхности и оставляет стереоспецифичные центры. ТЭА алкилирует и восстанавливает титан, внешний донор-силан дополнительно подавляет нестереоспецифичные центры.</p>
+    <div class="sec">${replicaSchematic()}</div>
+    <div class="sec"><h4>Ключевые явления</h4><ul class="list" style="font-size:12.5px"><li>Встраивание пропилена по связи Ti–C: каждый центр выращивает тысячи цепей</li><li>Стереорегулирование: доноры определяют изотактичность ПП</li><li>Фрагментация: растущий полимер разрывает носитель на миллионы фрагментов</li><li>Реплика: гранула ПП повторяет форму частицы катализатора (поэтому важна морфология носителя)</li><li>Водород обрывает цепи — так регулируют ПТР (молекулярную массу)</li><li>Влага, кислород, CO отравляют центры — отсюда требования к инертной среде</li></ul></div>
+    <div class="sec"><h4>Связанные технологии</h4><div class="chips">${["T06", "T03", "T05", "T10", "T11"].map(chipT).join("")}</div></div>
+    <p class="note" style="margin-top:10px">Линза на схеме и рисунок — условная визуализация, а не модель структуры конкретного катализатора.</p>`;
+  }
+  function renderChain() {
+    const id = state.node;
+    const el = $("#chain");
+    if (!id) { el.innerHTML = `<div class="empty" style="grid-column:1/-1">Выберите узел на схеме — здесь появится сквозная цепочка от узла до проекта развития.</div>`; return; }
+    const ts = techsOfNode(id); const rs = resOfNode(id); const os = orgsOfRes(rs); const rids = ridsOfTechs(ts); const pats = patentsOfNode(id);
+    const sup = suppliersOfNode(id); const supCount = sup.reduce((a, g) => a + g.ru.length + g.foreign.length, 0);
+    const meas = supportOfTechs(ts); const defs = deficitsOfNode(id); const vnts = vntOfTechs(ts);
+    const step = (k, v, d, act) => `<div class="step" data-act="${act}"><div class="k">${k}</div><div class="v">${v}</div><div class="d">${esc(d)}</div></div>`;
+    el.innerHTML = [
+      step("Узел", id, sysById[id].name, "node"),
+      step("ВНТ", vnts.length, vnts.map((v) => "№ " + vntById[v].num).join(", "), "nptl"),
+      step("Технологии", ts.length, ts.map((t) => techById[t].name.replace("Технологии ", "")).join("; "), "tech"),
+      step("НИОКТР", rs.length, rs.slice(0, 3).map((r) => r.card.executor).join("; ") || "в выборке нет", "research"),
+      step("Коллективы", os.length, os.slice(0, 3).map((o) => o.name.split(" (")[0]).join("; ") || "—", "orgs"),
+      step("РИД и патенты", rids.length + pats.length, `${rids.length} РИД ЕГИСУ, ${pats.length} зарубежных документов`, "patents"),
+      step("Рынок", supCount, sup.map((g) => g.nodeName).join("; ") || "нет данных", "market"),
+      step("Ввоз", SRC_.filter((c) => c.id.startsWith("C" + id.slice(1) + ".")).filter((c) => c.verdict !== "ok").length + " из " + SRC_.filter((c) => c.id.startsWith("C" + id.slice(1) + ".")).length, "компонентов со сложным или критичным ввозом", "sourcing"),
+      step("УГТ и ТУ", BL.filter((b) => b.node === id).length, BL.filter((b) => b.node === id).map((b) => `УГТ ${b.ugtNow}→${b.target}`).join("; ") || "заделов с оценкой нет", "ugt"),
+      step("Поддержка", meas.length, meas.map((m) => m.operator).join("; "), "support"),
+      step("Дефициты", defs.length, defs.map((d) => d.title).join("; ") || "не выявлено", "gaps"),
+      step("Проект развития", D.support.devProject.covers.some((c) => defs.find((d) => d.id === c)) ? "да" : "—", D.support.devProject.title.replace("Проект развития (аналитическая гипотеза): ", ""), "gaps"),
+      step("Граф", "→", "окрестность узла в графе знаний", "graph"),
+      step("Источники", "→", "реестр источников и ограничений", "sources"),
+    ].join("");
+    el.onclick = (e) => {
+      const s = e.target.closest("[data-act]"); if (!s) return;
+      const a = s.dataset.act;
+      if (a === "node") return anat.focus(id);
+      if (a === "tech") { state.tech = ts[0]; state.techNode = id; return go("tech", { force: true }); }
+      if (a === "sourcing") { state.srcNode = id; return go("sourcing", { force: true }); }
+      if (a === "ugt") { state.ugtNode = id; return go("ugt", { force: true }); }
+      if (a === "research") { state.res = { node: id }; return go("research", { force: true }); }
+      if (a === "orgs") { state.org = null; state.orgFilter = os.map((o) => o.id); return go("orgs", { force: true }); }
+      if (a === "graph") { state.graphFocus = id; return go("graph", { force: true }); }
+      go(a, { force: true });
+    };
+  }
+  renderSide(); renderChain();
+  if (state.node) anatSelect(state.node);
+};
+
+function schematic(id) {
+  const G = 'fill="none" stroke="currentColor" stroke-width="1.2" style="color:var(--muted)"';
+  const S = {
+    S08: `<svg class="schem" viewBox="0 0 320 170"><g ${G}><path d="M40 40 h70 v90 q0 20 -35 20 q-35 0 -35 -20z"/><path d="M34 60 h-8 v60 h8 M116 60 h8 v60 h-8"/><rect x="190" y="70" width="80" height="60" rx="6"/><line x1="190" y1="112" x2="270" y2="112" stroke-dasharray="4 3"/></g>
+    <line x1="75" y1="20" x2="75" y2="120" stroke="var(--text)" stroke-width="2"/><g><path d="M60 120 h30" stroke="var(--text)" stroke-width="3"/><animateTransform attributeName="transform" type="scale" values="1 1;-1 1;1 1" dur="1.4s" additive="sum" repeatCount="indefinite"/></g>
+    <path d="M110 140 C150 140,150 100,190 100" fill="none" stroke="#ff6a1a" stroke-width="2"/><path d="M10 50 h30" stroke="#ff6a1a" stroke-width="2"/>
+    <text x="4" y="44">TiCl₄ + донор</text><text x="44" y="164">реактор, 110–130 °C</text><text x="186" y="64">фильтр-сушилка</text><text x="196" y="146">отмывка гептаном</text><text x="128" y="122">суспензия</text></svg>`,
+    S06: `<svg class="schem" viewBox="0 0 320 150">${[0, 1, 2].map((k) => { const x = 50 + k * 110, r = 18 + k * 14; return `<circle cx="${x}" cy="75" r="${r}" fill="${k ? "#e8e2d4" : "var(--panel)"}" stroke="var(--muted)"/>${Array.from({ length: 10 + k * 8 }, (_, i) => `<circle cx="${x + Math.cos(i * 2.4) * r * 0.62 * ((i % 3) / 3 + 0.4)}" cy="${75 + Math.sin(i * 2.4) * r * 0.62 * ((i % 3) / 3 + 0.4)}" r="${2.2}" fill="#7a8794"/>`).join("")}`; }).join("")}
+    <path d="M74 75 h14 M166 75 h14" stroke="#ff6a1a" stroke-width="2"/><text x="20" y="140">частица ТМК</text><text x="120" y="140">фрагментация</text><text x="236" y="140">гранула ПП</text><text x="20" y="18">реплика: форма гранулы повторяет частицу</text></svg>`,
+    S11: `<svg class="schem" viewBox="0 0 320 150"><g ${G}><rect x="60" y="20" width="200" height="110" rx="55"/><rect x="95" y="55" width="130" height="40" rx="20"/></g><path d="M160 20 a55 55 0 0 1 0 110" fill="none" stroke="#ff6a1a" stroke-width="2" stroke-dasharray="6 5"><animate attributeName="stroke-dashoffset" values="0;-22" dur="1s" repeatCount="indefinite"/></path>
+    <path d="M10 40 h50 M10 75 h50 M10 110 h50" stroke="var(--text)"/><text x="4" y="34">катализатор</text><text x="4" y="69">ТЭА + силан</text><text x="4" y="104">пропилен, H₂</text><text x="120" y="80">петлевой реактор</text><path d="M260 75 h50" stroke="var(--text)"/><text x="270" y="68">ПП</text></svg>`,
+  };
+  return S[id] || `<p class="muted" style="font-size:12.5px">Камера приближена к узлу на схеме. Внутренние элементы — в списке компонентов (C${id.slice(1)}.x). Детальная схема для этого узла в макете не построена.</p>`;
+}
+function replicaSchematic() {
+  return `<svg class="schem" viewBox="0 0 320 160"><rect x="0" y="0" width="320" height="160" fill="var(--panel)"/>
+  <g stroke="var(--muted)" fill="#dfe6ec">${Array.from({ length: 6 }, (_, i) => `<path d="M${20 + i * 22} 120 l14 -8 l14 8 l-14 8z"/>`).join("")}</g>
+  <g>${[42, 86, 130].map((x) => `<circle cx="${x}" cy="112" r="4.5" fill="#ff6a1a"/>`).join("")}${[64, 108].map((x) => `<rect x="${x - 4}" y="106" width="8" height="8" fill="#5b7fa6"/>`).join("")}</g>
+  <path d="M86 108 C90 80,70 70,96 52 S120 30,112 14" fill="none" stroke="var(--text)" stroke-width="2.2" stroke-dasharray="4 3"><animate attributeName="stroke-dashoffset" values="0;-14" dur="0.9s" repeatCount="indefinite"/></path>
+  <circle cx="250" cy="80" r="44" fill="#efe9dc" stroke="var(--muted)"/><circle cx="250" cy="80" r="14" fill="none" stroke="var(--muted)" stroke-dasharray="2 2"/>
+  <text x="14" y="146">MgCl₂ (110) · Ti — центр · донор</text><text x="100" y="22">растущая цепь ПП</text><text x="208" y="146">гранула ⟵ частица</text>
+  <g font-size="9"><circle cx="196" cy="14" r="4" fill="#ff6a1a"/><text x="204" y="17">Ti</text><rect x="226" y="10" width="8" height="8" fill="#5b7fa6"/><text x="238" y="17">донор</text></g></svg>`;
+}
+
+// ---------------- 02 НПТЛ и ВНТ ----------------
+RENDER.nptl = (el) => {
+  const opsBy = D.products.operations;
+  const techVnt = (v) => TECH.filter((t) => t.vnt.includes(v));
+  el.innerHTML = `<div class="section-head"><div><h1>НПТЛ → ФП → ВНТ → технология → операция → узел</h1>
+  <p>Связи многозначны: одна технология относится к нескольким ВНТ, одна ВНТ — к нескольким ФП. Наименования и коды НП/ФП подтверждены справочником ЕГИСУ НИОКТР; уровни ниже ВНТ — авторская рабочая классификация.</p></div></div>
+  <div class="split"><div class="card tree" id="nptlTree"></div>
+  <div><div class="card"><h3>Применимость федеральных проектов</h3>${NPTL.fps.map((f) => `<div style="margin-top:10px"><div class="pill-row"><span class="mono">${f.code}</span><b style="font-size:13px">${esc(f.name)}</b></div><div style="font-size:12.5px;margin-top:3px">${esc(f.applicability)}</div><div class="src">сила связи: ${"●".repeat(f.strength)}${"○".repeat(3 - f.strength)}</div></div>`).join("")}<p class="note info" style="margin-top:12px">${esc(NPTL.passportNote)}</p></div>
+  <div class="card"><h3>Важнейшие наукоёмкие технологии (Указ № 529)</h3>${NPTL.vnt.map((v) => `<div style="margin-top:10px"><div class="pill-row"><span class="badge ${v.priority === "основная" ? "b-acc" : "b-warn"}">ВНТ № ${v.num} · ${v.priority}</span><span class="src">${v.kind}, код ЕГИСУ ${v.egisu.slice(0, 3)}…</span></div><div style="font-size:13px;margin-top:3px">${esc(v.name)}</div>${v.rationale ? `<div class="note" style="margin-top:6px">${esc(v.rationale)}</div>` : ""}</div>`).join("")}<p class="src" style="margin-top:10px">${esc(NPTL.vntNote)}</p></div>
+  <div class="card"><h3>НИОКТР с привязкой к ФП в ЕГИСУ</h3><p class="muted" style="font-size:12.5px">Всего / по катализу (по названию)</p><div class="bars" style="margin-top:8px">${D.research.stats.byFp.map(([c, n, a]) => `<div class="bar"><span class="mono">${c}</span><div class="track"><div class="fill" style="width:${(n / 90) * 100}%;background:var(--line-2)"><div style="width:${(a / n) * 100}%;height:100%;background:var(--accent)"></div></div></div><span class="num">${a}/${n}</span></div>`).join("")}</div></div></div></div>`;
+  const nav = $("#nptlTree", el);
+  let cur = "NP2";
+  const show = (id) => { cur = id; nav.innerHTML = navigatorHtml(id); };
+  nav.addEventListener("click", (e) => { const b = e.target.closest("[data-nv]"); if (b) { e.preventDefault(); show(b.dataset.nv); } });
+  show(cur);
+};
+// навигатор иерархии: текущая сущность, её родители (слева) и дети (справа)
+const NV_LABEL = { np: "Национальный проект", fp: "Федеральный проект", vnt: "ВНТ", tech: "Технология", sub: "Предметная технология", op: "Операция цикла", node: "Узел" };
+function nvEntity(id) {
+  const OPS = D.products.operations;
+  const np = NPTL.projects.find((x) => x.id === id);
+  if (np) return { kind: "np", title: np.name, code: np.code, parents: [], children: NPTL.fps.filter((f) => f.np === id).map((f) => f.id) };
+  const fp = NPTL.fps.find((x) => x.id === id);
+  if (fp) return { kind: "fp", title: fp.name, code: fp.code, note: fp.applicability, parents: [fp.np], children: NPTL.fpVnt.filter(([f]) => f === id).map(([, v]) => v) };
+  if (vntById[id]) { const v = vntById[id]; return { kind: "vnt", title: `№ ${v.num}. ${v.name}`, note: v.rationale || "", parents: NPTL.fpVnt.filter(([, x]) => x === id).map(([f]) => f), children: TECH.filter((t) => t.vnt.includes(id)).map((t) => t.id) }; }
+  const t = TECH.find((x) => x.id === id);
+  if (t) return { kind: "tech", title: `${t.id} ${t.name}`, parents: t.vnt, children: t.subs.map((x) => x.id) };
+  if (techById[id]) { const st = techById[id]; const ops = OPS.filter((o) => o.techs.includes(id)); return { kind: "sub", title: `${st.id} ${st.name}`, note: LEVELS[st.level] + (ops.length ? "" : " · в рабочем цикле операция не выделена — ведёт сразу к узлам"), parents: [st.parent], children: ops.length ? ops.map((o) => o.id) : techById[st.parent].nodes }; }
+  const op = OPS.find((x) => x.id === id);
+  if (op) return { kind: "op", title: op.name, parents: op.techs.filter((x) => techById[x]), children: op.nodes };
+  if (sysById[id]) return { kind: "node", title: `${id} ${sysById[id].name}`, note: sysById[id].plain, parents: OPS.filter((o) => o.nodes.includes(id)).map((o) => o.id), children: [] };
+  return null;
+}
+function nvItem(id) {
+  const e = nvEntity(id); if (!e) return "";
+  return `<button class="nv-item" data-nv="${esc(id)}"><span class="nv-kind">${NV_LABEL[e.kind]}</span>${esc(e.title.length > 110 ? e.title.slice(0, 108) + "…" : e.title)}</button>`;
+}
+function navigatorHtml(id) {
+  const e = nvEntity(id);
+  const order = ["np", "fp", "vnt", "tech", "sub", "op", "node"];
+  return `<h3>Национальные проекты технологического лидерства</h3>
+  <p class="muted" style="font-size:12.5px;margin:4px 0 10px">Показана одна сущность, её «родители» и «дети». Нажмите на любую, чтобы перейти. Уровни: ${order.map((k) => `<span class="${k === e.kind ? "nv-on" : ""}">${NV_LABEL[k]}</span>`).join(" → ")}</p>
+  <div class="nv-start">${NPTL.projects.map((p) => `<button class="chip ${p.id === id ? "s" : ""}" data-nv="${p.id}">${esc(p.name.replace("Национальный проект ", "НП "))}</button>`).join("")}</div>
+  <div class="nv-grid">
+    <div class="nv-col"><h4>${e.parents.length ? "Входит в" : "Верхний уровень"}</h4>${e.parents.map(nvItem).join("") || '<div class="muted" style="font-size:12px">—</div>'}</div>
+    <div class="nv-cur"><span class="nv-kind">${NV_LABEL[e.kind]}${e.code ? " · " + e.code : ""}</span><h3>${esc(e.title)}</h3>${e.note ? `<p style="font-size:12.5px;margin-top:6px">${esc(e.note)}</p>` : ""}${e.kind === "node" ? `<button class="chip s" data-go-node="${esc(id)}" style="margin-top:8px">Открыть узел на схеме →</button>` : ""}${e.kind === "tech" ? `<button class="chip t" data-go-tech="${esc(id)}" style="margin-top:8px">Открыть технологию →</button>` : ""}</div>
+    <div class="nv-col"><h4>${e.children.length ? "Включает (" + e.children.length + ")" : "Нижний уровень"}</h4>${e.children.map(nvItem).join("") || '<div class="muted" style="font-size:12px">—</div>'}</div>
+  </div>`;
+}
+
+
+// ---------------- 03 ТЕХНОЛОГИИ ----------------
+RENDER.tech = (el) => {
+  const cur = state.tech || "T07";
+  const relT = state.techNode ? techsOfNode(state.techNode) : [];
+  const t = techById[cur];
+  const rs = resOfTech(cur); const rids = RIDS.filter((r) => r.techs.includes(cur)); const pats = D.patents.patents.filter((p) => p.techs.includes(cur));
+  const byLevel = Object.keys(LEVELS).map((l) => [l, t.subs.filter((s) => s.level === l)]);
+  el.innerHTML = `<div class="section-head"><div><h1>Предметные технологии T01–T15</h1><p>Рабочая классификация макета (не официальная). Для каждого направления — 3–4 конкретизированные технологии, разнесённые по уровням: создание узла, функционирование узла, производство изделия, контроль качества.</p></div></div>
+  <div class="split"><div>
+    ${state.techNode ? `<div class="note acc" style="margin-bottom:10px">Подсвечены все технологии узла <b>${state.techNode} ${esc(sysById[state.techNode].short)}</b> (${relT.length}). <button class="back-btn" data-clear-tn style="margin:0 0 0 8px">Показать без подсветки</button></div>` : ""}
+    <div class="card"><div class="table-wrap" style="max-height:none"><table><thead><tr><th>Код</th><th>Направление</th><th>Узлы</th><th>№ ВНТ</th><th>НИОКТР</th><th>РИД</th></tr></thead><tbody>
+    ${TECH.map((x) => `<tr class="clickable ${x.id === cur ? "row-cur" : relT.includes(x.id) ? "row-rel" : ""}" data-t="${x.id}"><td class="mono">${x.id}</td><td>${esc(x.name)}</td><td>${x.nodes.map((n) => `<span class="mono">${n}</span>`).join(" ")}</td><td>${x.vnt.map((v) => vntById[v].num).join(", ")}</td><td>${resOfTech(x.id).length}</td><td>${RIDS.filter((r) => r.techs.includes(x.id)).length}</td></tr>`).join("")}
+    </tbody></table></div></div>
+    <div class="card"><h3>Матрица «технология × узел»</h3><p class="muted" style="font-size:12px">Число связей: подсистема требует направление, компоненты требуют предметные технологии.</p><div style="overflow:auto">${techNodeMatrix()}</div></div>
+  </div>
+  <div class="card side"><span class="badge b-link">${t.id}</span><h2 style="margin-top:6px">${esc(t.name)}</h2>
+    <div class="chips" style="margin-top:6px">${t.nodes.map(chipS).join("")}${t.vnt.map(chipV).join("")}</div>
+    ${byLevel.map(([l, subs]) => subs.length ? `<div class="sec"><h4>${esc(LEVELS[l])}</h4>${subs.map((s) => `<div style="font-size:13px;margin:4px 0"><span class="mono muted">${s.id}</span> ${esc(s.name)}</div>`).join("")}</div>` : "").join("")}
+    ${cur === "T10" && D.technologies.t10chain.length ? `<div class="sec"><h4>Пример углублённой декомпозиции</h4><div class="flow-steps">${D.technologies.t10chain.map((c, i) => `${i ? '<span class="arrow">→</span>' : ""}<span class="chip static" title="${esc(c.kind)}">${esc(c.step)}</span>`).join("")}</div></div>` : ""}
+    <div class="sec"><h4>Выполненные НИОКТР (ЕГИСУ) · ${rs.length}</h4>${rs.map((r) => `<div style="font-size:12.5px;margin:5px 0"><button class="chip" data-go-res="${esc(r.id)}">${esc(r.id)}</button> ${esc(r.card.name.slice(0, 110))}${r.card.name.length > 110 ? "…" : ""} <span class="muted">— ${esc(r.card.executor)}, ${year(r.card.start)}–${year(r.card.end)}</span></div>`).join("") || '<div class="empty">В выборке НИОКТР по названиям не найдено — пробел данных или требуется расширенный поиск по аннотациям.</div>'}</div>
+    <div class="sec"><h4>РИД (ЕГИСУ) · ${rids.length}</h4>${rids.slice(0, 12).map((r) => `<div style="font-size:12px;margin:3px 0"><span class="badge b-none">${esc(r.type)}</span> ${esc(r.name)}</div>`).join("") || '<span class="muted">—</span>'}</div>
+    <div class="sec"><h4>Публикации российских авторов (Crossref) · ${(D.publications.byTech[cur] || []).length}</h4>${(D.publications.byTech[cur] || []).map((p) => `<div style="font-size:12px;margin:3px 0"><span class="mono muted">${p.year}</span> ${esc(p.title)} <a href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">doi</a><div class="faint">${esc(p.aff)}</div></div>`).join("") || '<span class="muted">тематический поиск в Crossref не дал релевантных статей</span>'}</div>
+    <div class="sec"><h4>Зарубежные патентные документы · ${pats.length}</h4>${pats.map((p) => `<div style="font-size:12px;margin:3px 0"><span class="mono">${esc(p.number)}</span> ${esc(p.title)}</div>`).join("") || '<span class="muted">—</span>'}</div>
+  </div></div>`;
+  el.querySelectorAll("tr[data-t]").forEach((tr) => tr.addEventListener("click", () => { state.tech = tr.dataset.t; RENDER.tech(el); }));
+  el.querySelector("[data-clear-tn]")?.addEventListener("click", () => { state.techNode = null; RENDER.tech(el); });
+};
+function techNodeMatrix() {
+  const cnt = (t, s) => (sysById[s].techs.includes(t.id) ? 1 : 0) + COMP.filter((c) => c.sys === s).reduce((a, c) => a + [...c.techCreate, ...c.techOperate].filter((x) => topTech(x) === t.id).length, 0);
+  return `<table class="matrix"><thead><tr><th></th>${SYS.map((s) => `<th title="${esc(s.name)}" class="mono">${s.id}</th>`).join("")}</tr></thead><tbody>${TECH.map((t) => `<tr><td class="h"><span class="mono">${t.id}</span></td>${SYS.map((s) => { const n = cnt(t, s.id); return `<td><div class="cell c${Math.min(4, n)}" title="${t.id} × ${s.id}: ${n}">${n || ""}</div></td>`; }).join("")}</tr>`).join("")}</tbody></table>`;
+}
+
+// ---------------- 04 НИОКТР ----------------
+RENDER.research = (el) => {
+  const rxStat = new RegExp(D.research.stats.labels.rx, "i");
+  const inStat = RES.filter((r) => rxStat.test(r.card.name) && (r.card.start || "") >= "2010").length;
+  const ridLinked = RIDS.filter((r) => resById[r.nioktr]).length;
+  const f = state.res || {};
+  el.innerHTML = `<div class="section-head"><div><h1>ЕГИСУ НИОКТР: научно-технологический задел</h1>
+  <p>Подключение к ЕГИСУ НИОКТР найдено (коннектор <span class="mono">egisuopen</span>, открытые данные: карточки НИОКТР, РИД, ИКРБС, диссертации). Поиск выполнен по каждой предметной технологии с регулярными выражениями и синонимами по названиям карточек; ниже — ${RES.length} отобранных НИОКТР и ${RIDS.length} РИД с регистрационными номерами из первоисточника.</p></div></div>
+  <div class="grid g4" style="margin-bottom:14px">
+    <div class="card stat"><b>${D.research.stats.byYear.reduce((a, [, n]) => a + n, 0)} <small>НИОКТР</small></b><span>${esc(D.research.stats.labels.total)}. Общий фон.</span></div>
+    <div class="card stat"><b>${RES.length} <small>карточки в атласе</small></b><span>Отобранные НИОКТР с разметкой по узлам и технологиям: ${inStat} из них входят в ${D.research.stats.byYear.reduce((a, [, n]) => a + n, 0)}, ещё ${RES.length - inStat} найдены поиском по узлам (TiCl₄, доноры, сокатализаторы), где этих слов в названии нет.</span></div>
+    <div class="card stat"><b>${RIDS.length} <small>РИД</small></b><span>Результаты интеллектуальной деятельности: изобретения, программы, ноу-хау. ${ridLinked} из них получены в рамках ${RES.length} карточек, остальные — в других НИОКТР или без указания НИОКТР.</span></div>
+    <div class="card stat"><b>${D.research.stats.dissertations.reduce((a, [, n]) => a + n, 0)} <small>диссертации</small></b><span>Отдельная выборка: защищённые диссертации по катализаторам полимеризации олефинов (ЕГИСУ). С НИОКТР напрямую не связаны — показывают, где готовят кадры.</span></div>
+  </div>
+  <div class="grid g2" style="margin-bottom:14px"><div class="card"><h3>Динамика: НИОКТР по году начала</h3>${colChart(D.research.stats.byYear)}<p class="src">${esc(D.research.stats.queryNote)}</p></div>
+  <div class="card"><h3>Диссертации по организациям</h3><div class="bars" style="margin-top:8px">${D.research.stats.dissertations.slice(0, 9).map(([o, n]) => `<div class="bar"><span>${esc(o)}</span><div class="track"><div class="fill" style="width:${(n / Math.max(...D.research.stats.dissertations.map((d) => d[1]))) * 100}%"></div></div><span class="num">${n}</span></div>`).join("")}</div></div></div>
+  <div class="card"><div class="toolbar"><input type="search" id="resQ" placeholder="Поиск: номер, название, исполнитель…" style="min-width:280px">
+  <select id="resT"><option value="">все технологии</option>${TECH.map((t) => `<option value="${t.id}">${t.id} ${esc(t.name.slice(0, 50))}</option>`).join("")}</select>
+  <select id="resN"><option value="">все узлы</option>${SYS.map((s) => `<option value="${s.id}" ${f.node === s.id ? "selected" : ""}>${s.id} ${esc(s.short)}</option>`).join("")}</select>
+  <select id="resC"><option value="">все заказчики</option>${[...new Set(RES.map((r) => r.card.customer).filter(Boolean))].sort().map((c) => `<option>${esc(c)}</option>`).join("")}</select>
+  <span class="muted" id="resCount" style="font-size:12px"></span></div>
+  <div class="table-wrap"><table><thead><tr><th>Рег. номер</th><th>Название (карточка)</th><th>Исполнитель</th><th>Сроки</th><th>Заказчик / основание</th><th>Бюджет*</th><th>РИД</th><th>Технологии (аналитика)</th></tr></thead><tbody id="resBody"></tbody></table></div>
+  <p class="src" style="margin-top:8px">* Значение поля budget_sum карточки; единица в открытой выгрузке не указана (по порядку величин — тыс. руб.). Зелёные поля — из карточки, оранжевые — аналитическая разметка макета.</p></div>`;
+  const draw = () => {
+    const qv = $("#resQ").value.toLowerCase(), tv = $("#resT").value, nv = $("#resN").value, cv = $("#resC").value;
+    const list = RES.filter((r) => (!qv || (r.id + r.card.name + r.card.executor).toLowerCase().includes(qv)) && (!tv || r.analytic.techs.includes(tv)) && (!nv || r.analytic.nodes.includes(nv)) && (!cv || r.card.customer === cv)).sort((a, b) => (b.card.start || "").localeCompare(a.card.start || ""));
+    $("#resCount").textContent = `${list.length} из ${RES.length}`;
+    $("#resBody").innerHTML = list.map((r) => `<tr class="clickable" data-r="${esc(r.id)}"><td class="mono">${esc(r.id)}</td><td>${esc(r.card.name)}</td><td>${esc(r.card.executor)}<div class="src">${esc(r.card.region)}</div></td><td class="mono">${year(r.card.start)}–${year(r.card.end)}</td><td>${esc(r.card.customer || "—")}<div class="src">${esc(r.card.basis)}</div></td><td class="mono" style="text-align:right">${fmtBudget(r.card.budget)}</td><td>${r.card.ridCount}</td><td><div class="chips">${r.analytic.techs.map((t) => `<span class="chip t static">${t}</span>`).join("")}</div></td></tr>`).join("");
+  };
+  ["resQ", "resT", "resN", "resC"].forEach((id) => $("#" + id).addEventListener("input", draw));
+  $("#resBody").addEventListener("click", (e) => { const tr = e.target.closest("[data-r]"); if (tr) openResearch(tr.dataset.r); });
+  draw();
+};
+function colChart(rows) {
+  const max = Math.max(...rows.map(([, n]) => n));
+  return `<div class="colchart">${rows.map(([y, n], i) => `<div class="col ${i === rows.length - 1 ? "partial" : ""}" title="${y}: ${n}"><em>${n}</em><b style="height:${(n / max) * 100}%"></b><span>${String(y).slice(2)}</span></div>`).join("")}</div>`;
+}
+function openResearch(id) {
+  const r = resById[id]; if (!r) return;
+  const rids = RIDS.filter((x) => x.nioktr === id);
+  const org = orgById[r.analytic.org];
+  openDrawer(`<span class="badge b-link">НИОКТР · ЕГИСУ</span><h2 style="margin:8px 0 4px">${esc(r.card.name)}</h2>
+  <h4 style="margin-top:14px">Регистрационная карточка <span class="tag-src card">первоисточник</span></h4>
+  <dl class="kv" style="margin-top:8px"><dt>Рег. номер</dt><dd class="mono">${esc(r.id)}</dd><dt>Исполнитель</dt><dd>${esc(r.card.executor)}${org ? ` · <button class="chip" data-go-org="${org.id}">карточка организации</button>` : ""}</dd><dt>Регион</dt><dd>${esc(r.card.region)}</dd><dt>Заказчик / источник</dt><dd>${esc(r.card.customer || "не раскрыт")}</dd><dt>Основание</dt><dd>${esc(r.card.basis)}</dd><dt>Сроки</dt><dd>${esc(r.card.start)} — ${esc(r.card.end)}</dd><dt>Статус</dt><dd>${r.card.end < "2026-11-11" ? "срок выполнения истёк (статус ИКРБС не проверялся)" : "выполняется по срокам карточки"}</dd><dt>Бюджет (budget_sum)</dt><dd>${fmtBudget(r.card.budget)}</dd><dt>Связанные РИД</dt><dd>${r.card.ridCount}</dd>${r.card.fp ? `<dt>ФП НПТЛ</dt><dd class="mono">${r.card.fp} · ${esc(NPTL.fps.find((f) => f.code === r.card.fp)?.name || "")}</dd>` : ""}</dl>
+  ${r.card.annotation ? `<h4 style="margin-top:14px">Аннотация (выдержка из карточки)</h4><p style="font-size:13px;margin-top:6px">${esc(r.card.annotation)}</p>` : `<p class="src" style="margin-top:10px">Аннотация, цель, методы и публикации в макет не выгружались — доступны в карточке ЕГИСУ по номеру.</p>`}
+  ${rids.length ? `<h4 style="margin-top:14px">РИД из ЕГИСУ</h4>${rids.map((x) => `<div style="font-size:12.5px;margin:4px 0"><span class="badge b-none">${esc(x.type)}</span> ${esc(x.name)} <span class="mono muted">${esc(x.id)}</span></div>`).join("")}` : ""}
+  <h4 style="margin-top:16px">Аналитическая разметка <span class="tag-src an">вывод макета</span></h4>
+  <div class="chips" style="margin-top:6px">${r.analytic.techs.map(chipT).join("")}${r.analytic.nodes.map(chipS).join("")}</div>
+  <p style="font-size:12.5px;margin-top:6px">Релевантность: <b>${esc(r.analytic.relevance)}</b>${r.analytic.note ? `. ${esc(r.analytic.note)}` : ""}</p>
+  <p class="src" style="margin-top:14px">Источник: ${srcLink("E-EGISU-NIOKTR")}. Карточку можно найти в ЕГИСУ по регистрационному номеру.</p>`);
+}
+
+// ---------------- 05 КОМПЕТЕНЦИИ ----------------
+RENDER.orgs = (el) => {
+  const tf = state.orgTech || "";
+  const filt = state.orgFilter;
+  const pr = map.proj;
+  const project = ([lon, lat]) => { const R = Math.PI / 180; const l = lon < -20 ? lon + 360 : lon; const rho = pr.G - lat * R, th = pr.n * (l - pr.lon0) * R; return [(rho * Math.sin(th) - pr.minX) * pr.s, (-(pr.G - rho * Math.cos(th)) - pr.minY) * pr.s]; };
+  const groups = {};
+  for (const o of ORGS) { const key = o.city.split(" (")[0] + "|" + o.precision; (groups[key] ||= []).push(o); }
+  el.innerHTML = `<div class="section-head"><div><h1>Карта научных компетенций</h1><p>Карточки организаций построены только на найденных свидетельствах (ЕГИСУ: НИОКТР, РИД, диссертации; отдельные сведения СМИ — с пометкой). Наличие публикации не означает готовности создать промышленный компонент; оценка соответствия технологии — качественная, с основанием.</p></div></div>
+  <div class="split"><div>
+    <div class="card"><div class="toolbar"><select id="orgT"><option value="">все технологии</option>${TECH.map((t) => `<option value="${t.id}" ${tf === t.id ? "selected" : ""}>${t.id} ${esc(t.name.slice(0, 50))}</option>`).join("")}</select>${filt ? `<span class="badge b-acc">фильтр: организации выбранного узла</span> <button class="btn" id="orgClr">сбросить</button>` : ""}<span class="src">● — город подтверждён карточкой ЕГИСУ · ○ — указан только регион (точка в центре субъекта)</span></div>
+    <div class="map"><svg viewBox="-10 -10 ${map.width + 20} ${map.height + 20}" role="img" aria-label="Карта организаций России"><path class="land" d="${map.d}"/>
+    ${(() => { const placed = []; return Object.values(groups).sort((a, b) => b.length - a.length).map((g) => { const [x, y] = project(g[0].coords); const vis = g.filter((o) => (!tf || o.fit.some(([t]) => t === tf)) && (!filt || filt.includes(o.id))); const clash = placed.some(([px, py]) => Math.abs(px - x) < 60 && Math.abs(py - y) < 12); placed.push([x, y]); const name = g[0].city.split(" (")[0]; const rr = 4 + Math.sqrt(vis.length || g.length) * 3; return `<g>${clash ? "" : `<text class="city" x="${x + rr + 4}" y="${y + 3}">${esc(name)}${g.length > 1 ? " · " + g.length : ""}</text>`}<title>${esc(name)}</title><circle class="dot ${g[0].precision === "регион" ? "reg" : ""} ${vis.length ? "" : "dim"}" cx="${x}" cy="${y}" r="${4 + Math.sqrt(vis.length || g.length) * 3}" data-orgs="${g.map((o) => o.id).join(",")}"/></g>`; }).join(""); })()}
+    </svg></div><p class="src">${esc(map.source)}. Коническая равнопромежуточная проекция.</p></div>
+    <div class="card"><h3>Таблица исследовательских коллективов</h3><div class="table-wrap"><table><thead><tr><th>Организация</th><th>Тип</th><th>НИОКТР</th><th>Статьи Crossref</th><th>Соответствие технологиям (основание)</th></tr></thead><tbody id="orgBody"></tbody></table></div></div>
+  </div><div class="card side" id="orgSide"></div></div>`;
+  const draw = () => {
+    const tv = $("#orgT").value; state.orgTech = tv;
+    const list = ORGS.filter((o) => (!tv || o.fit.some(([t]) => t === tv)) && (!state.orgFilter || state.orgFilter.includes(o.id)));
+    $("#orgBody").innerHTML = list.map((o) => `<tr class="clickable" data-o="${o.id}"><td><b>${esc(o.name)}</b><div class="src">${esc(o.city)}</div></td><td>${esc(o.type)}</td><td>${(o.evidence?.nioktr || []).length}</td><td>${o.evidence?.crossref || "—"}</td><td>${o.fit.filter(([t]) => !tv || t === tv).map(([t, l, b]) => `<div style="margin:2px 0"><span class="chip t static">${t}</span> <span class="badge ${l === "высокий" ? "b-ok" : l === "средний" ? "b-warn" : "b-none"}">${l}</span> <span style="font-size:12px">${esc(b)}</span></div>`).join("")}</td></tr>`).join("");
+  };
+  let cityGroup = null;
+  const side = (id, group) => {
+    if (group) cityGroup = group; else if (cityGroup && !cityGroup.includes(id)) cityGroup = null;
+    const o = orgById[id] || orgById[state.org] || ORGS[0];
+    state.org = o.id;
+    const gi = cityGroup ? cityGroup.indexOf(o.id) : -1;
+    const nav = cityGroup && cityGroup.length > 1 ? `<div class="city-nav"><button class="btn" data-cn="-1" aria-label="Предыдущая организация">‹</button><span>${esc(o.city.split(" (")[0])}: организация ${gi + 1} из ${cityGroup.length}</span><button class="btn" data-cn="1" aria-label="Следующая организация">›</button></div>` : "";
+    const ev = o.evidence || {};
+    $("#orgSide").innerHTML = `${nav}<span class="badge b-link">${esc(o.type)}</span><h2 style="margin-top:6px">${esc(o.name)}</h2><div class="src">${esc(o.city)} · точность местоположения: ${esc(o.precision)}</div>
+    <div class="sec"><h4>Свидетельства</h4><dl class="kv">
+      <dt>Опубликованные исследования</dt><dd>${ev.crossref ? `${ev.crossref} статей по катализаторам Циглера–Натта в Crossref (с 2015 г., аффилиация подтверждена метаданными)` : "в Crossref по запросу не найдено"}${ev.published ? "; " + esc(ev.published) : ""}</dd>
+      <dt>Выполненные НИОКТР</dt><dd><div class="chips">${(ev.nioktr || []).map(chipR).join("") || "—"}</div></dd>
+      <dt>Экспериментальная инфраструктура</dt><dd>${esc(ev.infrastructure || "нет подтверждения в собранных источниках")}</dd>
+      <dt>Прототипы</dt><dd>${esc(ev.prototypes || "нет подтверждения")}</dd>
+      <dt>Патенты / РИД</dt><dd>${esc(ev.patents || "нет подтверждения")}</dd>
+      <dt>Собственное оборудование</dt><dd>${esc(ev.equipment || "нет подтверждения")}</dd>
+      <dt>Производственные мощности</dt><dd>${esc(ev.production || "нет подтверждения")}</dd></dl></div>
+    <div class="sec"><h4>Соответствие технологиям (качественно)</h4>${o.fit.map(([t, l, b]) => `<div style="margin:6px 0;font-size:12.5px">${chipT(t)} <span class="badge ${l === "высокий" ? "b-ok" : l === "средний" ? "b-warn" : "b-none"}">${l}</span><div>${esc(b)}</div></div>`).join("")}</div>
+    ${(D.publications.byOrg[o.id] || []).length ? `<div class="sec"><h4>Публикации (Crossref, по цитируемости)</h4>${D.publications.byOrg[o.id].slice(0, 8).map((p) => `<div style="font-size:12px;margin:5px 0"><span class="mono muted">${p.year}</span> ${esc(p.title)} <span class="muted">— ${esc(p.authors)}, ${esc(p.journal)}</span> <a href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">doi</a> <span class="faint">цит. ${p.cited}</span></div>`).join("")}<p class="src">Наличие публикаций не означает готовности создать промышленный компонент.</p></div>` : ""}
+    ${o.sources ? `<div class="sec src">Источники: ${o.sources.map(srcLink).join("; ")}</div>` : ""}`;
+  };
+  $("#orgT").addEventListener("change", () => RENDER.orgs(el));
+  $("#orgClr")?.addEventListener("click", () => { state.orgFilter = null; RENDER.orgs(el); });
+  $("#orgBody").addEventListener("click", (e) => { const tr = e.target.closest("[data-o]"); if (tr) side(tr.dataset.o); });
+  el.querySelector(".map svg").addEventListener("click", (e) => { const c = e.target.closest("[data-orgs]"); if (c) { const g = c.dataset.orgs.split(","); side(g[0], g); } });
+  $("#orgSide").addEventListener("click", (e) => { const b = e.target.closest("[data-cn]"); if (!b || !cityGroup) return; const cur = cityGroup.indexOf(state.org); const n = cityGroup[(cur + +b.dataset.cn + cityGroup.length) % cityGroup.length]; side(n); });
+  el.querySelector(".map svg").addEventListener("pointermove", (e) => { const c = e.target.closest("[data-orgs]"); showTip(c ? c.dataset.orgs.split(",").map((id) => esc(orgById[id].name)).join("<br>") : null, e); });
+  el.querySelector(".map svg").addEventListener("pointerleave", (e) => showTip(null, e));
+  draw(); side(state.org);
+};
+
+// ---------------- 06 ПАТЕНТЫ ----------------
+RENDER.patents = (el) => {
+  const P = D.patents;
+  const ru = RIDS.filter((r) => P.ruInventions.includes(r.id));
+  const fams = {};
+  for (const p of P.patents) (fams[p.family] ||= []).push(p);
+  const techsAll = TECH.map((t) => t.id);
+  el.innerHTML = `<div class="section-head"><div><h1>Патентный ландшафт</h1><p>Приоритетные направления: внутренние и внешние доноры, носитель и морфология, титанирование, сокатализаторы, предполимеризация, процессы полимеризации.</p></div></div>
+  <p class="note" style="margin-bottom:14px">${esc(P.note)}</p>
+  <div class="grid g3" style="margin-bottom:14px"><div class="card stat"><b>${ru.length}</b><span>РИД ЕГИСУ вида «изобретение» / «полезная модель» по теме (уровень B)</span></div><div class="card stat"><b>${P.patents.length}</b><span>зарубежных патентных документов, ${Object.keys(fams).length} предполагаемых семейств (уровень C)</span></div><div class="card stat"><b>${RIDS.filter((r) => r.type.startsWith("Секрет")).length}</b><span>ноу-хау в выборке РИД</span></div></div>
+  <div class="card"><h3>Матрица: технология × документ × правообладатель × юрисдикция × статус</h3><div style="overflow:auto"><table class="matrix" style="min-width:900px"><thead><tr><th style="text-align:left">Документ</th><th>Юрисд.</th><th style="text-align:left">Правообладатель</th><th>Статус</th><th>Подтв.</th>${techsAll.map((t) => `<th class="mono">${t}</th>`).join("")}</tr></thead><tbody>
+  ${P.patents.map((p) => `<tr><td class="h"><span class="mono">${esc(p.number)}</span></td><td>${p.juris}</td><td class="h" style="font-size:11px;max-width:200px;white-space:normal">${esc(p.applicant)}</td><td><span class="badge b-none">${esc(p.status)}</span></td><td><span class="badge b-warn">${p.conf}</span></td>${techsAll.map((t) => `<td><div class="cell ${p.techs.includes(t) ? "c4" : "c0"}">${p.techs.includes(t) ? "●" : ""}</div></td>`).join("")}</tr>`).join("")}
+  ${ru.map((r) => `<tr><td class="h" style="white-space:normal;max-width:260px;font-size:11px">${esc(r.name.slice(0, 70))}${r.name.length > 70 ? "…" : ""}</td><td>RU</td><td class="h" style="font-size:11px">${esc(resById[r.nioktr]?.card.executor || "исполнитель НИОКТР не в выборке")}</td><td><span class="badge b-none">РИД учтён</span></td><td><span class="badge b-link">B</span></td>${techsAll.map((t) => `<td><div class="cell ${r.techs.includes(t) ? "c3" : "c0"}">${r.techs.includes(t) ? "●" : ""}</div></td>`).join("")}</tr>`).join("")}
+  </tbody></table></div><p class="src" style="margin-top:6px">Уровни подтверждения: A — запись реестра проверена; B — карточка РИД в ЕГИСУ (номер охранного документа ФИПС в открытой выгрузке не раскрыт); C — номер и название из поисковой выдачи, правообладатель и статус не проверены; D — гипотеза.</p></div>
+  <div class="grid g2" style="margin-top:14px"><div class="card"><h3>Семейства и предполагаемая область применения</h3>${Object.entries(fams).map(([f, ps]) => `<div class="sec"><div class="mono muted" style="font-size:11px">${f}</div>${ps.map((p) => `<div style="margin:6px 0;font-size:12.5px"><b class="mono">${esc(p.number)}</b> — ${esc(p.title)}<div>${p.nodes.map(chipS).join(" ")} <span class="badge b-warn">связь: ${p.conf === "C" ? "предполагаемая" : "подтверждённая"}</span></div><div class="muted">Признаки, относящиеся к узлу: ${esc(p.claimHint)}</div><div class="src">${srcLink(p.src)}</div></div>`).join("")}</div>`).join("")}</div>
+  <div><div class="card"><h3>Ноу-хау</h3><p style="font-size:13px;margin-top:6px">${esc(P.knowhow.text)}</p><p style="font-size:13px;margin-top:8px">${esc(P.knowhow.observed)}</p><div class="sec"><h4>Ноу-хау в выборке</h4>${RIDS.filter((r) => r.type.startsWith("Секрет")).map((r) => `<div style="font-size:12px;margin:3px 0">${esc(r.name)} <span class="mono muted">${esc(r.id)}</span></div>`).join("")}</div></div>
+  <div class="card"><h3>Не смешивать</h3><ul class="list" style="font-size:13px">${P.knowhow.caution.map((c) => `<li>${esc(c)}</li>`).join("")}</ul></div></div></div>`;
+};
+
+// ---------------- 07 РЫНОК ----------------
+RENDER.market = (el) => {
+  const S = D.suppliers;
+  const hasInfo = (g) => g.ru.length + g.foreign.length > 0;
+  const byNode = Object.fromEntries(S.suppliers.map((g) => [g.node, g]));
+  const all = [byNode.S00, ...SYS.map((x) => byNode[x.id] || { node: x.id, nodeName: x.name, ru: [], foreign: [], gap: "Специализированные поставщики узла в атласе не выделены: узел собирается из типовых деталей. Разбор по компонентам — в разделе «Ввоз и санкции»." })];
+  const GROUPS = [...all.filter(hasInfo), ...all.filter((g) => !hasInfo(g))];
+  el.innerHTML = `<div class="section-head"><div><h1>Рынок, поставщики и импортная зависимость</h1><p>Узел → российские производители → зарубежные производители → подтверждённая доступность → правовые ограничения → возможность локализации. Цены, сроки поставки, складские остатки и доступность в России не приводятся — таких подтверждённых сведений нет.</p></div></div>
+  <div class="card" style="margin-bottom:14px"><h3>Матрица технологической и импортной зависимости</h3><div style="overflow:auto"><table class="matrix" style="min-width:820px"><thead><tr><th style="text-align:left">Узел</th><th>Российские<br>предложения</th><th>Стадия RU</th><th>Зарубежные</th><th>Доминирующий режим</th><th>Дефицит</th><th style="text-align:left">Возможность локализации (аналитика)</th></tr></thead><tbody>
+  ${GROUPS.map((g) => { const ruProd = g.ru.filter((r) => r.avail === "ok").length; const stage = ruProd ? "продукт" : g.ru.length ? "НИОКР / опытный образец" : "нет данных"; const worst = g.foreign.some((f) => f.avail === "restricted") ? "restricted" : g.foreign.some((f) => f.avail === "check") ? "check" : "none"; const def = D.support.deficits.find((d) => d.nodes.includes(g.node)); return `<tr><td class="h"><b>${esc(g.nodeName)}</b> <span class="mono muted">${g.node}</span></td><td><div class="cell ${g.ru.length ? (ruProd ? "c3" : "c1") : "c0"}">${g.ru.length}</div></td><td style="font-size:11.5px">${stage}</td><td><div class="cell c2">${g.foreign.length}</div></td><td>${availBadge(worst)}</td><td>${def ? `<span class="badge b-bad">${def.id}</span>` : "—"}</td><td class="h" style="white-space:normal;font-size:11.5px;max-width:320px">${esc(def ? def.need : g.gap || "Есть отечественные решения; требуется подтверждение характеристик и объёмов")}</td></tr>`; }).join("")}
+  </tbody></table></div></div>
+  <div class="grid g2">${GROUPS.map((g) => `<div class="card"><div class="pill-row"><h3>${esc(g.nodeName)}</h3>${g.node !== "S00" ? chipS(g.node) : ""}</div>
+    ${g.gap ? `<p class="note" style="margin-top:8px">${esc(g.gap)}</p>` : ""}
+    ${g.ru.length ? `<h4 style="margin-top:10px">Россия</h4>${g.ru.map((s) => `<div style="margin:6px 0;font-size:12.5px"><b>${esc(s.name)}</b> ${availBadge(s.avail)}<div>${esc(s.product)}</div><div class="src">Основание: ${esc(s.evidence)}${s.note ? " · " + esc(s.note) : ""}</div></div>`).join("")}` : ""}
+    ${g.foreign.length ? `<h4 style="margin-top:10px">Зарубежные</h4>${g.foreign.map((s) => `<div style="margin:6px 0;font-size:12.5px"><b>${esc(s.name)}</b> <span class="muted">${esc(s.country)}</span> ${availBadge(s.avail)}<div>${esc(s.product)}</div><div class="src">${esc(s.note)}</div></div>`).join("")}` : ""}</div>`).join("")}</div>
+  <div class="card" style="margin-top:14px"><h3>Экспортный контроль и санкционные ограничения применительно к России</h3><div class="grid g3" style="margin-top:10px">${S.exportRegimes.map((r) => `<div><div class="pill-row"><b>${esc(r.name)}</b><span class="badge ${r.status.startsWith("действ") ? "b-bad" : "b-warn"}">${esc(r.status)}</span></div><p style="font-size:12.5px;margin-top:4px">${esc(r.basis)}</p><p class="src" style="margin-top:4px">Проверка: ${esc(r.verify)}${r.src ? " · " + srcLink(r.src) : ""}</p></div>`).join("")}</div>
+  <div class="sec"><h4>Коды позиций каталитической системы в Supplement No. 4 к 15 CFR 746 (США), ред. 01.11.2026</h4><div class="table-wrap" style="max-height:none"><table><thead><tr><th>HTS-6</th><th>Позиция</th><th>Узел</th><th>В перечне</th></tr></thead><tbody>${S.htsCodes.map((h) => `<tr><td class="mono">${h.code}</td><td>${esc(h.name)}</td><td>${chipS(h.node)}</td><td>${h.listed ? '<span class="badge b-bad">да — политика отказа</span>' : '<span class="badge b-none">не найден</span>'}</td></tr>`).join("")}</tbody></table></div><p class="src" style="margin-top:6px">Отнесение конкретного изделия к HTS-коду — задача классификации; наличие кода в перечне означает лицензионное требование для товаров, подпадающих под EAR. ${srcLink("E-ECFR-746")}</p></div>
+  <div class="sec"><h4>Категории вывода</h4><div class="pill-row">${Object.entries(S.avail).map(([k, v]) => `${availBadge(k)} <span style="font-size:12px;margin-right:10px">${esc(v)}</span>`).join("")}</div></div>
+  <div class="sec"><h4>Принципы</h4><ul class="list" style="font-size:12.5px">${S.exportPrinciples.map((p) => `<li>${esc(p)}</li>`).join("")}</ul></div></div>`;
+};
+
+// ---------------- 08 ПОДДЕРЖКА ----------------
+RENDER.support = (el) => {
+  const st = D.support.stages;
+  el.innerHTML = `<div class="section-head"><div><span class="badge b-link" style="margin-bottom:6px;display:inline-block">общий раздел отраслевого сегмента «Химическая промышленность»</span><h1>Инструменты поддержки по стадиям</h1><p>Меры поддержки относятся ко всему сегменту, а не только к этому катализатору. Связь с катализатором показана в каждой карточке: к каким технологиям и узлам мера применима. Паспорта мер поддержки с датой проверки. Соответствие программы конкретному проекту не утверждается без проверки заявителя и всех конкурсных условий.</p></div></div>
+  <div class="card" style="overflow:auto;margin-bottom:14px"><h3 style="margin-bottom:10px">Шкала стадий</h3><div class="stages"><div></div>${st.map((s) => `<div class="hd">${esc(s)}</div>`).join("")}
+  ${D.support.support.map((m) => `<div class="nm" data-m="${m.id}">${esc(m.name.split(":")[0])}<div class="src">${esc((m.name.split(":")[1] || "").trim().slice(0, 60))}</div></div>${st.map((_, i) => `<div class="st ${m.stages.includes(i) ? "on" : ""}" title="${m.stages.includes(i) ? esc(st[i]) : ""}"></div>`).join("")}`).join("")}</div></div>
+  <div class="grid g2" id="supCards">${D.support.support.map((m) => `<div class="card" id="m-${m.id}"><span class="badge b-link">${esc(m.operator)}</span><h3 style="margin-top:6px">${esc(m.name)}</h3>
+  <dl class="kv" style="margin-top:8px"><dt>Предмет</dt><dd>${esc(m.subject)}</dd><dt>Заявители</dt><dd>${esc(m.applicants)}</dd><dt>Стадии</dt><dd>${m.stages.map((i) => esc(st[i])).join(", ")}</dd><dt>Условия</dt><dd>${esc(m.conditions)}</dd><dt>Сумма</dt><dd>${esc(m.amount)}</dd><dt>Софинансирование</dt><dd>${esc(m.cofin)}</dd><dt>Допустимые расходы</dt><dd>${esc(m.costs)}</dd><dt>Сроки</dt><dd>${esc(m.term)}</dd><dt>Статус</dt><dd>${esc(m.status)}</dd><dt>Применимость</dt><dd>${esc(m.fit)}</dd><dt>Проверено</dt><dd class="mono">${esc(m.checked)}</dd><dt>Применимо к катализатору ZN</dt><dd><div class="chips">${(m.techs || []).filter((t) => techById[t]).map(chipT).join("")}${[...new Set((m.techs || []).flatMap((t) => techById[t]?.nodes || []))].map(chipS).join("")}${(m.techs || []).includes("P-ZN") ? '<span class="chip static">катализатор и производство целиком</span>' : ""}</div></dd></dl>
+  <p class="src" style="margin-top:6px">${m.src.map(srcLink).join("; ") || "источник не исследован"}</p></div>`).join("")}</div>`;
+  el.querySelectorAll("[data-m]").forEach((n) => n.addEventListener("click", () => $("#m-" + n.dataset.m).scrollIntoView({ behavior: "smooth", block: "center" })));
+};
+
+// ---------------- 09 ГРАФ ----------------
+let cy = null;
+const TYPES = ["Product", "Assembly", "Component", "Technology", "Process", "VNT", "NationalProject", "ResearchProject", "Organization", "ResearchTeam", "Publication", "Patent", "Manufacturer", "Supplier", "SupportMeasure", "Evidence"];
+const TYPE_RU = { Product: "Изделие", Assembly: "Подсистема", Component: "Компонент", Technology: "Технология", Process: "Процесс", VNT: "ВНТ", NationalProject: "НП/ФП", ResearchProject: "НИОКТР", Organization: "Организация", ResearchTeam: "Коллектив", Publication: "Публикации", Patent: "Патент/РИД", Manufacturer: "Производитель", Supplier: "Поставщик", SupportMeasure: "Мера поддержки", Evidence: "Источник" };
+const color = (t) => getComputedStyle(document.documentElement).getPropertyValue("--c-" + t).trim() || "#888";
+function styleGraph() {
+  const txt = getComputedStyle(document.documentElement).getPropertyValue("--text").trim();
+  cy.style([
+    { selector: "node", style: { "background-color": (n) => color(n.data("type")), label: (n) => (["Product", "Assembly", "VNT", "NationalProject", "Organization"].includes(n.data("type")) || n.data("level") === "group" ? n.data("label") : ""), "font-size": 7, color: txt, "text-valign": "bottom", "text-margin-y": 2, width: (n) => ({ Product: 26, Assembly: 18, VNT: 18, NationalProject: 16, Technology: n.data("level") === "group" ? 14 : 8 })[n.data("type")] || 10, height: (n) => ({ Product: 26, Assembly: 18, VNT: 18, NationalProject: 16, Technology: n.data("level") === "group" ? 14 : 8 })[n.data("type")] || 10, "text-wrap": "ellipsis", "text-max-width": 90, "min-zoomed-font-size": 6 } },
+    { selector: "edge", style: { width: 0.7, "line-color": "#9aa0a6", opacity: 0.45, "curve-style": "haystack" } },
+    { selector: ".faded", style: { opacity: 0.08 } },
+    { selector: "node:selected", style: { "border-width": 3, "border-color": "#d9480f" } },
+    { selector: ".hl", style: { opacity: 1, width: 1.4, "line-color": "#d9480f", "font-size": 8 } },
+    { selector: "node.hl", style: { label: "data(label)" } },
+  ]);
+}
+RENDER.graph = (el) => {
+  const G = D.graph;
+  const edgeTypes = [...new Set(G.edges.map((e) => e.type))];
+  el.innerHTML = `<div class="section-head"><div><h1>Граф знаний</h1><p>${G.nodes.length} вершин 16 типов и ${G.edges.length} связей (${edgeTypes.join(", ")}). Нажмите на вершину, чтобы увидеть окрестность и сведения.</p></div></div>
+  <div class="split"><div><div class="toolbar"><input type="search" id="gq" placeholder="Найти вершину…"><select id="gLayout"><option value="cose">силовая раскладка</option><option value="concentric">концентрическая по типу</option><option value="breadthfirst">иерархия от изделия</option></select><button class="btn" id="gFit">Вписать</button><button class="btn" id="gAll">Показать всё</button></div>
+  <div class="legend-types" id="gTypes" style="margin-bottom:8px">${TYPES.map((t) => `<label><input type="checkbox" value="${t}" checked hidden><i style="background:var(--c-${t})"></i>${TYPE_RU[t]} <span class="faint">${G.nodes.filter((n) => n.type === t).length}</span></label>`).join("")}</div>
+  <div id="cy" role="img" aria-label="Граф знаний"></div></div><div class="card side" id="gSide"><p class="muted">Выберите вершину графа.</p><div class="sec"><h4>Типы связей</h4>${edgeTypes.map((t) => `<div class="mono" style="font-size:11.5px">${t} · ${G.edges.filter((e) => e.type === t).length}</div>`).join("")}</div></div></div>`;
+  if (!window.cytoscape) { $("#cy").innerHTML = '<div class="empty">Библиотека Cytoscape.js не загружена.</div>'; return; }
+  cy = window.cytoscape({ container: $("#cy"), elements: [...G.nodes.map((n) => ({ data: n })), ...G.edges.map((e) => ({ data: e }))], wheelSensitivity: 0.25, minZoom: 0.1, maxZoom: 4 });
+  styleGraph();
+  const layout = (name) => cy.layout({ name, animate: false, nodeDimensionsIncludeLabels: false, idealEdgeLength: 60, nodeRepulsion: 9000, gravity: 0.25, numIter: 1500, concentric: (n) => 16 - TYPES.indexOf(n.data("type")), levelWidth: () => 1, roots: name === "breadthfirst" ? "#P-ZN" : undefined, spacingFactor: name === "breadthfirst" ? 0.7 : 1 }).run();
+  layout("cose");
+  const focusNode = (n) => {
+    cy.elements().addClass("faded").removeClass("hl");
+    const nb = n.closedNeighborhood(); nb.removeClass("faded").addClass("hl");
+    const d = n.data();
+    const links = n.connectedEdges().map((e) => { const o = e.source().id() === d.id ? e.target() : e.source(); return `<div style="font-size:12px;margin:2px 0"><span class="mono muted">${e.data("type")}</span> → <a href="#" data-gn="${esc(o.id())}">${esc(o.data("label"))}</a> <span class="faint">${TYPE_RU[o.data("type")]}</span></div>`; }).join("");
+    $("#gSide").innerHTML = `<span class="badge" style="background:${color(d.type)};color:#fff">${TYPE_RU[d.type]}</span><h3 style="margin-top:6px">${esc(d.label)}</h3>${d.full ? `<p style="font-size:12.5px">${esc(d.full)}</p>` : ""}<div class="mono muted" style="font-size:11px">${esc(d.id)}</div>
+    <div class="pill-row" style="margin-top:8px">${sysById[d.id] ? chipS(d.id) : ""}${techById[d.id] ? chipT(d.id) : ""}${resById[d.id] ? chipR(d.id) : ""}${orgById[d.id] ? `<button class="chip" data-go-org="${d.id}">карточка</button>` : ""}</div>
+    <div class="sec"><h4>Связи · ${n.connectedEdges().length}</h4>${links}</div>`;
+    $("#gSide").querySelectorAll("[data-gn]").forEach((a) => a.addEventListener("click", (e) => { e.preventDefault(); const m = cy.$id(a.dataset.gn); cy.$(":selected").unselect(); m.select(); focusNode(m); cy.animate({ center: { eles: m }, duration: 300 }); }));
+  };
+  cy.on("tap", "node", (e) => focusNode(e.target));
+  cy.on("tap", (e) => { if (e.target === cy) cy.elements().removeClass("faded hl"); });
+  $("#gLayout").addEventListener("change", (e) => layout(e.target.value));
+  $("#gFit").addEventListener("click", () => cy.fit(undefined, 20));
+  $("#gAll").addEventListener("click", () => { cy.elements().removeClass("faded hl"); cy.nodes().style("display", "element"); el.querySelectorAll("#gTypes input").forEach((i) => { i.checked = true; i.parentElement.style.opacity = 1; }); });
+  $("#gTypes").addEventListener("click", (e) => { const lab = e.target.closest("label"); if (!lab) return; e.preventDefault(); const inp = lab.querySelector("input"); inp.checked = !inp.checked; lab.style.opacity = inp.checked ? 1 : 0.4; cy.nodes(`[type = "${inp.value}"]`).style("display", inp.checked ? "element" : "none"); });
+  $("#gq").addEventListener("change", (e) => { const v = e.target.value.toLowerCase(); const m = cy.nodes().filter((n) => (n.data("label") + " " + (n.data("full") || "") + n.id()).toLowerCase().includes(v)); if (m.length) { cy.$(":selected").unselect(); m[0].select(); focusNode(m[0]); cy.animate({ center: { eles: m[0] }, zoom: 1.6, duration: 300 }); } });
+  if (state.graphFocus) { const n = cy.$id(state.graphFocus); if (n.length) { n.select(); focusNode(n); setTimeout(() => cy.animate({ center: { eles: n }, zoom: 1.4, duration: 300 }), 50); } state.graphFocus = null; }
+};
+
+// ---------------- 10 ДЕФИЦИТЫ И ПРОЕКТ ----------------
+RENDER.gaps = (el) => {
+  const S = D.support;
+  const pj = S.devProject;
+  el.innerHTML = `<div class="section-head"><div><h1>Технологические дефициты и проект развития</h1><p>Аналитический слой атласа: где данные показывают разрыв между потребностью узла и подтверждённым отечественным предложением.</p></div></div>
+  <div class="grid g3">${S.deficits.map((d) => `<div class="card"><div class="pill-row"><span class="badge b-bad">${d.id}</span><span class="muted" style="font-size:12px">острота ${"●".repeat(d.severity)}${"○".repeat(5 - d.severity)}</span></div><h3 style="margin-top:6px">${esc(d.title)}</h3><div class="chips" style="margin:6px 0">${d.nodes.map(chipS).join("")}${d.techs.map(chipT).join("")}</div><h4 style="margin-top:8px">Основания</h4><ul class="list" style="font-size:12.5px">${d.evidence.map((x) => `<li>${esc(x)}</li>`).join("")}</ul><h4 style="margin-top:8px">Потребность</h4><p style="font-size:12.5px">${esc(d.need)}</p></div>`).join("")}</div>
+  <div class="card" style="margin-top:14px"><span class="badge b-acc">аналитическая гипотеза</span><h2 style="margin-top:6px">${esc(pj.title.replace("Проект развития (аналитическая гипотеза): ", ""))}</h2><p style="margin-top:6px">${esc(pj.goal)}</p><p class="note" style="margin-top:8px">${esc(pj.disclaimer)}</p>
+  <div style="overflow:auto;margin-top:12px"><table><thead><tr><th>Стадия</th><th>Содержание</th><th>Организации с заделом</th><th>Инструменты поддержки</th></tr></thead><tbody>${pj.stages.map((s) => `<tr><td>${esc(S.stages[s.stage])}</td><td>${esc(s.name)}</td><td>${s.orgs.map((o) => `<button class="chip" data-go-org="${o}">${esc(orgById[o].name.split(" (")[0])}</button>`).join(" ")}</td><td style="font-size:12.5px">${s.support.map((m) => `<div class="sup-line">${esc(supById[m].name.split(":")[0].split("(")[0].trim())}</div>`).join("")}</td></tr>`).join("")}</tbody></table></div>
+  <h4 style="margin-top:12px">Показатели результата</h4><ul class="list" style="font-size:13px">${pj.kpis.map((k) => `<li>${esc(k)}</li>`).join("")}</ul><div class="chips" style="margin-top:8px">${pj.covers.map((c) => `<span class="badge b-bad">${c}</span>`).join(" ")}</div></div>`;
+};
+
+// ---------------- 11 ИСТОЧНИКИ ----------------
+RENDER.sources = (el) => {
+  el.innerHTML = `<div class="section-head"><div><h1>Источники, доказательства и ограничения</h1><p>Внешние источники использовались на этапе подготовки; при показе макета доступ к API не требуется — все данные локальны (<span class="mono">data/*.json</span>).</p></div></div>
+  <div class="card"><div class="table-wrap" style="max-height:none"><table><thead><tr><th>ID</th><th>Тип</th><th>Источник</th><th>Способ доступа</th><th>Надёжность</th><th>Дата</th></tr></thead><tbody>${D.evidence.map((s) => `<tr><td class="mono">${s.id}</td><td>${esc(s.type)}</td><td><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></td><td>${esc(s.via)}</td><td>${esc(s.reliability)}</td><td class="mono">${s.date}</td></tr>`).join("")}</tbody></table></div></div>
+  <div class="grid g2" style="margin-top:14px"><div class="card"><h3>Что проверено</h3><ul class="list" style="font-size:13px"><li>ЕГИСУ НИОКТР — через подключённый коннектор: карточки НИОКТР, РИД, диссертации, справочники НП/ФП и ВНТ по Указу № 529.</li><li>Презентация Минпромторга «О статусе реализации НПТЛ «Новые материалы и химия»» (документ пользователя) — цепочки ФП, инжиниринговые центры, меры поддержки.</li><li>Crossref — 38 публикаций российских организаций по катализаторам Циглера–Натта (с 2015 г.).</li><li>eCFR — Supplement No. 4 к 15 CFR 746 (ред. 01.11.2026): проверено наличие HTS-кодов катализаторов, хлорида магния, TiCl₄, алюминийорганики и оборудования.</li><li>rscf.ru — перечень конкурсов РНФ (конкурс № 3049).</li><li>Веб-поиск — фабрика катализаторов СИБУРа в Казани, установка ТЭА «Томскнефтехима», обзоры рынка (уровень «СМИ/вторичный»).</li><li>Навык Anatomy — кит использован для изометрической схемы производства.</li></ul></div>
+  <div class="card"><h3>Ограничения сессии подготовки</h3><ul class="list" style="font-size:13px"><li>Патентные реестры (ФИПС, Espacenet, Google Patents) отвечают 403/503; для EPO OPS нужен ключ разработчика → зарубежные патентные семейства не приведены, показаны РИД ЕГИСУ.</li><li>EUR-Lex блокирует автоматические запросы → включение CN 3815/2931 в Приложения Регламента 833/2014 не подтверждено.</li><li>Мощности и текущий выпуск отечественных производителей (ТЭА, TiCl₄, MgCl₂) по первоисточникам не проверены — указаны со статусом «не проверено».</li><li>Шкала УГТ для катализаторов — аналитическая адаптация (ГОСТ Р 58048-2017 + стадии регламентов), не утверждённый отраслевой документ.</li><li>Доли рынка производителей катализаторов не приводятся: в доступных обзорах они не раскрыты.</li></ul><p class="src" style="margin-top:8px">Подробно — research/research-log.md, research/source-registry.md, research/gaps.md.</p></div></div>`;
+};
+
+// ---------------- ВВОЗ И САНКЦИИ ----------------
+RENDER.sourcing = (el) => {
+  const S = D.sourcing;
+  const cnt = (v) => SRC_.filter((c) => c.verdict === v).length;
+  el.innerHTML = `<div class="section-head"><div><h1>Ввоз в Россию и локализация по каждому компоненту</h1><p>Для каждого компонента каталитической системы и аппарата производства: что можно ввозить (сырьё, полупродукты, оборудование, ПО и услуги), что затруднено санкциями и из каких стран, какие есть отечественные заделы и за какой срок можно получить своё решение.</p></div></div>
+  <div class="grid g3" style="margin-bottom:14px">
+    <div class="card stat"><b style="color:var(--ok)">${cnt("ok")}</b><span>компонентов: ввоз возможен или производятся в РФ</span></div>
+    <div class="card stat"><b style="color:var(--warn)">${cnt("hard")}</b><span>сложно: ведущие поставщики под ограничениями ЕС/США, ввоз из третьих стран с риском</span></div>
+    <div class="card stat"><b style="color:var(--bad)">${cnt("critical")}</b><span>критично: ограничения и нет подтверждённой альтернативы нужного класса</span></div>
+  </div>
+  <div class="card"><div class="toolbar"><select id="srcN"><option value="">все узлы</option>${SYS.map((x) => `<option value="${x.id}" ${state.srcNode === x.id ? "selected" : ""}>${x.id} ${esc(x.short)}</option>`).join("")}</select><select id="srcV"><option value="">все категории</option><option value="critical">критично</option><option value="hard">сложно</option><option value="ok">ввоз возможен</option></select><span class="muted" id="srcCount" style="font-size:12px"></span></div>
+  <div class="table-wrap" style="max-height:none"><table><thead><tr><th>Компонент</th><th>Тип</th><th>ТН ВЭД (ориент.)</th><th>Страны-производители</th><th>ЕС</th><th>США</th><th>Итог</th><th>Отечественное решение / задел</th><th>Действие</th><th>Срок ввоза*</th><th>Срок своего решения*</th></tr></thead><tbody id="srcBody"></tbody></table></div>
+  <p class="src" style="margin-top:8px">* Сроки — аналитическая оценка макета, не данные поставщиков. ${S.method.map(esc).join(" ")}</p></div>
+  <div class="card"><h3>Доступ к программному обеспечению</h3><div class="table-wrap" style="max-height:none;margin-top:8px"><table><thead><tr><th>ПО</th><th>ЕС</th><th>США</th><th>Отечественная альтернатива</th><th>Итог</th></tr></thead><tbody>${S.softwareAccess.map((x) => `<tr><td><b>${esc(x.item)}</b></td><td>${esc(x.eu)}</td><td>${esc(x.us)}</td><td>${esc(x.ru)}</td><td>${verdictBadge(x.verdict)}</td></tr>`).join("")}</tbody></table></div>
+  <p class="src" style="margin-top:6px">ЕС: ст. 5n(2b) и Прил. XXXIX Регламента 833/2014 (по разъяснениям Еврокомиссии). США: правило BIS для EAR99-ПО (с 16.09.2024), ПО ЧПУ (27.08.2024), определение OFAC об IT-услугах (с 12.09.2024) — по юридическим обзорам; перед применением сверить с первоисточниками.</p></div>
+  <div class="card"><h3>Принципы</h3><ul class="list" style="font-size:13px">${D.suppliers.exportPrinciples.map((p) => `<li>${esc(p)}</li>`).join("")}</ul></div>`;
+  const draw = () => {
+    const n = $("#srcN").value, v = $("#srcV").value;
+    const list = SRC_.filter((c) => (!n || c.id.startsWith("C" + n.slice(1) + ".")) && (!v || c.verdict === v));
+    $("#srcCount").textContent = `${list.length} из ${SRC_.length}`;
+    $("#srcBody").innerHTML = list.map((c) => { const sys = "S" + c.id.slice(1, 3); return `<tr><td><span class="mono muted">${c.id}</span> <b>${esc(c.name)}</b><div>${chipS(sys)}</div></td><td>${esc(c.kind)}</td><td class="mono">${esc(c.hs)}</td><td>${esc(c.origins.join(", "))}</td><td style="font-size:11.5px">${esc(c.eu)}</td><td style="font-size:11.5px">${esc(c.us)}</td><td>${verdictBadge(c.verdict)}</td><td style="font-size:12px">${esc(c.ruAlt)}</td><td style="font-size:12px">${esc(c.action)}</td><td style="font-size:12px">${esc(c.tImport)}</td><td class="mono">${esc(c.tLocal)}</td></tr>`; }).join("");
+  };
+  $("#srcN").addEventListener("change", draw); $("#srcV").addEventListener("change", draw); draw();
+};
+
+// ---------------- УГТ И КД ----------------
+RENDER.ugt = (el) => {
+  const U = D.ugt;
+  el.innerHTML = `<div class="section-head"><div><h1>Уровни готовности технологий, ТУ и регламенты</h1><p>${esc(U.scale.source)}. Задачи на доработку российских заделов. ${esc(U.scale.rule)}</p></div></div>
+  <div class="card" style="overflow:auto"><h3>${esc(U.scale.title || "Шкала УГТ")}</h3><div class="ugt-ladder">${U.scale.levels.map((l) => `<div class="ugt-step"><div class="ugt-n">${l.n}</div><div class="ugt-lit">${l.litera ? "литера «" + esc(l.litera) + "»" : "—"}</div><b>${esc(l.title)}</b><div class="muted" style="font-size:11.5px;margin-top:4px">${esc(l.stage)}</div><details style="margin-top:6px"><summary class="src" style="cursor:pointer">документы (${l.docs.length})</summary><ul class="list" style="font-size:11.5px">${l.docs.map((d) => `<li>${esc(d)}</li>`).join("")}</ul></details></div>`).join("")}</div><p class="src" style="margin-top:8px">${esc(U.scale.estdNote)}</p></div>
+  <div class="card"><h3>Задачи на доработку заделов</h3><ul class="list" style="font-size:12.5px;margin:6px 0 10px">${U.note.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>
+  <div class="table-wrap" style="max-height:none"><table><thead><tr><th>Задел (НИОКТР)</th><th>Узел</th><th>УГТ сейчас (оценка)</th><th>Почему так</th><th>Подтверждено документами</th><th>Литера «О» (ТУ)</th><th>Цель</th><th>Задача организации</th><th>Срок, мес.*</th><th>Инструменты</th></tr></thead><tbody>
+  ${[...U.backlog].sort((a, b) => (b.node === state.ugtNode) - (a.node === state.ugtNode)).map((b) => `<tr class="${b.node === state.ugtNode ? "row-rel" : ""}"><td><b>${esc(b.title)}</b><div class="chips" style="margin-top:4px">${b.id.split(" / ").map(chipR).join("")}</div><div class="src">${esc(orgById[b.org]?.name.split(" (")[0] || "")}</div></td><td>${b.node === "S00" ? '<span class="chip static">продукт целиком</span>' : chipS(b.node)}</td><td>${ugtBar(b.ugtNow, b.target)}</td><td style="font-size:12px">${esc(b.ugtNowWhy)}${b.ugtEgisu ? `<div class="src">ЕГИСУ: ${esc(b.ugtEgisu)}</div>` : ""}</td><td style="font-size:12px">${esc(b.documented)}</td><td><span class="badge b-warn">не подтверждена</span></td><td><b>УГТ ${b.target}</b></td><td><ul class="list" style="font-size:12px">${b.tasks.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></td><td class="mono">${esc(b.months)}</td><td style="font-size:12px">${b.support.map((m) => `<div>• ${esc(supById[m]?.name.split(":")[0].split("(")[0].trim() || m)}</div>`).join("")}</td></tr>`).join("")}
+  </tbody></table></div><p class="src" style="margin-top:6px">* Сроки — аналитическая оценка. УГТ «сейчас» — оценка макета по признакам из карточек ЕГИСУ; уровень считается подтверждённым только при наличии полного пакета документов по шкале.</p></div>`;
+};
+function ugtBar(now, target) {
+  return `<div class="ugtbar" title="сейчас ${now}, цель ${target}">${Array.from({ length: 9 }, (_, i) => `<i class="${i < now ? "on" : i < target ? "tg" : ""}"></i>`).join("")}</div><div class="mono" style="font-size:11px">${now} → ${target}</div>`;
+}
+
+// ---------------- СТАНДАРТЫ И СРЕДЫ ----------------
+RENDER.norms = (el) => {
+  const N = D.norms;
+  const kinds = [...new Set(N.standards.map((x) => x.kind))];
+  el.innerHTML = `<div class="section-head"><div><h1>Стандарты, регламенты ЕАЭС и технологические среды</h1><p>Нормативная база для выпуска, обращения и перевозки катализатора и его компонентов, а также технологические среды (газы и жидкости), без которых производство не работает, и их наличие в России.</p></div></div>
+  <div class="note info" style="margin-bottom:14px">${N.note.map(esc).join(" ")}</div>
+  <div class="card"><h3>Нормативные документы</h3><div class="table-wrap" style="max-height:none;margin-top:8px"><table><thead><tr><th>Документ</th><th>Наименование</th><th>Группа</th><th>Объект</th><th>Зачем</th><th>Статус</th></tr></thead><tbody>
+  ${kinds.map((k) => N.standards.filter((x) => x.kind === k).map((x) => `<tr><td class="mono" style="white-space:nowrap">${esc(x.code)}</td><td>${esc(x.title)}</td><td>${esc(x.kind)}</td><td>${esc(x.scope)}</td><td style="font-size:12px">${esc(x.why)}</td><td>${x.status === "подтверждён" ? '<span class="badge b-ok">подтверждён</span>' : '<span class="badge b-none">проверить</span>'}</td></tr>`).join("")).join("")}
+  </tbody></table></div></div>
+  <div class="card"><h3>Технологические среды: газы и жидкости</h3><p class="muted" style="font-size:12.5px">Основное сырьё (MgCl₂, TiCl₄, доноры, ТЭА) разобрано в технологиях T01–T05 и в разделе «Ввоз и санкции».</p><div class="table-wrap" style="max-height:none;margin-top:8px"><table><thead><tr><th>Среда</th><th>Назначение</th><th>Узлы</th><th>Требования</th><th>Стандарт / ТУ</th><th>Критична для производства</th><th>Производство в РФ</th><th>Санкционный аспект</th><th>Действие</th></tr></thead><tbody>
+  ${N.fluids.map((f) => `<tr><td><b>${esc(f.name)}</b></td><td style="font-size:12px">${esc(f.use)}</td><td>${f.nodes.map(chipS).join(" ")}</td><td style="font-size:12px">${esc(f.spec)}</td><td style="font-size:12px">${esc(f.std)}</td><td>${f.critical === "да" ? '<span class="badge b-acc">да</span>' : `<span class="badge b-none">${esc(f.critical)}</span>`}</td><td style="font-size:12px">${esc(f.ru)}</td><td style="font-size:12px">${esc(f.sanctions)}</td><td style="font-size:12px">${esc(f.action)}</td></tr>`).join("")}
+  </tbody></table></div></div>`;
+};
+
+go(location.hash.slice(1) || "anatomy");

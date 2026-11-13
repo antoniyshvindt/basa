@@ -1,0 +1,325 @@
+{
+ "retrieved": "2026-11-13",
+ "method": "Crossref REST API: query.bibliographic='Ziegler-Natta catalyst propylene polymerization MgCl2 TiCl4 donor' + query.affiliation=<организация>, с 2015 г.; оставлены записи, где аффилиация автора содержит название организации, а заголовок — термины катализа полимеризации олефинов.",
+ "byOrg": {
+  "ORG-IK": [
+   {
+    "doi": "10.1002/macp.201500486",
+    "title": "Effect of AlEt3and an External Donor on the Distribution of Active Sites According to Their Stereospecificity in Propylene Polymerization over TiCl4/MgCl2Catalysts with Different Titanium Content",
+    "journal": "Macromolecular Chemistry and Physics",
+    "year": 2016,
+    "cited": 25,
+    "authors": "Nikolaeva M., Mikenas T., Matsko M., Zakharov V."
+   },
+   {
+    "doi": "10.1021/acs.jpcc.5b11286",
+    "title": "Electron Paramagnetic Resonance Study of the Interaction of Surface Titanium Species with AlR3 Cocatalyst in Supported Ziegler–Natta Catalysts with a Low Titanium Content",
+    "journal": "The Journal of Physical Chemistry C",
+    "year": 2016,
+    "cited": 25,
+    "authors": "Koshevoy E., Mikenas T., Zakharov V., Shubin A. и др."
+   },
+   {
+    "doi": "10.1002/app.46291",
+    "title": "Propylene polymerization over supported Ziegler–Natta catalysts: Effect of internal and external donors on distribution of active sites according to stereospecificity",
+    "journal": "Journal of Applied Polymer Science",
+    "year": 2018,
+    "cited": 13,
+    "authors": "Nikolaeva M., Matsko M., Zakharov V."
+   },
+   {
+    "doi": "10.1002/app.48212",
+    "title": "Formation of Ziegler‐type catalytic systems on the surface of multi‐walled carbon nanotubes for the production of composite materials by\n                    in situ\n                    polymerization",
+    "journal": "Journal of Applied Polymer Science",
+    "year": 2019,
+    "cited": 6,
+    "authors": "Zdanovich A., Semikolenova N., Kuznetsov V., Matsko M. и др."
+   },
+   {
+    "doi": "10.3390/polym15214316",
+    "title": "Heterogeneity of Active Sites in the Polymer Chain Transfer Reactions at Olefin Polymerization over Multisite Supported Ziegler-Natta Catalysts",
+    "journal": "Polymers",
+    "year": 2023,
+    "cited": 5,
+    "authors": "Matsko M., Zakharov V."
+   },
+   {
+    "doi": "10.1002/app.50528",
+    "title": "The morphology evolution of polyethylene produced in the presence of a Ziegler‐type catalyst anchored on the surface of multi‐walled carbon nanotubes",
+    "journal": "Journal of Applied Polymer Science",
+    "year": 2021,
+    "cited": 4,
+    "authors": "Zdanovich A., Moseenkov S., Ishchenko A., Kuznetsov V. и др."
+   },
+   {
+    "doi": "10.1177/0003702820927434",
+    "title": "New Insight into Titanium–Magnesium Ziegler–Natta Catalysts Using Photoluminescence Spectroscopy",
+    "journal": "Applied Spectroscopy",
+    "year": 2020,
+    "cited": 3,
+    "authors": "Panchenko V., Kostyukov A., Shabalin A., Paukshtis E. и др."
+   },
+   {
+    "doi": "10.1002/mren.201700045",
+    "title": "1‐Hexene Polymerization over Supported Titanium–Magnesium Catalyst: The Effect of Composition of the Catalytic System and Polymerization Conditions on Temperature Dependence of the Polymerization Rate",
+    "journal": "Macromolecular Reaction Engineering",
+    "year": 2017,
+    "cited": 3,
+    "authors": "Echevskaya L., Zakharov V., Matsko M., Nikolaeva M."
+   },
+   {
+    "doi": "10.3390/catal13020333",
+    "title": "New Ni(II)-Ni(II) Dinuclear Complex, a Resting State of the (α-diimine)NiBr2/AlMe3 Catalyst System for Ethylene Polymerization",
+    "journal": "Catalysts",
+    "year": 2023,
+    "cited": 3,
+    "authors": "Soshnikov I., Semikolenova N., Bryliakova A., Antonov A. и др."
+   },
+   {
+    "doi": "10.1002/macp.201700488",
+    "title": "Comparative Study of Distribution of Active Sites According to Their Stereospecificity in Propylene Polymerization over the Traditional TiCl3 and Supported Titanium–Magnesium Catalysts with Different Composition",
+    "journal": "Macromolecular Chemistry and Physics",
+    "year": 2018,
+    "cited": 3,
+    "authors": "Nikolaeva M., Matsko M., Zakharov V."
+   },
+   {
+    "doi": "10.3390/ijms232214384",
+    "title": "Unusual Effect of α-olefins as Chain Transfer Agents in Ethylene Polymerization over the Catalyst with Nonsymmetrical Bis(imino)pyridine Complex of Fe(II) and Modified Methylalumoxane (MMAO) Cocatalyst",
+    "journal": "International Journal of Molecular Sciences",
+    "year": 2022,
+    "cited": 3,
+    "authors": "Semikolenova N., Matsko M., Zakharov V., Sun W."
+   },
+   {
+    "doi": "10.3390/polym15010087",
+    "title": "Polymerization of Hexene-1 and Propylene over Supported Titanium–Magnesium Catalyst: Comparative Data on the Polymerization Kinetics and Molecular Weight Characteristics of Polymers",
+    "journal": "Polymers",
+    "year": 2022,
+    "cited": 2,
+    "authors": "Matsko M., Echevskaya L., Zakharov V."
+   },
+   {
+    "doi": "10.18412/1816-0387-2019-2-104-113",
+    "title": "Kinetic Studies of Chain-Transfer Reactions in Polymerization of Hexene-1 over Highly Active Supported Titanium-Magnesium Catalysts",
+    "journal": "Kataliz v promyshlennosti",
+    "year": 2019,
+    "cited": 0,
+    "authors": "Echevskaya L., Matsko M., Zakharov V."
+   }
+  ],
+  "ORG-MSU": [
+   {
+    "doi": "10.1515/pac-2016-1131",
+    "title": "Non-traditional Ziegler-Natta catalysis in α-olefin transformations: reaction mechanisms and product design",
+    "journal": "Pure and Applied Chemistry",
+    "year": 2017,
+    "cited": 42,
+    "authors": "Nifant’ev I., Ivchenko P., Tavtorkin A., Vinogradov A. и др."
+   },
+   {
+    "doi": "10.1021/acscatal.1c01611",
+    "title": "Rigid Postmetallocene Catalysts for Propylene Polymerization: Ligand Design Prevents the Temperature-Dependent Loss of Stereo- and Regioselectivities",
+    "journal": "ACS Catalysis",
+    "year": 2021,
+    "cited": 21,
+    "authors": "Goryunov G., Sharikov M., Iashin A., Canich J. и др."
+   },
+   {
+    "doi": "10.1039/c7ra11622e",
+    "title": "Testing a simple approach for theoretical evaluation of radiolysis products in extraction systems. A case of N,O-donor ligands for Am/Eu separation",
+    "journal": "RSC Advances",
+    "year": 2017,
+    "cited": 18,
+    "authors": "Matveev P., Mitrofanov A., Petrov V., Zhokhov S. и др."
+   },
+   {
+    "doi": "10.1039/d1dt00645b",
+    "title": "Multisubstituted\n                    C\n                    2\n                    -symmetric\n                    ansa\n                    -metallocenes bearing nitrogen heterocycles: influence of substituents on catalytic properties in propylene polymerization at higher temperatures",
+    "journal": "Dalton Transactions",
+    "year": 2021,
+    "cited": 16,
+    "authors": "Kulyabin P., Izmer V., Goryunov G., Sharikov M. и др."
+   },
+   {
+    "doi": "10.3390/polym10111281",
+    "title": "A Novel Ziegler–Natta-Type Catalytic System—TiCl4/2,2′-Dimethoxy-1,1′-Binaphthalene/Et3Al2Cl3/Bu2Mg for Production of Ultrahigh Molecular Weight Polyethylene Nascent Reactor Powders, Suitable for Solvent-Free Processing",
+    "journal": "Polymers",
+    "year": 2018,
+    "cited": 11,
+    "authors": "Serenko O., Buzin M., Tuskaev V., Gagieva S. и др."
+   },
+   {
+    "doi": "10.17759/sps.2024150404",
+    "title": "Metamorphosis of the Identity of the Human Сompleted: from Digital Donor to Digital Centaur",
+    "journal": "Social Psychology and Society",
+    "year": 2025,
+    "cited": 8,
+    "authors": "Soldatova G., Chigarkova S., Ilyukhina S."
+   },
+   {
+    "doi": "10.1055/s-0037-1611085",
+    "title": "Synthesis of Perylene-Tagged Internal and External Electron Donors for Magnesium Dichloride Supported Ziegler–Natta Catalysts",
+    "journal": "Synthesis",
+    "year": 2018,
+    "cited": 3,
+    "authors": "Voskoboynikov A., Guzeev B., Mladentsev D., Sharikov M. и др."
+   },
+   {
+    "doi": "10.1039/d6dt00758a",
+    "title": "Cyclopropyl\n                    vs.\n                    isopropyl in zirconocenes: unexpected catalytic performance in propylene polymerization",
+    "journal": "Dalton Transactions",
+    "year": 2026,
+    "cited": 0,
+    "authors": "Samsonov O., Sharikov M., Urintsev D., Kulyabin P. и др."
+   },
+   {
+    "doi": "10.1039/d6dt90080a",
+    "title": "Correction: Cyclopropyl\n                    vs.\n                    isopropyl in zirconocenes: unexpected catalytic performance in propylene polymerization",
+    "journal": "Dalton Transactions",
+    "year": 2026,
+    "cited": 0,
+    "authors": "Samsonov O., Sharikov M., Urintsev D., Kulyabin P. и др."
+   }
+  ],
+  "ORG-TIPS": [
+   {
+    "doi": "10.1515/pac-2016-1131",
+    "title": "Non-traditional Ziegler-Natta catalysis in α-olefin transformations: reaction mechanisms and product design",
+    "journal": "Pure and Applied Chemistry",
+    "year": 2017,
+    "cited": 42,
+    "authors": "Nifant’ev I., Ivchenko P., Tavtorkin A., Vinogradov A. и др."
+   },
+   {
+    "doi": "10.1039/d1py01039e",
+    "title": "Cocatalyst\n                    versus\n                    precatalyst impact on the vinyl-addition polymerization of norbornenes with polar groups: looking at the other side of the coin",
+    "journal": "Polymer Chemistry",
+    "year": 2021,
+    "cited": 22,
+    "authors": "Bermesheva E., Nazarov I., Kataranova K., Khrychikova A. и др."
+   },
+   {
+    "doi": "10.3390/en14185890",
+    "title": "Non-Catalytic Dissolution of Biochar Obtained by Hydrothermal Carbonization of Sawdust in Hydrogen Donor Solvent",
+    "journal": "Energies",
+    "year": 2021,
+    "cited": 8,
+    "authors": "Krylova A., Krysanova K., Kulikova M., Kulikov A."
+   },
+   {
+    "doi": "10.1021/acsapm.5c03506",
+    "title": "Hydrophobic Ionic Porous Aromatic Frameworks with Hydrogen-Bond-Donor Sites for Cooperative Metal-Free CO\n                    2\n                    Cycloaddition",
+    "journal": "ACS Applied Polymer Materials",
+    "year": 2025,
+    "cited": 5,
+    "authors": "Makhova V., Kulikov L., Maximov A."
+   }
+  ],
+  "ORG-UFIC": [],
+  "ORG-NIOCH": [
+   {
+    "doi": "10.1002/chem.201703018",
+    "title": "Nature of Bonding in Donor–Acceptor Interactions Exemplified by Complexes of N‐Heterocyclic Carbenes with 1,2,5‐Telluradiazoles",
+    "journal": "Chemistry – A European Journal",
+    "year": 2017,
+    "cited": 25,
+    "authors": "Pushkarevsky N., Petrov P., Grigoriev D., Smolentsev A. и др."
+   },
+   {
+    "doi": "10.1002/aoc.6529",
+    "title": "Ring size enlargement in an ortho‐cycloalkyl‐substituted bis(imino)pyridine‐cobalt ethylene polymerization catalyst and its impact on performance and polymer properties",
+    "journal": "Applied Organometallic Chemistry",
+    "year": 2021,
+    "cited": 13,
+    "authors": "Han M., Oleynik I., Liu M., Ma Y. и др."
+   },
+   {
+    "doi": "10.3390/ma10050496",
+    "title": "A Study of Ziegler–Natta Propylene Polymerization Catalysts by Spectroscopic Methods",
+    "journal": "Materials",
+    "year": 2017,
+    "cited": 11,
+    "authors": "Tkachenko O., Kucherov A., Kustov L., Virkkunen V. и др."
+   },
+   {
+    "doi": "10.1515/zpch-2016-0832",
+    "title": "Novel Anthrathiophene-Based Small Molecules as Donor Material for Organic Photovoltaics: Synthesis and Light-Induced EPR Study",
+    "journal": "Zeitschrift für Physikalische Chemie",
+    "year": 2016,
+    "cited": 10,
+    "authors": "Shatrova A., Baranov D., Uvarov M., Kazantsev M. и др."
+   },
+   {
+    "doi": "10.1002/app.56878",
+    "title": "Transition and Migration of Ziegler–Natta Catalyst System in Propylene Polymerization. I. Quantitative 1H NMR Analysis of the Extracts From Polypropylene Granules",
+    "journal": "Journal of Applied Polymer Science",
+    "year": 2025,
+    "cited": 3,
+    "authors": "Zhao L., Li J., Liu Q., Zhang H. и др."
+   },
+   {
+    "doi": "10.1002/app.57488",
+    "title": "Transition and Migration of Ziegler‐Natta Catalyst System in Propylene Polymerization. II. Comprehensive Analysis of the Extract From Polypropylene Granules With Isopropyl Alcohol/n‐Hexane",
+    "journal": "Journal of Applied Polymer Science",
+    "year": 2025,
+    "cited": 1,
+    "authors": "Zhao L., Zhang R., Liu Q., Zhang H. и др."
+   },
+   {
+    "doi": "10.1002/qua.27511",
+    "title": "Dihydro‐1H‐Pyrazoles as Donor Blocks in Donor–Acceptor Chromophores for Electro‐Optics: A DFT Study of Hyperpolaizability and Electronic Excitations",
+    "journal": "International Journal of Quantum Chemistry",
+    "year": 2024,
+    "cited": 0,
+    "authors": "Ishchenko R., Shelkovnikov V."
+   }
+  ],
+  "ORG-KFU": [
+   {
+    "doi": "10.3390/pr10122705",
+    "title": "Modelling of Propylene Polymerization in a Loop Reactor on the Titanium–Magnesium Catalyst Taking into Account the Transformation of Active Centers",
+    "journal": "Processes",
+    "year": 2022,
+    "cited": 3,
+    "authors": "Manuyko G., Bronskaya V., Kharitonova O., Ignashina T. и др."
+   },
+   {
+    "doi": "10.3390/polym14235183",
+    "title": "Temperature Dependence of the Kinetic Parameters of the Titanium–Magnesium Catalyzed Propylene Polymerization",
+    "journal": "Polymers",
+    "year": 2022,
+    "cited": 3,
+    "authors": "Bronskaya V., Manuyko G., Aminova G., Kharitonova O. и др."
+   }
+  ],
+  "ORG-SIBUR": [],
+  "ORG-NKNH": [
+   {
+    "doi": "10.47664/0022-9466-2026-85-4-240-247",
+    "title": "A Theoretical Study of a Methylaluminoxane-Modified Neodymium Ziegler–Natta Catalyst System for the Polymerization of 1,3-Butadiene. Part 2. Formation of Active Sites of Polymerization",
+    "journal": "Kauchuk i Rezina",
+    "year": 2026,
+    "cited": 0,
+    "authors": "Masliy A., Akhmetov I., Davletbaeva I., Falyakhov M. и др."
+   },
+   {
+    "doi": "10.47664/0022-9466-2026-85-2-78-85",
+    "title": "Theoretical Study of Methylaluminoxane-Modified Neodymium Ziegler-Natta Catalyst System for the Polymerization of 1,3-Butadiene. Part 1. Study of the Molecular Species of Methylaluminoxane",
+    "journal": "Kauchuk i Rezina",
+    "year": 2026,
+    "cited": 0,
+    "authors": "Masliy A., Akhmetov I., Davletbaeva I., Falyakhov M. и др."
+   },
+   {
+    "doi": "10.3390/catal16100864",
+    "title": "ONIOM Quantum Chemical Examination of 1,3-Butadiene Polymerization Catalyzed by the Methylaluminoxane-Modified Neodymium Ziegler–Natta System",
+    "journal": "Catalysts",
+    "year": 2026,
+    "cited": 0,
+    "authors": "Masliy A., Akhmetov I., Davletbaeva I., Falyakhov M. и др."
+   }
+  ]
+ },
+ "byTech": {}
+}

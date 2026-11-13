@@ -1,0 +1,137 @@
+[
+ {
+  "id": "E-EGISU-NIOKTR",
+  "type": "Реестр",
+  "title": "ЕГИСУ НИОКТР — карточки НИОКТР (открытые данные)",
+  "via": "коннектор egisuopen",
+  "url": "https://www.rosrid.ru/",
+  "date": "2026-11-13",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-EGISU-RID",
+  "type": "Реестр",
+  "title": "ЕГИСУ НИОКТР — карточки РИД",
+  "via": "коннектор egisuopen",
+  "url": "https://www.rosrid.ru/",
+  "date": "2026-11-13",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-EGISU-DISS",
+  "type": "Реестр",
+  "title": "ЕГИСУ НИОКТР — диссертации",
+  "via": "коннектор egisuopen",
+  "url": "https://www.rosrid.ru/",
+  "date": "2026-11-13",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-EGISU-FP",
+  "type": "Справочник",
+  "title": "ЕГИСУ НИОКТР — национальные и федеральные проекты",
+  "via": "коннектор egisuopen",
+  "url": "https://www.rosrid.ru/",
+  "date": "2026-11-13",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-EGISU-VNT",
+  "type": "Справочник",
+  "title": "ЕГИСУ НИОКТР — сквозные технологии по Указу № 529",
+  "via": "коннектор egisuopen",
+  "url": "https://www.rosrid.ru/",
+  "date": "2026-11-13",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-MPT-PDF",
+  "type": "Документ",
+  "title": "Минпромторг России: «О статусе реализации НПТЛ «Новые материалы и химия»» (презентация, документ пользователя)",
+  "via": "загружен пользователем",
+  "url": "https://minpromtorg.gov.ru/",
+  "date": "2026-11-13",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-RSF-CONTESTS",
+  "type": "Портал",
+  "title": "РНФ: перечень конкурсов (№ 3049 — НПТЛ «Новые материалы и химия»)",
+  "via": "rscf.ru",
+  "url": "https://rscf.ru/contests/",
+  "date": "2026-11-13",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-SUDACT-1649",
+  "type": "НПА",
+  "title": "Решение Минпромторга № 22-68462-00692-Р, версия 7 от 03.07.2026",
+  "via": "sudact.ru",
+  "url": "https://sudact.ru/law/reshenie-minpromtorga-rossii-ot-29022024-n-22-68462-00692-r/",
+  "date": "2026-11-13",
+  "reliability": "вторичный (полный текст)"
+ },
+ {
+  "id": "E-WEB-FRP",
+  "type": "Материал вуза",
+  "title": "НГТУ: меры поддержки (08.2026) — программы ФРП",
+  "via": "веб-поиск",
+  "url": "https://www.nstu.ru/static_files/112402/support_measures_08.2026.pdf",
+  "date": "2026-11-13",
+  "reliability": "вторичный"
+ },
+ {
+  "id": "E-WEB-SIBUR-KZN",
+  "type": "СМИ",
+  "title": "В Казани строят первый в России и СНГ завод катализаторов для полимеров СИБУРа («Вечерняя Казань»); «БИЗНЕС Online»",
+  "via": "веб-поиск",
+  "url": "https://evening-kazan.ru/ekonomika/news/v-kazani-stroyat-pervyy-v-rossii-i-sng-zavod-katalizatorov-dlya-polimerov-sibura",
+  "date": "2026-11-13",
+  "reliability": "вторичный"
+ },
+ {
+  "id": "E-WEB-TEA-TNH",
+  "type": "Статья",
+  "title": "Modernization of Technology and Organization of Production of Triethylaluminium Co-Catalyst for Olefin Polymerization (AMR 772, 2013)",
+  "via": "веб-поиск",
+  "url": "https://www.scientific.net/AMR.772.15",
+  "date": "2026-11-13",
+  "reliability": "вторичный (научная статья)"
+ },
+ {
+  "id": "E-WEB-MARKET",
+  "type": "Обзор рынка",
+  "title": "Обзоры рынка катализаторов для ПП (списки производителей; доли не раскрыты)",
+  "via": "веб-поиск",
+  "url": "https://www.researchandmarkets.com/reports/5731068/polypropylene-catalyst-global-market-insights",
+  "date": "2026-11-13",
+  "reliability": "вторичный"
+ },
+ {
+  "id": "E-ECFR-746",
+  "type": "НПА",
+  "title": "eCFR 15 CFR 746, Supplement No. 4 (ред. 01.11.2026)",
+  "via": "API www.ecfr.gov",
+  "url": "https://www.ecfr.gov/current/title-15/subtitle-B/chapter-VII/subchapter-C/part-746",
+  "date": "2026-11-13",
+  "reliability": "первичный"
+ },
+ {
+  "id": "E-WEB-EU833",
+  "type": "НПА",
+  "title": "Регламент Совета (ЕС) 833/2014 (консолидированный текст)",
+  "via": "веб-поиск",
+  "url": "https://eur-lex.europa.eu/eli/reg/2014/833/oj",
+  "date": "2026-11-13",
+  "reliability": "первичный (не открыт)"
+ },
+ {
+  "id": "E-CROSSREF",
+  "type": "Библиография",
+  "title": "Crossref REST API — публикации по катализаторам Циглера–Натта (с 2015 г.)",
+  "via": "api.crossref.org",
+  "url": "https://api.crossref.org/",
+  "date": "2026-11-13",
+  "reliability": "первичный (метаданные)"
+ }
+]
