@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>План ИИ 2027–2032</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;800&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: dark grid field; glowing hero word + particle sphere + floating task tiles; then a 1100px column of tile-built sections. Single dark look by choice (follows the reference). */
+:root{
+  --bg:#050507; --ink:#EEEBF7; --lav:#D3CAF2; --muted:#8E89A3; --faint:#5C586C;
+  --violet:#7A5CFF; --violet-2:#B596FF; --tile:#121117; --tile-2:#18161F; --line:#25222E;
+  --ok:#5ED3A2; --part:#E7B868; --gap:#FF7D8C;
+  --grid:rgba(255,255,255,.045);
+  --f-display:"Inter Tight","Golos Text",system-ui,sans-serif;
+  --f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 72px;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:96px 96px;background-position:-1px -1px;overflow-x:hidden}
+.wrap{max-width:1120px;margin:0 auto}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+.mono{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+a{color:var(--violet-2)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--violet-2);outline-offset:3px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;height:clamp(460px,64vw,720px);overflow:hidden}
+.hero .word{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;
+  font-family:var(--f-display);font-weight:800;font-size:clamp(120px,27vw,360px);letter-spacing:-.04em;line-height:.8;color:var(--lav);
+  text-shadow:0 0 18px rgba(211,202,242,.55),0 0 60px rgba(181,150,255,.35),0 0 140px rgba(122,92,255,.25);white-space:nowrap}
+.hero .word span{display:inline-block}
+.hero .word .gapw{width:clamp(130px,26vw,330px)}
+#sphere{position:absolute;left:50%;top:50%;width:min(64vw,560px);height:min(64vw,560px);transform:translate(-50%,-50%);display:block}
+.focus{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:14px;
+  font-family:var(--f-body);font-size:clamp(10px,1.2vw,13px);letter-spacing:.06em;text-transform:uppercase;color:#fff;white-space:nowrap;
+  text-shadow:0 0 12px rgba(0,0,0,.8)}
+.focus i{display:block;width:clamp(40px,9vw,110px);height:1px;background:rgba(255,255,255,.7)}
+.tag{position:absolute;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;
+  background:linear-gradient(160deg,#1b1a20,#0e0d12);border:1px solid #2a2832;color:#fff;
+  font-family:var(--f-display);font-weight:600;padding:12px 14px;min-width:70px;min-height:62px;text-align:center;
+  box-shadow:0 18px 40px rgba(0,0,0,.6);animation:drift 9s ease-in-out infinite}
+.tag small{font-family:var(--f-mono);font-weight:400;font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.tag::before,.tag::after{content:"";position:absolute;width:3px;height:3px;background:#55525f;top:5px;left:5px;box-shadow:calc(100% + 0px) 0 0 #55525f}
+.tag.l{font-size:19px;min-width:96px;min-height:86px}
+.tag.m{font-size:15px}
+.tag.s{font-size:12px;min-width:66px;min-height:54px}
+.tag.blur{filter:blur(1.2px);opacity:.85}
+@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@media (prefers-reduced-motion:reduce){.tag{animation:none}}
+@media (max-width:640px){.tag.hide-s{display:none}.tag.l{font-size:15px;min-width:74px;min-height:66px}}
+
+.intro{display:flex;flex-direction:column;gap:20px;margin-top:-8px}
+.intro h1{font-family:var(--f-display);font-weight:600;font-size:clamp(38px,7.2vw,92px);line-height:1.02;letter-spacing:-.02em;text-transform:uppercase;color:#fff}
+.intro .lead{max-width:62ch;font-size:clamp(16px,1.6vw,19px);color:#CFCBDD}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.04em;padding:5px 10px;border:1px solid var(--line);background:var(--tile);color:#CFCBDD}
+
+/* ---------- sections ---------- */
+section{padding-top:88px;display:flex;flex-direction:column;gap:22px}
+.sh{display:grid;grid-template-columns:120px minmax(0,1fr);gap:20px;align-items:baseline}
+.sh .mono{color:var(--violet-2)}
+.sh h2{font-family:var(--f-display);font-weight:600;font-size:clamp(28px,4.2vw,52px);line-height:.98;letter-spacing:-.03em;text-transform:uppercase}
+.sh p{grid-column:2;max-width:68ch;color:#C9C5D6;margin-top:10px}
+@media (max-width:720px){.sh{grid-template-columns:1fr;gap:8px}.sh p{grid-column:1}}
+
+.panel{background:var(--tile);border:1px solid var(--line);padding:20px;min-width:0}
+.grid{display:grid;gap:10px}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g5{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media (max-width:900px){.g5{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.g3,.g2,.g5{grid-template-columns:1fr}}
+
+.cell{background:var(--tile);border:1px solid var(--line);padding:16px 16px 18px;display:flex;flex-direction:column;gap:8px;min-width:0;position:relative}
+.cell .k{font-family:var(--f-mono);font-size:11.5px;color:var(--violet-2);letter-spacing:.06em}
+.cell b{font-family:var(--f-display);font-weight:600;font-size:18px;line-height:1.2}
+.cell p{font-size:14.5px;color:#C2BED0}
+.cell .ref{font-family:var(--f-mono);font-size:11px;color:var(--faint);margin-top:auto}
+
+.big{font-family:var(--f-display);font-weight:800;font-size:clamp(44px,6vw,76px);line-height:.9;letter-spacing:-.04em;color:var(--lav);text-shadow:0 0 30px rgba(181,150,255,.35)}
+
+/* bars */
+.bars{display:flex;flex-direction:column;gap:9px}
+.bar{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:14px;align-items:center}
+.bar .lab{font-size:14px;color:#C2BED0;text-align:right}
+.bar.core .lab{color:#fff;font-weight:600}
+.bar .tr{display:flex;align-items:center;gap:10px;min-width:0}
+.bar .fill{height:16px;background:#3A3746;flex:none}
+.bar.core .fill{background:var(--violet);box-shadow:0 0 18px rgba(122,92,255,.7)}
+.bar .v{font-family:var(--f-mono);font-size:12.5px;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+@media (max-width:640px){.bar{grid-template-columns:1fr;gap:4px}.bar .lab{text-align:left}}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:6px}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);background:var(--tile)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+.tbl table{min-width:760px}
+th,td{text-align:left;vertical-align:top;padding:11px 14px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:#0C0B10}
+td.n{font-family:var(--f-mono);color:var(--violet-2);white-space:nowrap}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.pf{display:inline-block;font-family:var(--f-mono);font-size:11px;padding:2px 7px;border:1px solid}
+.pf.a{color:#fff;border-color:#55525f}.pf.b{color:var(--violet-2);border-color:var(--violet)}.pf.c{color:var(--muted);border-color:var(--line);border-style:dashed}
+.st{font-family:var(--f-mono);font-size:11px;padding:2px 7px}
+.st.gap{color:var(--gap);border:1px solid var(--gap)}.st.part{color:var(--part);border:1px solid var(--part)}.st.ok{color:var(--ok);border:1px solid var(--ok)}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:130px repeat(3,minmax(0,1fr));gap:10px;position:relative}
+.road .h{font-family:var(--f-display);font-weight:600;font-size:17px;padding:4px 2px}
+.road .h small{display:block;font-family:var(--f-mono);font-weight:400;font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.road .lane{font-family:var(--f-display);font-weight:600;font-size:16px;padding-top:14px}
+.road .lane small{display:block;font-family:var(--f-body);font-weight:400;font-size:13px;color:var(--muted)}
+.road .c{background:var(--tile);border:1px solid var(--line);padding:14px;font-size:14px;color:#D8D4E4;min-width:0}
+.road .c.hot{border-color:var(--violet);background:linear-gradient(160deg,rgba(122,92,255,.22),rgba(122,92,255,.06));color:#fff;box-shadow:0 0 30px rgba(122,92,255,.25)}
+.road .gate{grid-column:2 / -1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.road .gate div{font-family:var(--f-mono);font-size:11.5px;color:var(--violet-2);padding:8px 2px;border-top:1px dashed var(--violet)}
+@media (max-width:760px){.road{grid-template-columns:1fr}.road .h.e,.road .gate{display:none}.road .lane{padding-top:18px}}
+
+/* stack transition */
+.swap{display:grid;grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr);gap:8px;align-items:stretch}
+.swap div{padding:12px 14px;font-size:14.5px}
+.swap .from{background:var(--tile);border:1px solid var(--line);color:var(--muted)}
+.swap .to{background:var(--tile-2);border:1px solid var(--violet);color:#fff}
+.swap .ar{display:flex;align-items:center;justify-content:center;color:var(--violet-2);padding:0}
+.swap .from b{display:block;font-family:var(--f-mono);font-weight:500;font-size:11px;color:var(--faint);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+
+.scen{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.scen .cell.base{border-color:var(--violet)}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+
+.cycle{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--line)}
+.cycle div{padding:16px;border-right:1px solid var(--line);background:var(--tile);display:flex;flex-direction:column;gap:6px}
+.cycle div:last-child{border-right:0}
+.cycle .d{font-family:var(--f-display);font-weight:800;font-size:30px;color:var(--lav);letter-spacing:-.03em;line-height:1}
+.cycle p{font-size:14px;color:#C2BED0}
+@media (max-width:760px){.cycle{grid-template-columns:1fr 1fr}.cycle div:nth-child(2){border-right:0}.cycle div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+.money{display:flex;height:40px;border:1px solid var(--line)}
+.money div{display:flex;align-items:center;padding:0 12px;font-family:var(--f-mono);font-size:12px;white-space:nowrap;overflow:hidden;min-width:0}
+footer{padding-top:72px;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--muted)}
+footer ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero" aria-label="План развития технологий ИИ 2027–2032">
+  <div class="word" aria-hidden="true"><span>ИИ</span><span class="gapw"></span><span>32</span></div>
+  <canvas id="sphere" aria-hidden="true"></canvas>
+  <div class="focus" aria-hidden="true"><span>Главный фокус</span><i></i><span>Мозг робота</span></div>
+  <div class="tag l" style="left:24%;top:16%"><span>Н-21</span><small>модель мира</small></div>
+  <div class="tag m" style="left:58%;top:9%;animation-delay:-2s"><span>СЛР</span><small>ст. 1552</small></div>
+  <div class="tag l blur hide-s" style="left:74%;top:38%;animation-delay:-4s"><span>ВП-1</span><small>мозг робота</small></div>
+  <div class="tag s hide-s" style="left:12%;top:56%;animation-delay:-1s"><span>Н-22</span><small>VLA</small></div>
+  <div class="tag s" style="left:32%;top:64%;animation-delay:-3s"><span>ВП-2</span><small>мозжечок</small></div>
+  <div class="tag m hide-s" style="left:21%;top:78%;animation-delay:-5s"><span>УГТ 1–9</span></div>
+  <div class="tag l" style="left:52%;top:72%;animation-delay:-6s"><span>Н-12</span><small>сеть узлов</small></div>
+  <div class="tag s" style="left:69%;top:66%;animation-delay:-2.5s"><span>Н-23</span><small>sim2real</small></div>
+  <div class="tag s hide-s" style="left:84%;top:16%;animation-delay:-7s"><span>Н-15</span><small>синтетика</small></div>
+</header>
+
+<div class="intro">
+  <span class="mono">Проект среднесрочного плана развития технологий · по постановлению № 1552 · 14 ноября 2026</span>
+  <h1>План развития технологий ИИ<br>2027–2032</h1>
+  <p class="lead">Нынешний стек ИИ на декодерных трансформерах выходит на плато. Следующий стек — ИИ, который понимает физический мир и действует в нём. Главный продукт плана — отечественный «мозг робота» с картиной мира и физикой. План собирает в одну линию форсайт «Горизонты ИИ», записку «Следующий стек» и реальные заделы из ЕГИСУ НИОКТР. Разрыв между ними превращён в 12 мероприятий, 25 исследовательских задач, 10 видов продукции и три этапа с независимой приёмкой.</p>
+  <div class="meta">
+    <span class="chip">6 лет · п. 8 Положения</span>
+    <span class="chip">старт не ранее 2027 · п. 5 «б»</span>
+    <span class="chip">≈ 3 150 НИОКТР по ИИ с 2021</span>
+    <span class="chip">≈ 1 100 исполнителей</span>
+    <span class="chip">12 базовых организаций центров ИИ · ≈ 370 результатов</span>
+    <span class="chip">≈ 108 млрд ₽ бюджет · ориентир</span>
+  </div>
+</div>
+
+<section id="logic">
+  <div class="sh"><span class="mono">00 · логика</span><h2>Форсайт − заделы = мероприятия</h2></div>
+  <div class="grid g3">
+    <div class="cell"><span class="k">куда двигаться</span><b>17 барьеров нынешнего стека</b><p>Форсайт учитывает 3, частично 8, не называет 6. Именно невидимые барьеры задают следующий стек.</p><span class="ref">«Горизонты ИИ», «Следующий стек»</span></div>
+    <div class="cell"><span class="k">что уже есть</span><b>Широко, но неглубоко</b><p>564 работы по LLM и меньше 20 по каждой теме ядра следующего стека. У центров ИИ из 221 результата первой волны лишь 8 — про физику и симуляцию.</p><span class="ref">ЕГИСУ НИОКТР, 2021–2026</span></div>
+    <div class="cell"><span class="k">что делать</span><b>12 мероприятий, 25 задач, 3 этапа</b><p>Мероприятие — действие государства (конкурс, инфраструктура, акт). Проект — договор с консорциумом. Задача — тема исследования. Переход между этапами — только по независимым испытаниям.</p><span class="ref">п. 10 «е», «з» Положения</span></div>
+  </div>
+</section>
+
+<section id="law">
+  <div class="sh"><span class="mono">01 · рамка</span><h2>Что требует постановление 1552</h2>
+    <p>Закон 523-ФЗ вводит план развития технологий (ст. 7, 17), постановление № 1552 от 6 октября 2025 г. задаёт его девять разделов, показатели и годовой цикл отчётности. План построен ровно по этим разделам.</p></div>
+  <div class="grid g3" id="law-grid"></div>
+  <div class="grid g2">
+    <div class="cell"><span class="k">четыре шкалы готовности</span><b>УГТ 1–9 · УГП 1–9 · рыночная · СЛР</b><p>Для ИИ главный измеритель — уровень собственных линий разработки: до 60% индекса — низкий, 60–80 — средний, 80–100 — высокий, 100 — полностью готовые линии. УГП имеет смысл только для аппаратной продукции — см. § 07.</p><span class="ref">методики, утверждённые постановлением</span></div>
+    <div class="cell"><span class="k">связь с дорожными картами · п. 7</span><b>Ограничение к этому плану не применяется</b><p>Пункт 7 прямо разрешает включать технологии из дорожной карты ИИ и карт технологической кооперации (робототехника, БАС) с уведомлением Минэкономразвития. Для «мозга робота» это необходимо: без производителей роботов модель негде проверять.</p><span class="ref">п. 7, 14, 34 Положения</span></div>
+  </div>
+</section>
+
+<section id="foresight">
+  <div class="sh"><span class="mono">02 · форсайт</span><h2>Шесть барьеров, которых нет в форсайте</h2>
+    <p>Форсайт хорошо описывает, что развивать: непрерывное обучение, память, данные. Он почти не называет архитектурные причины, по которым трансформер этого не даст, и риски самого обучающего сигнала.</p></div>
+  <div class="grid g2" id="swaps"></div>
+  <div class="scen">
+    <div class="cell"><span class="k">сценарий · плато</span><b>Трансформеры улучшаются по чуть-чуть</b><p>Цена вывода падает, отставание по вычислениям важнее всего. Ответ плана: усилить портфель А — эффективность, данные, компактные модели.</p></div>
+    <div class="cell base"><span class="k">сценарий · базовый</span><b>Смена стека к 2029–2030</b><p>Гибрид с рекуррентной глубиной, памятью и непрерывным обучением. Окно возможностей: новый стек меньше зависит от масштаба железа.</p></div>
+    <div class="cell"><span class="k">сценарий · рывок</span><b>Самоулучшающиеся системы</b><p>Риск резкого разрыва. Ответ: внеочередная актуализация плана по п. 18 и сдвиг ресурсов в надёжность и безопасность.</p></div>
+  </div>
+</section>
+
+
+<section id="world">
+  <div class="sh"><span class="mono">03 · опыт стран</span><h2>Как планируют и что считают другие</h2>
+    <p>Развитые страны считают результаты и мощности, а не отчётные единицы. Китай и Корея уже сделали «мозг робота» отдельной национальной целью.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Страна</th><th>Документ</th><th>Что считают</th><th>Что взять в план</th></tr></thead>
+    <tbody>
+      <tr><td><b>Китай</b></td><td><a href="https://english.www.gov.cn/news/202508/29/content_WS68b18f2cc6d0868f4e8f528d.html" target="_blank" rel="noopener">Действие «ИИ+», 2025</a></td><td>проникновение интеллектуальных терминалов и агентов: более 70% к 2027, более 90% к 2030</td><td>один понятный итоговый показатель распространения</td></tr>
+      <tr><td><b>Китай</b></td><td><a href="https://news.cgtn.com/news/2023-11-03/China-aims-to-build-advanced-humanoid-robots-by-2025-1oqrPxDmOCA/index.html" target="_blank" rel="noopener">Руководство МИИТ по гуманоидным роботам, 2023</a></td><td>прорывы по «мозгу», «мозжечку» и «конечностям» к 2025; надёжная цепочка поставок к 2027</td><td>деление «мозг — мозжечок» для ВП-1 и ВП-2</td></tr>
+      <tr><td><b>Корея</b></td><td><a href="https://www.koreatimes.co.kr/amp/business/tech-science/20260115/naver-cloud-nc-ai-cut-from-national-ai-foundation-model-race" target="_blank" rel="noopener">Национальная базовая модель ИИ, 2025–2026</a></td><td>конкурс с отсевом 5 → 3 команд; бенчмарки 40, эксперты 35, пользователи 25 баллов; веса обучены командой с инициализации</td><td>формат конкурса для М-1 и М-4; критерий СЛР «свои веса»</td></tr>
+      <tr><td><b>Корея</b></td><td><a href="https://www.koreatimes.co.kr/business/tech-science/20250410/korea-forms-k-humanoid-alliance" target="_blank" rel="noopener">K-Humanoid Alliance, 2025</a></td><td>общая базовая модель для роботов к 2028; от 1 000 гуманоидов в год к 2029 (по данным прессы)</td><td>одна модель для всех производителей + серийный показатель</td></tr>
+      <tr><td><b>Великобритания</b></td><td><a href="https://www.gov.uk/government/publications/ai-opportunities-action-plan-government-response/ai-opportunities-action-plan-government-response" target="_blank" rel="noopener">AI Opportunities Action Plan, 2025</a></td><td>исследовательская вычислительная мощность AIRR — рост не менее чем в 20 раз к 2030</td><td>показатель доступной исследователям мощности</td></tr>
+      <tr><td><b>ЕС</b></td><td><a href="https://digital-strategy.ec.europa.eu/en/factpages/ai-continent-action-plan" target="_blank" rel="noopener">AI Continent Action Plan, 2025</a></td><td>до 5 «гигафабрик ИИ» по 100+ тыс. процессоров, €20 млрд; в Horizon Europe — TRL 1–9</td><td>вычислительная инфраструктура как отдельный проект</td></tr>
+      <tr><td><b>США</b></td><td><a href="https://www.nitrd.gov/pubs/National-Artificial-Intelligence-Research-and-Development-Strategic-Plan-2023-Update.pdf" target="_blank" rel="noopener">AI R&amp;D Strategic Plan, 2023</a>; AI Action Plan, 2025</td><td>9 стратегий и 90+ действий без числовых целей; стандарты оценки и данных</td><td>национальные стандарты оценки и данных (М-6, М-8)</td></tr>
+      <tr><td><b>Япония</b></td><td><a href="https://www8.cao.go.jp/cstp/ai/ai_plan/aiplan_eng_20260116.pdf" target="_blank" rel="noopener">Базовый план по ИИ, 2025</a></td><td>план по закону о продвижении ИИ, обновляется ежегодно</td><td>ежегодная актуализация — как цикл отчёта по 1552</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid g5">
+    <div class="cell"><span class="k">урок 1</span><b>Итог, а не единицы</b><p>Никто не ставит целью число РИД или фреймворков.</p></div>
+    <div class="cell"><span class="k">урок 2</span><b>Конкурс с отсевом</b><p>Команды отсеиваются по публичным испытаниям, модели на чужих весах — тоже.</p></div>
+    <div class="cell"><span class="k">урок 3</span><b>Общий «мозг робота»</b><p>Одна модель для многих производителей, а не своя у каждого.</p></div>
+    <div class="cell"><span class="k">урок 4</span><b>Мощность — показатель</b><p>Число на доступную исследователям вычислительную мощность.</p></div>
+    <div class="cell"><span class="k">урок 5</span><b>TRL для ML</b><p>Шкала <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9585100" target="_blank" rel="noopener">MLTRL</a> добавляет эксплуатацию и мониторинг модели.</p></div>
+  </div>
+  <p class="muted" style="font-size:13px">Данные по Корее и Китаю — из прессы и вторичных обзоров; первоисточники не открывались.</p>
+</section>
+
+<section id="backlog">
+  <div class="sh"><span class="mono">04 · заделы</span><h2>Ядро следующего стека почти не покрыто</h2>
+    <p>НИОКТР по ИИ в ЕГИСУ с 2021 года по темам. Справа — число работ и организаций-исполнителей. Одна работа может входить в несколько тем.</p></div>
+  <div class="panel">
+    <div class="legend" style="margin-bottom:16px"><span><i style="background:var(--violet)"></i>темы ядра следующего стека, задел менее 20 работ</span><span><i style="background:#3A3746"></i>остальные темы</span></div>
+    <div class="bars" id="bars"></div>
+  </div>
+  <div class="grid g5">
+    <div class="cell"><span class="k">вузы</span><span class="big">1 827</span><p>работ у 280 вузов — 58% всех</p></div>
+    <div class="cell"><span class="k">научные организации</span><span class="big">649</span><p>работ у 258 институтов РАН и ФИЦ</p></div>
+    <div class="cell"><span class="k">компании</span><span class="big">624</span><p>работы у 533 компаний: задел раздроблен</p></div>
+    <div class="cell"><span class="k">рост</span><span class="big">755</span><p>новых работ в 2025 году против 448 в 2021</p></div>
+    <div class="cell"><span class="k">не найдено</span><span class="big">0</span><p>работ по обучаемому декодированию и консолидации опыта</p></div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Центр компетенций</th><th>Сильные темы по ЕГИСУ</th><th>Задачи плана</th></tr></thead>
+    <tbody id="centers"></tbody>
+  </table></div>
+  <div class="cell"><span class="k">индустриальный задел · Hugging Face</span><b>Открытые модели есть, собственные веса — не у всех</b><p>Сбер публикует GigaChat 3.1 (MoE) и многоязычный распознаватель речи GigaAM, Яндекс — Alice AI Foundation 80B (MoE). Модели T-pro Т-Банка дообучены на зарубежной базовой модели Qwen3. Для приложений это разумный путь; риск в другом — см. § 11.</p></div>
+</section>
+
+
+<section id="centers-ai">
+  <div class="sh"><span class="mono">05 · центры ИИ</span><h2>Исследовательские центры ИИ трёх волн</h2>
+    <p>Самый организованный задел, но он сосредоточен на зрении, языке и медицине. Показатели центров считают единицы — фреймворки, РИД, датасеты, — а не способности систем.</p></div>
+  <div class="grid g3">
+    <div class="cell"><span class="k">1-я волна · 2021–2024</span><span class="big">221</span><p>РИД и датасет у Иннополиса (70), ВШЭ (59), ИТМО (40), МФТИ (26), ИСП РАН (19), Сколтеха (7); плюс 6 платформ с версиями фреймворков</p></div>
+    <div class="cell"><span class="k">2-я волна · отраслевая</span><span class="big">124</span><p>15 фреймворков, 68 РИД, 41 датасет: медицина (НМИЦ им. Блохина, ННГУ), транспорт и БАС (МИФИ, Самарский университет), город (НГУ), промышленность (СПбГУ)</p></div>
+    <div class="cell"><span class="k">3-я волна · 2025–2026</span><span class="big">20</span><p>РИД у ВШЭ, ИТМО, Иннополиса, ИСП РАН: 11 по языковым моделям, 7 по мультиагентным системам</p></div>
+  </div>
+  <div class="panel">
+    <div class="legend" style="margin-bottom:16px"><span><i style="background:var(--violet)"></i>темы, нужные «мозгу робота»</span><span><i style="background:#3A3746"></i>остальные</span></div>
+    <div class="bars" id="cbars"></div>
+    <p class="muted" style="font-size:13px;margin-top:14px">Результаты 1-й волны (221) по темам; один результат может входить в несколько тем. Определено по ключевым словам в названиях и описаниях.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Центр</th><th>Задел для «мозга робота»</th><th>Куда в плане</th></tr></thead>
+    <tbody id="seeds"></tbody>
+  </table></div>
+</section>
+
+<section id="products">
+  <div class="sh"><span class="mono">06 · продукция</span><h2>Что получат производители роботов</h2>
+    <p>Перечень по п. 10 «а». Высокотехнологичная продукция здесь — конкретные изделия и сервисы, которые берёт в работу производитель робота, вуз или отраслевая компания. Категория технологии предложена по п. 52 (критическая) и п. 60 (сквозная); окончательно её определяет экспертный совет.</p></div>
+  <div class="grid g5" id="vp"></div>
+</section>
+
+<section id="kpi">
+  <div class="sh"><span class="mono">07 · показатели</span><h2>Чем измеряется результат</h2>
+    <p>Два обязательных показателя по п. 15 и технические метрики. Исходные значения измеряются в первом полугодии 2027 года; целевые — предложение для технологической сессии.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Показатель</th><th>Ед.</th><th>2028</th><th>2030</th><th>2032</th></tr></thead>
+    <tbody id="kpis"></tbody>
+  </table></div>
+  <div class="cell"><span class="k">какие шкалы применять · УГП</span><b>УГП — только для аппаратной продукции</b><p>Методика УГП оценивает готовность производства к выпуску изделия. У модели ИИ нет серийного выпуска: её копируют бесплатно, а риски лежат в эксплуатации — деградация на новых данных, обновления, мониторинг. П. 36 разрешает «иные компоненты» по методрекомендациям, поэтому для моделей предлагается шкала готовности к эксплуатации по образцу MLTRL.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Шкала</th><th>Применимость</th><th>К какой продукции</th></tr></thead>
+    <tbody>
+      <tr><td><b>УГТ 1–9</b></td><td>всегда; уровни 7–9 — по полигонным испытаниям</td><td>все ВП</td></tr>
+      <tr><td><b>УГП 1–9</b></td><td><span class="st ok">да</span> в полном объёме</td><td>ВП-3 бортовой вычислитель, аппаратная часть ВП-2 и ВП-7</td></tr>
+      <tr><td><b>УГП → готовность к эксплуатации</b></td><td><span class="st part">замена</span> воспроизводимое обучение, мониторинг деградации, порядок обновления, испытания на полигоне</td><td>ВП-1, ВП-4, ВП-6, ВП-9, ВП-10</td></tr>
+      <tr><td><b>Рыночная готовность</b></td><td><span class="st ok">да</span> с 2029 — когда появятся заказчики</td><td>ВП-1 — ВП-3, ВП-7, ВП-8</td></tr>
+      <tr><td><b>СЛР</b></td><td><span class="st ok">да</span> главная для ИИ; критерий по образцу Кореи — веса обучены самостоятельно</td><td>все ВП</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="road">
+  <div class="sh"><span class="mono">08 · этапы</span><h2>Каждый этап заканчивается приёмкой</h2>
+    <p>Главная веха — первая версия «мозга робота» на платформах отечественных производителей в 2029–2030 годах. Портфель А даёт данные, симулятор и испытания, портфель В — архитектурные заделы.</p></div>
+  <div class="road">
+    <div class="h e"></div>
+    <div class="h">Этап 1<small>2027–2028 · измеримая основа</small></div>
+    <div class="h">Этап 2<small>2029–2030 · интеграция</small></div>
+    <div class="h">Этап 3<small>2031–2032 · масштабирование</small></div>
+
+    <div class="lane">А · основа<small>обязательно</small></div>
+    <div class="c">Полигон и закрытые тесты, первая версия физического симулятора, начало сбора данных действий, исходные показатели</div>
+    <div class="c">Оценщики, устойчивые к взлому, синтетика с контролем разнообразия, независимый испытательный центр</div>
+    <div class="c">Надёжность 99,9% в эксплуатации, стоимость задачи −10 раз, стандарты испытаний</div>
+
+    <div class="lane">Б · целевые<small>программы</small></div>
+    <div class="c">Конкурсы М-1 «Мозг робота», М-2 «Бортовой контур», М-4 «Базовая модель»: по 3 консорциума, прототипы</div>
+    <div class="c hot"><b>«Мозг робота» (ВП-1) на трёх платформах</b> отечественных производителей; «мозжечок» на бортовом вычислителе; базовая модель ВП-6</div>
+    <div class="c">ВП-1 версия 2 с непрерывным обучением; 10 платформ роботов; серия ВП-3; технологии в перечнях</div>
+
+    <div class="lane">В · поиск<small>по вехам</small></div>
+    <div class="c">Н-2, Н-5, Н-6, Н-16; нейроморфные и фотонные вычислители; гранты по вехам</div>
+    <div class="c">Отбор: лучшие заделы переходят в портфель Б</div>
+    <div class="c">Задел для долгосрочного плана 2033+</div>
+
+    <div class="gate"><div>◆ приёмка 1 · УГТ 4 у 8 задач · отсев в М-1</div><div>◆ приёмка 2 · УГТ 6 у 6 задач · отсев в М-1</div><div>◆ итог · УГТ 6+ у 12 задач</div></div>
+  </div>
+</section>
+
+<section id="tasks">
+  <div class="sh"><span class="mono">09 · мероприятия</span><h2>Мероприятия, проекты, задачи</h2>
+    <p>Три уровня, которые важно не смешивать.</p></div>
+  <div class="grid g3">
+    <div class="cell"><span class="k">мероприятие · М-1 — М-12</span><b>Действие государства</b><p>Конкурс НИОКТР, создание инфраструктуры или нормативный акт по п. 10 «з». Есть ответственный ФОИВ, инструмент, срок, бюджет.</p></div>
+    <div class="cell"><span class="k">проект</span><b>Договор с консорциумом</b><p>Финансируемая единица внутри мероприятия: результат, целевой УГТ, протокол испытаний. На задачу — от 1 до 3 конкурирующих проектов.</p></div>
+    <div class="cell"><span class="k">задача · Н-1 — Н-25</span><b>Тема исследования</b><p>Что нужно решить науке и по какому признаку видно, что решено. Задачи — темы конкурсных лотов внутри мероприятий.</p></div>
+  </div>
+  <p class="muted" style="max-width:72ch">Пример: М-1 «Мозг робота» — конкурс, в котором три консорциума «вуз + институт + производитель роботов» работают над Н-21 — Н-23; в 2029 году по итогам испытаний на полигоне остаются два.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Код</th><th>Мероприятие</th><th>Тип</th><th>Что финансируется</th><th>Задачи</th><th>Результат к 2032</th><th>Ответственный</th></tr></thead>
+    <tbody id="measures"></tbody>
+  </table></div>
+  <h3 style="font-family:var(--f-display);font-weight:600;font-size:22px;margin-top:10px">Исследовательские задачи — темы конкурсных лотов</h3>
+  <p class="muted" style="max-width:72ch">Н-1 — Н-20 — из записки «Следующий стек», Н-21 — Н-25 добавлены для воплощённого ИИ по блоку форсайта «Агенты, робототехника и модели мира». Опорные исполнители — лидеры по теме в ЕГИСУ и в отчётах центров ИИ; планом они не назначаются.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Код</th><th>Исследовательская задача</th><th>Портфель</th><th>Мероприятие</th><th>УГТ 2032</th><th>Опорные исполнители</th></tr></thead>
+    <tbody id="tasklist"></tbody>
+  </table></div>
+</section>
+
+<section id="money">
+  <div class="sh"><span class="mono">10 · финансирование</span><h2>≈ 108 млрд ₽ за шесть лет</h2>
+    <p>Экспертный ориентир для обсуждения, не расчёт; плюс не менее трети сверху из внебюджетных источников. Бюджеты ИИ-работ в открытой выгрузке ЕГИСУ не заполнены, поэтому сравнить с текущим уровнем не удалось.</p></div>
+  <div class="money" role="img" aria-label="Портфель А 37, Б 60, В 11 млрд рублей">
+    <div style="flex:37;background:#2C2A35">А · 37</div>
+    <div style="flex:60;background:rgba(122,92,255,.45)">Б · 60</div>
+    <div style="flex:11;background:var(--tile);color:var(--muted)">В · 11</div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Портфель, млрд ₽</th><th>2027–2028</th><th>2029–2030</th><th>2031–2032</th><th>Итого</th><th>Источник</th></tr></thead>
+    <tbody>
+      <tr><td><span class="pf a">А</span> обязательная основа · М-6, М-7, М-8, М-10, М-11</td><td class="num">11</td><td class="num">13</td><td class="num">13</td><td class="num">37</td><td>госпрограмма НТР, федпроект «ИИ»</td></tr>
+      <tr><td><span class="pf b">Б</span> целевые программы · М-1, М-2, М-4, М-5, М-9</td><td class="num">11</td><td class="num">22</td><td class="num">27</td><td class="num">60</td><td>агенты развития технологий, нацпроекты техлидерства</td></tr>
+      <tr><td style="padding-left:34px">в т. ч. «мозг робота» и бортовой контур</td><td class="num">5</td><td class="num">10</td><td class="num">12</td><td class="num">27</td><td>М-1, М-2, М-5</td></tr>
+      <tr><td><span class="pf c">В</span> поисковый резерв · М-3</td><td class="num">3</td><td class="num">4</td><td class="num">4</td><td class="num">11</td><td>госзадания, РНФ</td></tr>
+      <tr><td><b>Всего бюджет</b></td><td class="num"><b>25</b></td><td class="num"><b>39</b></td><td class="num"><b>44</b></td><td class="num"><b>108</b></td><td></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="control">
+  <div class="sh"><span class="mono">11 · управление</span><h2>Годовой цикл отчёта</h2>
+    <p>Отчёт о реализации плана проходит экспертизу и два президиума каждый год (п. 36–41). Портфели пересматриваются в 2028 и 2030 годах, на стыках этапов.</p></div>
+  <div class="cycle">
+    <div><span class="d">15.03</span><p>Отчёт разработчика: УГТ и УГП по каждой технологии, показатели, исполнители, финансирование</p></div>
+    <div><span class="d">10.04</span><p>Заключения экспертного совета и экспертных организаций</p></div>
+    <div><span class="d">05.05</span><p>Президиум Комиссии по научно-технологическому развитию</p></div>
+    <div><span class="d">01.06</span><p>Президиум Правкомиссии по модернизации утверждает отчёт и при необходимости поручает актуализацию</p></div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Риск</th><th>В чём он состоит</th><th>Признак</th><th>Ответ плана</th></tr></thead>
+    <tbody id="risks"></tbody>
+  </table></div>
+</section>
+
+<footer>
+  <span class="mono">Источники</span>
+  <ul>
+    <li>Постановление Правительства РФ от 06.10.2025 № 1552 «О планировании технологической политики в Российской Федерации» — Положение (п. 1–73) и четыре методики готовности.</li>
+    <li>Федеральный закон от 28.12.2024 № 523-ФЗ «О технологической политике в Российской Федерации» — статьи приведены по ссылкам постановления 1552.</li>
+    <li>«Горизонты искусственного интеллекта: какими будут технологии ИИ через 10 лет», ноябрь 2025 — по аналитической выборке для национального плана; страницы печатные.</li>
+    <li>Аналитическая записка «Следующий стек ИИ», ноябрь 2026 — 17 барьеров, задачи Н-1 — Н-20.</li>
+    <li>Сводка результатов исследовательских центров ИИ 1–3 волн (приложенный .xlsx): фреймворки, РИД, датасеты, 2021–2026.</li>
+    <li>Зарубежные документы — ссылки в § 03; сведения по Корее и Китаю — по прессе.</li>
+    <li>ЕГИСУ НИОКТР, открытая выгрузка на 13.11.2026: работы с 2021 года, отбор по терминам ИИ в названии и аннотации или по флагу «область ИИ».</li>
+    <li>Hugging Face Hub: <a href="https://huggingface.co/ai-sage" target="_blank" rel="noopener">ai-sage</a>, <a href="https://huggingface.co/yandex" target="_blank" rel="noopener">yandex</a>, <a href="https://huggingface.co/t-tech" target="_blank" rel="noopener">t-tech</a>.</li>
+  </ul>
+</footer>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  // 1552 п.10 sections
+  const law = [
+    ['а','Продукция и технологии','перечень потенциальной ВП, критических и сквозных технологий','§ 06'],
+    ['б','Вызовы и тренды','что заставляет создавать продукцию','§ 02'],
+    ['в','Текущее состояние','в мире и в России, в том числе по НИОКТР и патентам (п. 13)','§ 04, § 05'],
+    ['г','Проблемы и риски','ограничения создания и развития','§ 02, § 11'],
+    ['д','Сценарии','на средне- и долгосрочный период','§ 02'],
+    ['е','Основные направления','развития в Российской Федерации','§ 08'],
+    ['ж','Показатели','технологическая независимость и превосходство (п. 15)','§ 07'],
+    ['з','Мероприятия','со связкой с нацпроектами и госпрограммами (п. 14)','§ 09'],
+    ['и','Финансирование','в том числе внебюджетное','§ 10']
+  ];
+  $('law-grid').innerHTML = law.map(r => `<div class="cell"><span class="k">п. 10 «${r[0]}»</span><b>${esc(r[1])}</b><p>${esc(r[2])}</p><span class="ref">в плане: ${r[3]}</span></div>`).join('');
+
+  const swaps = [
+    ['02','Фиксированная глубина, один проход на шаг','Рекуррентная, переменная глубина','Н-2, Н-5'],
+    ['04','Выбор шага по правилам, подобранным вручную','Обучаемый декодер','Н-6'],
+    ['05','Токен из словаря','Байты и динамическая сегментация','Н-7'],
+    ['12','Одна оценка в конце решения','Оценка шагов и разбор своих ошибок','Н-13'],
+    ['13','Модель-судья, которую взламывают','Оценщики, устойчивые к взлому','Н-14'],
+    ['14','Синтетика без контроля разнообразия','Контроль энтропии всего набора','Н-15']
+  ];
+  $('swaps').innerHTML = swaps.map(s => `<div class="swap"><div class="from"><b>барьер ${s[0]} · сейчас</b>${esc(s[1])}</div><div class="ar" aria-hidden="true">→</div><div class="to">${esc(s[2])}<span class="muted" style="display:block;font-family:var(--f-mono);font-size:11px;margin-top:4px">${s[3]}</span></div></div>`).join('');
+
+  // EGISU topics
+  const topics = [
+    ['Генеративные модели, LLM',564,219,0],['Доверенный ИИ, надёжность (Н-14, Н-19)',177,77,0],['Знания и память (Н-4, Н-11)',114,69,0],
+    ['Мультимодальность (Н-9)',104,58,0],['Нейроморфные и фотонные вычислители',103,41,0],['Агентные системы',67,33,0],
+    ['Бортовые и адаптивные (Н-3)',52,35,0],['Обучение с подкреплением (Н-13)',48,27,0],['Непрерывное обучение (Н-8)',46,31,0],
+    ['Синтетические данные (Н-15)',38,18,0],['Рассуждения (Н-2, Н-5)',29,13,0],['Распределённый вывод (Н-12)',15,12,1],
+    ['Сжатие и компактные модели (Н-17)',12,6,1],['Внимание, длинный контекст (Н-1)',9,6,1],['Токенизация, малые языки (Н-7)',8,4,1]
+  ];
+  const max = Math.max(...topics.map(t => t[1]));
+  $('bars').innerHTML = topics.map(t => `<div class="bar${t[3]?' core':''}"><div class="lab">${esc(t[0])}</div><div class="tr"><div class="fill" style="width:calc(${(t[1]/max*62).toFixed(2)}% + 3px)"></div><span class="v">${t[1]} · ${t[2]} орг.</span></div></div>`).join('');
+
+  const centers = [
+    ['ННГУ им. Лобачевского','32 ИИ-работы с флагом; лидер по нейроморфным вычислителям (14)','ИНФ-1, ИНФ-2'],
+    ['МФТИ','бортовые и адаптивные модели, RL, распределённость, нейроморфика','Н-3, Н-12, Н-13'],
+    ['НИУ ВШЭ','рассуждения, знания, RL, токенизация (СПб), доверенный ИИ','Н-2, Н-4, Н-7, Н-13, Н-18'],
+    ['СПбПУ Петра Великого','внимание, непрерывное обучение, агенты, надёжность','Н-1, Н-8, Н-19'],
+    ['УрФУ','доверенный ИИ, агентные системы','Н-14, Н-19'],
+    ['МГУ','LLM (14), мультимодальность, знания','Н-9, Н-11'],
+    ['ИАПУ ДВО РАН','базы знаний, бортовые системы','Н-4, Н-3'],
+    ['ЮФУ, Самарский университет, ИТМО','20–32 работы с флагом ИИ; прикладные модели, синтетика','Н-10, Н-15'],
+    ['ФИЦ ИУ РАН, ИПМ им. Келдыша, ИПУ РАН','фундаментальная математика ИИ, распределённые вычисления','Н-2, Н-12'],
+    ['НЦМУ «Передовые цифровые технологии», НЦМУ «Интеллектуальные беспилотные авиационные системы»','научные центры мирового уровня в реестре ЕГИСУ','Н-3, Н-12, ВП-2']
+  ];
+  $('centers').innerHTML = centers.map(c => `<tr><td><b>${esc(c[0])}</b></td><td>${esc(c[1])}</td><td class="n">${esc(c[2])}</td></tr>`).join('');
+
+  const vp = [
+    ['ВП-1','«Мозг робота»','воплощённая базовая модель: зрение, язык, действие и модель мира с физикой; обучена с нуля; одна для разных роботов','сквозная','Н-21, Н-22, Н-8, Н-11'],
+    ['ВП-2','«Мозжечок»','бортовой контур реального времени: моторика и рефлексы с гарантированным временем реакции без связи с ЦОД','критическая','Н-3, Н-17, Н-22'],
+    ['ВП-3','Бортовой ИИ-вычислитель','модуль с системным ПО для запуска ВП-1 и ВП-2 вместо зарубежного','критическая','ИНФ-1, ИНФ-2'],
+    ['ВП-4','Физический симулятор','цифровой полигон: миллионы часов тренировки без поломок, измеренный перенос в реальность','сквозная','Н-23, Н-21, Н-15'],
+    ['ВП-5','Корпус данных действий','телеоперация, носимые камеры, логи роботов — данных, которых нет в интернете','сквозная','Н-24, Н-17'],
+    ['ВП-6','Базовая модель нового стека','язык, зрение, длинный контекст, языки народов России — «кора» для рассуждения и планирования','сквозная','Н-1, Н-2, Н-4, Н-7, Н-9'],
+    ['ВП-7','Групповое управление','распределённый ИИ для групп роботов и БАС при плохой связи: Арктика, удалённые объекты, космос','критическая','Н-12, Н-3'],
+    ['ВП-8','Комплекс испытаний','полигоны, стресс-тесты, метрики в «девятках» до допуска в эксплуатацию','критическая','Н-14, Н-18, Н-19, Н-25'],
+    ['ВП-9','Платформа обучения и вывода','компиляторы, библиотеки, доверенные фреймворки на доступном железе','критическая','ИНФ-1, Н-10'],
+    ['ВП-10','Модели для науки и промышленности','физика, материалы, цифровые двойники с проверкой экспериментом','сквозная','Н-21, Н-10, Н-16']
+  ];
+  $('vp').innerHTML = vp.map(v => `<div class="cell"${v[0]==='ВП-1'?' style="border-color:var(--violet);box-shadow:0 0 30px rgba(122,92,255,.25)"':''}><span class="k">${v[0]} · ${v[3]}</span><b>${esc(v[1])}</b><p>${esc(v[2])}</p><span class="ref">${v[4]}</span></div>`).join('');
+
+  const kpis = [
+    ['Уровень технологической независимости','доля ВП-1 — ВП-10 с индексом СЛР от 80%','% номенклатуры','30','60','80'],
+    ['Уровень превосходства','ВП-1, ВП-2, ВП-7 лучше лучшего доступного зарубежного аналога на независимых испытаниях','видов','0','1','3'],
+    ['Платформы роботов на отечественном «мозге»','модели роботов отечественных производителей, работающие на ВП-1 и ВП-2','платформ','0','3','10'],
+    ['Задания в незнакомой обстановке','доля выполненных заданий манипуляции и перемещения на национальном полигоне','п. п. к базе','база','+25','+50'],
+    ['Разрыв «симулятор — реальность»','потеря качества при переносе на реального робота','к базе','база','−2 раза','−4 раза'],
+    ['Время реакции бортового контура','p99 при фиксированном качестве','мс','база','≤ 50','≤ 20'],
+    ['Корпус данных действий','объём ВП-5','тыс. часов','5','50','200'],
+    ['Доступная вычислительная мощность','для исполнителей плана по конкурсу','к базе 2027','×2','×5','×10'],
+    ['Задачи на УГТ 4 / УГТ 6','из 25 исследовательских задач','задач','8 / 0','18 / 6','22 / 12'],
+    ['Стоимость и энергия на задачу','при фиксированном качестве, к базе 2027','раз','−2','−4','−10'],
+    ['Надёжность автономных и агентных систем','90% → 99% → 99,9%','«девяток»','1','2','3'],
+    ['Языки народов России','качество речи и текста не ниже порога бенчмарка','языков','10','25','40'],
+    ['Вспомогательный: охраняемые РИД','нарастающим итогом','ед.','40','150','300']
+  ];
+  $('kpis').innerHTML = kpis.map(k => `<tr><td><b>${esc(k[0])}</b><small>${esc(k[1])}</small></td><td class="muted">${esc(k[2])}</td><td class="num">${k[3]}</td><td class="num">${k[4]}</td><td class="num" style="color:var(--violet-2)">${k[5]}</td></tr>`).join('');
+
+  const ctopics = [['Зрение, изображения',62,0],['Язык, LLM',52,0],['Данные и разметка',33,0],['Графы и знания',32,0],['Доверенный ИИ',29,0],['Медицина',20,0],['Роботы и беспилотники',18,1],['Сжатие и AutoML',17,1],['Физика и симуляция',8,1],['RL и мультиагентные системы',3,1]];
+  const cmax = 62;
+  $('cbars').innerHTML = ctopics.map(t => `<div class="bar${t[2]?' core':''}"><div class="lab">${esc(t[0])}</div><div class="tr"><div class="fill" style="width:calc(${(t[1]/cmax*62).toFixed(2)}% + 3px)"></div><span class="v">${t[1]}</span></div></div>`).join('');
+
+  const seeds = [
+    ['МФТИ','фреймворк для биоморфных шагающих роботов; патент № 2816639 на RL-контроллеры шагающих роботов; управление беспилотным транспортом; голосовой ассистент для роботов','Н-22, Н-25, ВП-1, ВП-2'],
+    ['Иннополис','симуляция и гипероптимизация ходьбы антропоморфных роботов; мультиагентный поиск путей','Н-23, ВП-4'],
+    ['Сколтех','SciML — модели с учётом физики процессов; GreenAI — сжатие больших моделей','Н-21, Н-17, ВП-2'],
+    ['Самарский университет','FW_NAVIGATOR — безопасная автономная навигация БАС; FW_MONITOR','Н-12, Н-25, ВП-7'],
+    ['СПбГУ','MicroAI-Optimizer — компрессия алгоритмов; синтетика для физически информированных моделей','Н-3, Н-15'],
+    ['ИСП РАН','TrustTorch и TrustFlow — доверенные версии PyTorch и TensorFlow; тестирование безопасности моделей','ВП-8, ВП-9'],
+    ['ИТМО','AutoML FEDOT.Industrial, генеративный дизайн физических объектов, мультиагентный CoScientist','ВП-10, Н-18']
+  ];
+  $('seeds').innerHTML = seeds.map(c => `<tr><td><b>${esc(c[0])}</b></td><td>${esc(c[1])}</td><td class="n">${esc(c[2])}</td></tr>`).join('');
+
+  const measures = [
+    ['М-1','Конкурс «Мозг робота» с отсевом','НИОКТР','3 консорциума «вуз + институт + производитель роботов»; отсев в 2028 и 2030','Н-21, Н-22, Н-8, Н-11','ВП-1 версия 2, УГТ 7','Минпромторг, Минобрнауки'],
+    ['М-2','Конкурс «Бортовой контур»','НИОКТР','моторика, рефлексы, сжатие моделей','Н-3, Н-17, Н-22','ВП-2, УГТ 7','Минпромторг'],
+    ['М-3','Конкурс «Архитектуры следующего стека»','НИР','фундаментальные и поисковые проекты по вехам','Н-1, Н-2, Н-4 — Н-6, Н-16','решения для ВП-1 и ВП-6','Минобрнауки, РНФ'],
+    ['М-4','Проект «Базовая модель нового стека»','ОКР + софинансирование','обучение с нуля; конкурс по корейской схеме','Н-1, Н-7, Н-9, Н-10','ВП-6, 2 семейства','Минцифры'],
+    ['М-5','Физический симулятор и цифровые полигоны','инфраструктура','разработка, сопровождение, доступ для всех исполнителей','Н-23, Н-21','ВП-4','Минпромторг'],
+    ['М-6','Корпус данных действий и каталог данных','инфраструктура','станции телеоперации, сбор, разметка, стандарт описания','Н-24, Н-15, Н-17','ВП-5, 200 тыс. часов','Минцифры'],
+    ['М-7','Бортовой вычислитель и системное ПО','ОКР','модуль, компиляторы, доверенные фреймворки; поисковые вычислители','ИНФ-1, ИНФ-2','ВП-3 серия (УГП 7), ВП-9','Минпромторг'],
+    ['М-8','Испытательный центр и полигоны','инфраструктура','закрытые тесты, полигоны роботов и БАС, приёмка этапов','Н-14, Н-18, Н-19, Н-25','ВП-8','Минцифры, Росстандарт'],
+    ['М-9','Групповое управление и распределённый вывод','НИОКТР + пилот','проекты и пилоты в Арктике и на удалённых объектах','Н-12, Н-3','ВП-7','Минпромторг, Минвостокразвития'],
+    ['М-10','Центры ИИ: консорциум «Воплощённый ИИ»','грант федпроекта','задачи следующей волны центров, показатели по испытаниям','Н-8, Н-13, Н-15, Н-21 — Н-25','кадры и заделы для М-1 — М-3','Минцифры'],
+    ['М-11','Мониторинг и отчёт по плану','НИР + отчётность','экономика внедрения, расчёт показателей, данные в ЕГИСУ','Н-20','ежегодный отчёт по п. 36','Минэкономразвития'],
+    ['М-12','Нормативные решения','акты','перечни технологий; знак «ВП»; шкала готовности моделей к эксплуатации; критерий СЛР «свои веса»; допуск автономных роботов','—','акты до 2029','Минэкономразвития']
+  ];
+  $('measures').innerHTML = measures.map(m => `<tr><td class="n">${m[0]}</td><td><b>${esc(m[1])}</b></td><td class="muted">${esc(m[2])}</td><td>${esc(m[3])}</td><td class="n" style="white-space:normal">${esc(m[4])}</td><td>${esc(m[5])}</td><td class="muted">${esc(m[6])}</td></tr>`).join('');
+
+  const tasks = [
+    ['sec','Воплощённый ИИ'],
+    ['Н-21','Модели мира с физикой: предсказание последствий действий','b','М-1, М-5',6,'Сколтех (SciML), МФТИ, ИПМ им. Келдыша'],
+    ['Н-22','Модели «зрение — язык — действие» для манипуляции и перемещения','b','М-1, М-2',7,'МФТИ (шагающие роботы, патент 2816639), Иннополис'],
+    ['Н-23','Перенос из симулятора в реальность (sim2real)','b','М-5',7,'Иннополис (симуляция ходьбы), МФТИ'],
+    ['Н-24','Сбор и стандартизация данных действий','a','М-6','—','НГУ (фреймворк «Каппа»), ВШЭ'],
+    ['Н-25','Безопасная физическая автономия: гарантии, остановка, передача управления','a','М-8',7,'Самарский университет (FW_NAVIGATOR), ИСП РАН'],
+    ['sec','Архитектура'],
+    ['Н-1','Субквадратичные архитектуры без потери качества','b','М-3, М-4',6,'СПбПУ, ИТФ им. Ландау РАН — задел слабый'],
+    ['Н-2','Рекуррентная глубина вычислений','c','М-3',4,'ВШЭ, ИДСТУ СО РАН, ИМ СО РАН'],
+    ['Н-3','Адаптивное время вычислений, «рефлекс — обдумывание»','b','М-2, М-9',7,'МФТИ, Иннополис, ИАПУ ДВО РАН, СПбГУ'],
+    ['Н-4','Разделение знаний и когнитивных операций','b','М-3',6,'ИАПУ ДВО РАН, ВШЭ, МГУ'],
+    ['Н-11','Встроенная долговременная память','b','М-1',6,'ИАПУ ДВО РАН, ВШЭ, МГУ'],
+    ['Н-12','Асинхронный распределённый вывод','b','М-9',7,'ИПМ им. Келдыша РАН, МФТИ, МИФИ, Самарский университет'],
+    ['sec','Обучение и данные'],
+    ['Н-5','Сквозное обучение длинных рассуждений','c','М-3',4,'ВШЭ, МФТИ'],
+    ['Н-6','Обучаемое декодирование','c','М-3',4,'задел не найден'],
+    ['Н-7','Модели без токенизатора, языки народов России','b','М-4',7,'ВШЭ (фреймворк корпусов языков России), Сбер (GigaAM)'],
+    ['Н-8','Непрерывное усвоение навыков','b','М-1',6,'СПбПУ, ЕУСПб, МФТИ, «Сириус»'],
+    ['Н-9','Нативная мультимодальность','b','М-4',6,'РЭУ им. Плеханова, МГУ, НГУ'],
+    ['Н-10','Рост качества за счёт вычислений при тех же данных','a','М-4',6,'ИОА СО РАН, СГУ, УлГТУ, ИТМО'],
+    ['Н-13','Оценка процесса, а не только итога','a','М-10',6,'ВШЭ, МФТИ, КНИТУ-КАИ'],
+    ['Н-14','Оценщики, устойчивые к взлому','a','М-8',7,'ИСП РАН, УрФУ, ВШЭ, БФУ им. Канта'],
+    ['Н-15','Синтетика без схлопывания','a','М-6',6,'ИТМО, СПбГУ, СГУ, ИОА СО РАН'],
+    ['Н-16','Консолидация опыта, активное предобучение','c','М-3',4,'задел не найден'],
+    ['Н-17','Очистка данных и компактные модели','a','М-2, М-6',7,'Сколтех (GreenAI), СПбГУ (MicroAI-Optimizer), СКФУ'],
+    ['sec','Надёжность и экономика'],
+    ['Н-18','Метрики полезности вместо гонки за AGI','a','М-8',7,'ВШЭ, ИТМО, СПбПУ'],
+    ['Н-19','Инженерия надёжности в «девятках»','a','М-8',8,'УрФУ, СПбПУ, МФТИ'],
+    ['Н-20','Экономика распространения ИИ','a','М-11','—','ВШЭ, РАНХиГС, РЭУ им. Плеханова'],
+    ['sec','Инфраструктура'],
+    ['ИНФ-1','Общий стек обучения и вывода, доверенные фреймворки','a','М-7',8,'ИСП РАН (TrustTorch, TrustFlow), ННГУ, МФТИ'],
+    ['ИНФ-2','Нейроморфные, фотонные, мемристорные вычислители','c','М-7',4,'ННГУ им. Лобачевского (14 работ), МФТИ, МГУ']
+  ];
+  const pfName = {a:'А',b:'Б',c:'В'};
+  $('tasklist').innerHTML = tasks.map(t => t[0]==='sec'
+    ? `<tr><td colspan="6" style="background:#0C0B10;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--violet-2);padding-block:8px">${esc(t[1])}</td></tr>`
+    : `<tr><td class="n">${t[0]}</td><td>${esc(t[1])}</td><td><span class="pf ${t[2]}">${pfName[t[2]]}</span></td><td class="n">${esc(t[3])}</td><td class="num">${t[4]}</td><td>${String(t[5]).startsWith('задел не найден')?'<span class="st gap">задел не найден</span>':esc(t[5])}</td></tr>`).join('');
+
+  const risks = [
+    ['Зависимость робототехники от одного зарубежного стека','модели для роботов, симуляторы и бортовые вычислители в мире дают несколько компаний, и на их железо действуют экспортные ограничения; робота на таком стеке нельзя сертифицировать, обновлять и масштабировать без их участия','отечественные роботы идут на зарубежных бортовых модулях и симуляторах','ВП-1 — ВП-4 как связанный комплект; СЛР по каждой ВП'],
+    ['Потеря компетенции обучать модели с нуля','дообучение открытых зарубежных моделей — разумный быстрый путь, и русскоязычные данные в них есть. Риск в другом: архитектуру, состав данных и выпуск версий выбирает чужая команда, лицензия может измениться, следующая версия — не выйти в открытом доступе. Новую архитектуру дообучением не получить','ни одна команда в стране не обучает модели новой архитектуры с нуля','М-1 и М-4 с критерием «веса обучены самостоятельно»; дообучение допустимо для приложений'],
+    ['Дефицит вычислителей и энергии','обучение базовых моделей требует кластеров, доступ к которым ограничен','очередь на общий кластер дольше месяца','показатель доступной мощности; алгоритмическая эффективность (Н-1, Н-3, Н-17)'],
+    ['Нехватка данных действий','данных для роботов нет в интернете, их нужно собирать','корпус растёт медленнее плана','М-6; синтетика в симуляторе (М-5)'],
+    ['Распыление средств','1 100 исполнителей, большинство с 1–2 работами','сотни мелких договоров','консорциумы, до 3 проектов на задачу, отсев'],
+    ['Демо вместо продукта','отчёт о РИД и пилотах без испытаний','рост числа РИД без роста результатов на полигоне','приёмка только на полигоне (М-8), надёжность в «девятках»'],
+    ['Небезопасная автономия','ошибка робота — физический ущерб, а не неверный текст','инциденты на пилотах','Н-25; порядок допуска к эксплуатации (М-12)'],
+    ['Рывок в мире быстрее плана','смена стека раньше 2029 года','открытые модели новой архитектуры','внеочередная актуализация (п. 18), резерв портфеля В']
+  ];
+  $('risks').innerHTML = risks.map(r => `<tr><td><b>${esc(r[0])}</b></td><td>${esc(r[1])}</td><td class="muted">${esc(r[2])}</td><td>${esc(r[3])}</td></tr>`).join('');
+
+  // ---------- particle sphere ----------
+  const cv = $('sphere'); if(!cv) return;
+  const ctx = cv.getContext('2d');
+  const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W = 0, R = 0, dpr = 1;
+  const N = 2600, pts = [];
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for(let i=0;i<N;i++){
+    const u = rnd()*2-1, th = rnd()*Math.PI*2, s = Math.sqrt(1-u*u);
+    const fuzz = 1 + (rnd() < .18 ? rnd()*0.12 : rnd()*0.02);
+    pts.push({x:s*Math.cos(th)*fuzz, y:u*fuzz, z:s*Math.sin(th)*fuzz, h: 250 + rnd()*40, sz: rnd() < .08 ? 2.2 : 1 + rnd()*0.9, bloom: rnd() < .06});
+  }
+  function size(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const r = cv.getBoundingClientRect(); W = r.width || 400;
+    cv.width = Math.round(W*dpr); cv.height = Math.round(W*dpr); R = W*0.36;
+  }
+  function draw(t){
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,W,W);
+    const c = W/2, a = t*0.00012, tilt = 0.35;
+    const g = ctx.createRadialGradient(c - R*.25, c - R*.3, R*.1, c, c, R*1.15);
+    g.addColorStop(0,'rgba(120,90,255,.55)'); g.addColorStop(.55,'rgba(52,30,140,.55)'); g.addColorStop(1,'rgba(10,6,30,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(c,c,R*1.08,0,Math.PI*2); ctx.fill();
+    const ca = Math.cos(a), sa = Math.sin(a), ct = Math.cos(tilt), st = Math.sin(tilt);
+    for(const p of pts){
+      let x = p.x*ca - p.z*sa, z = p.x*sa + p.z*ca, y = p.y*ct - z*st; z = p.y*st + z*ct;
+      if(z < -0.15) continue;
+      const k = (z+1)/2, px = c + x*R, py = c + y*R;
+      const l = 30 + k*45;
+      ctx.fillStyle = `hsla(${p.h},85%,${l}%,${0.25 + k*0.7})`;
+      const s = p.sz*(0.6 + k*0.8);
+      if(p.bloom){ ctx.fillStyle = `hsla(${p.h+20},95%,${55+k*20}%,${0.5+k*0.5})`; ctx.beginPath(); ctx.arc(px,py,s*1.6,0,Math.PI*2); ctx.fill(); }
+      else ctx.fillRect(px,py,s,s);
+    }
+    const rim = ctx.createRadialGradient(c,c,R*.92,c,c,R*1.12);
+    rim.addColorStop(0,'rgba(181,150,255,0)'); rim.addColorStop(.5,'rgba(181,150,255,.18)'); rim.addColorStop(1,'rgba(181,150,255,0)');
+    ctx.fillStyle = rim; ctx.beginPath(); ctx.arc(c,c,R*1.12,0,Math.PI*2); ctx.fill();
+  }
+  size(); draw(0);
+  window.addEventListener('resize', () => { size(); draw(performance.now()); });
+  if(!reduce){ const loop = t => { draw(t); requestAnimationFrame(loop); }; requestAnimationFrame(loop); }
+})();
+</script>
+
+</body>
+</html>
