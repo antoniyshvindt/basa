@@ -18,7 +18,7 @@ YTDLP="$VENV/bin/yt-dlp"
 EXTRA=()
 [ -n "${COOKIES:-}" ] && EXTRA+=(--cookies-from-browser "$COOKIES")
 
-LIST=$(cat <<'LISTEOF'
+cat > "$OUT/list.tsv" <<'LISTEOF'
 sJ-9L3dsGx4	What Needs to Change in Countries? Natalya Zubarevich on the Downsides of Vast Territories, Regio...
 lbPFb8Qg1xg	Natalia Zubarevich on the economy of Russia and the Urals
 b3i8C9FEYjg	Зубаревич/ Наталья Зубаревич и Ирина Воробьева / День радио // 20.06.26 @zhivoygvozd Описание 
@@ -269,9 +269,8 @@ upvkecjDr8A	Наталья Зубаревич о реформе местного
 Eb1V835QK7g	Online Conversation with Natalia Zubarevich (2013)
 Z6rwxE6ZAzE	Natalia Zubarevich about socio-economic development of Tatarstan and other Russian regions
 LISTEOF
-)
 
-total=$(printf '%s\n' "$LIST" | grep -c .)
+total=$(grep -c . "$OUT/list.tsv")
 n=0; ok=0
 while IFS=$'\t' read -r id title; do
   [ -z "$id" ] && continue
@@ -280,10 +279,10 @@ while IFS=$'\t' read -r id title; do
   echo "[$n/$total] $title"
   "$YTDLP" ${EXTRA[@]+"${EXTRA[@]}"} -q --no-warnings --skip-download --ignore-no-formats-error \
     --write-subs --write-auto-subs --sub-langs "ru,ru-orig,ru.*" --sub-format vtt \
-    --write-info-json -o "$OUT/vtt/%(id)s.%(ext)s" "https://www.youtube.com/watch?v=$id" \
+    --write-info-json -o "$OUT/vtt/%(id)s.%(ext)s" "https://www.youtube.com/watch?v=$id" < /dev/null \
     && ls "$OUT/vtt/$id".*vtt >/dev/null 2>&1 && ok=$((ok+1)) || echo "   нет русских субтитров или ошибка"
   sleep 4
-done <<< "$LIST"
+done < "$OUT/list.tsv"
 
 echo "Конвертирую субтитры в текст..."
 "$VENV/bin/python" - "$OUT" <<'PYEOF'
